@@ -7,7 +7,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 
 /**
- * Created by jianglei on 2018/1/14.
+ * 闹钟
  */
 
 public class ClockActivity extends Activity {

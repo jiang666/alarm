@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by jianglei on 2018/2/4.
+ * java 调用js
  */
 
 public class JavaCallJSActivity extends AppCompatActivity {

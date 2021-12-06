@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private int mAIUIState = AIUIConstant.STATE_IDLE;
+    //https://www.jianshu.com/p/c53ab167c7a1?from=groupmessage@
     private AIUIListener mAIUIListener = new AIUIListener() {
 
         @Override
@@ -183,15 +184,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        readXML();
-        takeNotice();
-        try {
-            creatXML();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        }
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -262,123 +255,6 @@ public class MainActivity extends AppCompatActivity {
         mAIUIAgent.sendMessage(writeMsg);*/
     }
 
-    @SuppressLint("NewApi")
-    private void takeNotice() {
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        Intent push =new Intent(MainActivity.this, RecycleViewActivity.class);//新建一个显式意图，第一个参数 Context 的解释是用于获得 package name，以便找到第二个参数 Class 的位置
-        //Intent push =new Intent(MainActivity.this,JavaCallJSActivity.class);//新建一个显式意图，第一个参数 Context 的解释是用于获得 package name，以便找到第二个参数 Class 的位置
-        //PendingIntent可以看做是对Intent的包装，通过名称可以看出PendingIntent用于处理即将发生的意图，而Intent用来用来处理马上发生的意图
-        //本程序用来响应点击通知的打开应用,第二个参数非常重要，点击notification 进入到activity, 使用到pendingIntent类方法，PengdingIntent.getActivity()的第二个参数，即请求参数，实际上是通过该参数来区别不同的Intent的，如果id相同，就会覆盖掉之前的Intent了
-        PendingIntent contentIntent = PendingIntent.getActivity(MainActivity.this,0,push,0);
-        // 通知渠道的id
-        String id = "my_channel_01";
-        // 用户可以看到的通知渠道的名字.
-        CharSequence name ="bunnytouch";
-//         用户可以看到的通知渠道的描述
-        String description = "bunnytouch notification";
-        int importance = NotificationManager.IMPORTANCE_HIGH;
-        NotificationChannel mChannel = mChannel = new NotificationChannel(id, name, importance);
-//         配置通知渠道的属性
-        mChannel.setDescription(description);
-//         设置通知出现时的闪灯（如果 android 设备支持的话）
-        mChannel.enableLights(true);
-        mChannel.setLightColor(Color.RED);
-//         设置通知出现时的震动（如果 android 设备支持的话）
-        mChannel.enableVibration(false);
-        mChannel.setVibrationPattern(new long[]{0});
-//         最后在notificationmanager中创建该通知渠道 //
-        mNotificationManager.createNotificationChannel(mChannel);
-
-        // 为该通知设置一个id
-        int notifyID = 1;
-        // 通知渠道的id
-        String CHANNEL_ID = "my_channel_01";
-        // Create a notification and set the notification channel.
-        Notification notification = new Notification.Builder(this)
-                .setContentTitle("").setContentText("灯控服务开启")
-                .setSmallIcon(R.drawable.ic_launcher_background)
-                .setChannelId(CHANNEL_ID)
-                .setContentIntent(contentIntent)
-                .build();
-        mNotificationManager.notify(0,notification);
-        //start(1, notification);
-    }
-
-    private void readXML() {
-        String requestStr = readFile("sdcard/touch/aaa.txt");
-        inflate(requestStr);
-        Document document = DomUtils.parseXmlString(requestStr);
-        NodeList programNodeList = document.getElementsByTagName("PARAM");
-        NamedNodeMap map = programNodeList.item(0).getAttributes();
-        Node idNode = map.getNamedItem("NAME");
-        Log.e("====0",requestStr + "  "+ programNodeList.getLength()+"  "
-                + idNode.getNodeValue()
-                + "  " + programNodeList.item(0).getNodeName()
-                + "  " + programNodeList.item(0).getAttributes().getLength()
-                + "  " + programNodeList.item(0).getAttributes().item(0).getNodeName()+"  "
-                +programNodeList.item(0).getAttributes().item(0).getNodeValue()
-                +"  " +  programNodeList.item(0).getTextContent());
-
-        NodeList programNodeList1 = document.getElementsByTagName("REQUEST");
-        Log.e("====1", programNodeList1.getLength()+"  "
-                + programNodeList1.item(0).getNodeName()
-                +"  " +  programNodeList1.item(0).getChildNodes().item(0).getTextContent());
-
-         NodeList programNodeList2 = document.getElementsByTagName("VERSION");
-        Log.e("====2",requestStr + "  "+ programNodeList2.getLength()+"  "
-                + programNodeList2.item(0).getNodeName()
-                +"  " +  programNodeList2.item(0).getTextContent());
-    }
-    public View inflate(String layoutContent) {
-        if (layoutContent == null)
-            return null;
-        XmlPullParser parse;
-        try {
-            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-            parse = factory.newPullParser();
-            parse.setInput(new StringReader(layoutContent));
-            return inflate(parse);
-        } catch (XmlPullParserException ex) {
-            return null;
-        } catch (IOException ex) {
-            return null;
-        }
-    }
-
-    public View inflate(XmlPullParser parse)
-            throws XmlPullParserException, IOException {
-
-        Stack<StringBuffer> data = new Stack<>();
-        int evt = parse.getEventType();
-        View root = null;
-
-        while (evt != XmlPullParser.END_DOCUMENT) {
-            switch (evt) {
-                case XmlPullParser.START_DOCUMENT:
-                    data.clear();
-                    break;
-                case XmlPullParser.START_TAG:
-                    data.push(new StringBuffer());
-                    Log.e("=====30","name " + parse.getName());//节点名称);
-                    AttributeSet attrs = Xml.asAttributeSet(parse);
-                    for (int i = 0; i < attrs.getAttributeCount(); i++) {
-                        Log.e("=====300","attrs " + attrs.getAttributeValue("","NAME") + "  "
-                                +attrs.getAttributeValue(0));
-                    }
-                    break;
-                case XmlPullParser.TEXT:
-                    Log.e("=====4","text " + parse.getText());
-                    data.peek().append(parse.getText());
-                    break;
-                case XmlPullParser.END_TAG:
-                    Log.e("=====31","name " + parse.getName());//节点名称);
-                    data.pop();
-
-            }
-            evt = parse.next();
-        }
-        return root;
-    }
     private String getAIUIParams() {
         String params = "";
         AssetManager assetManager = getResources().getAssets();
@@ -406,59 +282,6 @@ public class MainActivity extends AppCompatActivity {
                 mToast.show();
             }
         });
-    }
-    private void creatXML() throws ParserConfigurationException, TransformerException {
-        //实例化DocumentBuilderFactory对象
-        final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        //实例化DocumentBuilder对象
-        final DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        //实例化Document对象
-        final Document document = documentBuilder.newDocument();
-        //创建多个节点
-        final Element rootElement = document.createElement("ROOT");
-        final Element requestElement = document.createElement("REQUEST");
-        final Element paramElement = document.createElement("PARAM");
-        final Element param2Element = document.createElement("PARAM");
-        final Element baseElement = document.createElement("BASE");
-        final Element appidElement = document.createElement("APPID");
-        final Element versionElement = document.createElement("VERSION");
-        final Element securityElement = document.createElement("SECURITY");
-
-        //第一个PARAM节点添加属性和值
-        paramElement.setAttribute("NAME","CHANNELNO");
-        paramElement.setTextContent("channelNo");
-        //第二个PARAM节点添加属性和值
-        param2Element.setAttribute("NAME","CHECKCODE");
-        param2Element.setTextContent("0000000");
-
-        versionElement.setTextContent("0.222");
-        //REQUEST节点添加两个PARAM节点，并按顺序添加
-        requestElement.appendChild(paramElement);
-        requestElement.appendChild(param2Element);
-
-        requestElement.appendChild(versionElement);
-
-        requestElement.insertBefore(paramElement,param2Element);
-
-        //DOCUMENT生成格式
-        document.appendChild(requestElement);
-
-        //实例化TransformerFactory对象
-        final TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        //实例化Transformer对象
-        final Transformer transformer = transformerFactory.newTransformer();
-
-        //创建一个输出流
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-
-        //将DOCUMENT转换成输出流
-        transformer.transform(new DOMSource(document),new StreamResult(bos));
-
-        //将输出流转成String
-        final String requestStr = bos.toString();
-        writeFile("sdcard/touch/aaa.txt",requestStr,false);
-        Log.e("=======",requestStr);
     }
 
 }

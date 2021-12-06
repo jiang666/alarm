@@ -32,7 +32,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".RecycleViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -44,10 +44,20 @@
                 <action android:name="action_crontab_trigger" />
             </intent-filter>
         </service>
+        <!--闹钟-->
         <activity android:name=".ClockActivity"/>
+        <!--js java互调-->
         <activity android:name=".JavaCallJSActivity"/>
+        <!--属性动画 文本内容收缩和展开-->
         <activity android:name=".DetailsActivity"/>
-        <activity android:name=".RecycleViewActivity"/>
+        <activity android:name=".MainActivity"/>
+        <!--xml 存储与解析-->
+        <activity android:name=".XMLparseActivity"/>
+        <!--通知-->
+        <activity android:name=".NotificationActivity"/>
+        <!--定时器-->
+        <activity android:name=".AlermActivity"/>
+
     </application>
 
 </manifest>

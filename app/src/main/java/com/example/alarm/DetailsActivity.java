@@ -17,7 +17,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 /**
- * Created by jianglei on 2018/1/14.
+ * 属性动画 文本内容收缩和展开
  */
 
 public class DetailsActivity extends Activity {
