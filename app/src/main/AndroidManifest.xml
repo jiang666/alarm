@@ -57,6 +57,9 @@
         <activity android:name=".NotificationActivity"/>
         <!--定时器-->
         <activity android:name=".AlermActivity"/>
+        <!--定时器-->
+        <activity android:name=".AnimationActivity"/>
+
 
     </application>
 

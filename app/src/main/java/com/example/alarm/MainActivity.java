@@ -24,6 +24,7 @@ import android.util.Xml;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -70,10 +71,8 @@ import static com.example.alarm.FileUtils.writeFile;
 import static java.lang.Thread.sleep;
 
 public class MainActivity extends AppCompatActivity {
-    private PendingIntent pi;
     private static String TAG = MainActivity.class.getSimpleName();
-    private AlarmManager alarmManager;
-    private EditText mNlpText;
+    private TextView mNlpText;
     private StringBuffer mNlpText1;
     private Toast mToast;
     private Handler handler = new Handler() {
@@ -199,42 +198,8 @@ public class MainActivity extends AppCompatActivity {
                 //handler.sendEmptyMessage(100);
             }
         }).start();
-        /*Intent intent = new Intent(MainActivity.this,AlarmService.class);
-        intent.putExtra("msg","你该打酱油了");
-        PendingIntent pi = PendingIntent.getService(MainActivity.this,0,intent,0);
-        Log.d("MyTag", "======");
-//AlarmManager对象,注意这里并不是new一个对象，Alarmmanager为系统级服务
-        AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
 
-//设置闹钟从当前时间开始，每隔5s执行一次PendingIntent对象pi，注意第一个参数与第二个参数的关系
-// 5秒后通过PendingIntent pi对象发送广播
-        am.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),10*1000,pi);*/
-        // ①获取AlarmManager对象:
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        // 指定要启动的是Activity组件,通过PendingIntent调用getActivity来设置
-        Intent intent = new Intent(MainActivity.this, ClockActivity.class);
-        pi = PendingIntent.getActivity(MainActivity.this, 0, intent, 0);
-        Calendar currentTime = Calendar.getInstance();
-        new TimePickerDialog(this, 0, new TimePickerDialog.OnTimeSetListener() {
-
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                //设置当前时间
-                Calendar c = Calendar.getInstance();
-                c.setTimeInMillis(System.currentTimeMillis());
-                // 根据用户选择的时间来设置Calendar对象
-                c.set(Calendar.HOUR, hourOfDay);
-                c.set(Calendar.MINUTE, minute);
-                Log.e("=====time====",c.getTimeInMillis()+"");
-                // ②设置AlarmManager在Calendar对应的时间启动Activity
-                alarmManager.set(AlarmManager.RTC_WAKEUP,
-                        c.getTimeInMillis(), pi);
-                // 提示闹钟设置完毕:
-                Toast.makeText(MainActivity.this, "闹钟设置完毕",
-                        Toast.LENGTH_SHORT).show();
-            }
-        },currentTime.get(Calendar.HOUR_OF_DAY), currentTime.get(Calendar.MINUTE), false).show();
-        /*mNlpText = (EditText) findViewById(R.id.main_edit);
+        mNlpText = (TextView) findViewById(R.id.main_edit);
         mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         SpeechUtility.createUtility(this, SpeechConstant.APPID +"=5a98b254");
         //创建AIUIAgent
@@ -252,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
 // 打开AIUI内部录音机，开始录音
         String params = "sample_rate=16000,data_type=audio";
         AIUIMessage writeMsg = new AIUIMessage( AIUIConstant.CMD_START_RECORD, 0, 0, params, null );
-        mAIUIAgent.sendMessage(writeMsg);*/
+        mAIUIAgent.sendMessage(writeMsg);
     }
 
     private String getAIUIParams() {

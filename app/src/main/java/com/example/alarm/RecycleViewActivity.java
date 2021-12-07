@@ -90,6 +90,9 @@ public class RecycleViewActivity extends Activity {
                 case 5:
                     list.add("alerm");
                     break;
+                case 6:
+                    list.add("anim");
+                    break;
                 default:
                     list.add("item" + i);
                     break;
@@ -122,6 +125,10 @@ public class RecycleViewActivity extends Activity {
                 break;
             case "alerm":
                 intent = new Intent(this, AlermActivity.class);
+                startActivity(intent);
+                break;
+            case "anim":
+                intent = new Intent(this, AnimationActivity.class);
                 startActivity(intent);
                 break;
             default:
