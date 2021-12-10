@@ -5,6 +5,10 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.util.Xml;
 import android.view.View;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -17,6 +21,11 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -41,12 +50,17 @@ import static com.example.alarm.FileUtils.writeFile;
 public class XMLparseActivity extends AppCompatActivity {
 
 
+    private ArrayList<Object> testBeans;
+    private HashMap<String, String> mapBeans;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        readXML();
+        testBeans = new ArrayList<>();
+
+        mapBeans = new HashMap<String, String>();
         try {
             creatXML();
         } catch (ParserConfigurationException e) {
@@ -54,6 +68,7 @@ public class XMLparseActivity extends AppCompatActivity {
         } catch (TransformerException e) {
             e.printStackTrace();
         }
+        readXML();
     }
     private void readXML() {
         String requestStr = readFile("sdcard/touch/aaa.txt");
@@ -79,6 +94,27 @@ public class XMLparseActivity extends AppCompatActivity {
         Log.e("====2",requestStr + "  "+ programNodeList2.getLength()+"  "
                 + programNodeList2.item(0).getNodeName()
                 +"  " +  programNodeList2.item(0).getTextContent());
+
+        String path = "sdcard/touch/bbb.txt";
+        TestBean testBean = new Gson().fromJson(FileUtils.readFile(path), TestBean.class);
+        Log.e("==date time==",testBean.getDatetime());
+
+        Type listType = new TypeToken<List<TestBean>>() {}.getType();
+        String listpath= "sdcard/touch/ccc.txt";
+        String timetableList = FileUtils.readFile(listpath);
+
+        try {
+            List<TestBean> list = new Gson().fromJson(timetableList, listType );
+            Log.e("==date time1==",list.get(0).getDatetime());
+        }catch (IllegalStateException e){
+            e.printStackTrace();
+        }
+
+        String mappath= "sdcard/touch/ddd.txt";
+        String jsonContent = FileUtils.readFile(mappath);
+        Type type = new TypeToken<Map<String, String>>() {}.getType();
+        Map<String, String> map2 = new Gson().fromJson(jsonContent, type);
+        Log.e("==date time1==",map2.get("111"));
     }
     public View inflate(String layoutContent) {
         if (layoutContent == null)
@@ -182,5 +218,13 @@ public class XMLparseActivity extends AppCompatActivity {
         final String requestStr = bos.toString();
         writeFile("sdcard/touch/aaa.txt",requestStr,false);
         Log.e("=======",requestStr);
+        TestBean testBean = new TestBean();
+        testBean.setDatetime("000000000");
+        writeFile("sdcard/touch/bbb.txt",new Gson().toJson(testBean),false);
+        testBeans.add(testBean);
+        writeFile("sdcard/touch/ccc.txt",new Gson().toJson(testBeans),false);
+        mapBeans.put("000","000000");
+        mapBeans.put("111","111111");
+        writeFile("sdcard/touch/ddd.txt",new Gson().toJson(mapBeans),false);
     }
 }

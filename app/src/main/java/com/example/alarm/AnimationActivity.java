@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Map;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,7 +48,8 @@ public class AnimationActivity extends AppCompatActivity {
         mainEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("=======","mainEdit click");
+                Random rand = new Random();
+                Log.e("=======","mainEdit click " + rand.nextInt(10));
                 //缩放---ofFloat用4个参数的ofFloat
                 PropertyValuesHolder scaleXProper = PropertyValuesHolder.ofFloat("scaleX", 1f, 2f);
                 PropertyValuesHolder scaleYProper = PropertyValuesHolder.ofFloat("scaleY", 1f, 2f);
