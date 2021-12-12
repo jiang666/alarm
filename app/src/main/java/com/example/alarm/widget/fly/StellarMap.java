@@ -11,6 +11,8 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.FrameLayout;
 
+import com.orhanobut.logger.Logger;
+
 public class StellarMap extends FrameLayout implements AnimationListener, OnTouchListener, OnGestureListener {
 
 	private RandomLayout mHidenGroup;
@@ -270,6 +272,12 @@ public class StellarMap extends FrameLayout implements AnimationListener, OnTouc
 			zoomIn();
 		}
 		return true;
+	}
+
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		Logger.e("onMeasure");
 	}
 
 	/** 内部类、接口 */

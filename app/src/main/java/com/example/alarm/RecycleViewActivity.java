@@ -171,6 +171,7 @@ public class RecycleViewActivity extends Activity {
             case "推荐":
                 intent = new Intent(this, StellarActivity.class);
                 startActivity(intent);
+                break;
             /*case "流布局":
                 intent = new Intent(this, FlowActivity.class);
                 startActivity(intent);

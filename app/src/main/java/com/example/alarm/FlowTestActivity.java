@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -34,7 +36,7 @@ public class FlowTestActivity extends Activity {
     private ArrayList<String> mList;
 
     @BindView(R.id.ll_top)
-    LinearLayout ll_top;
+    FrameLayout ll_top;
 
 
 
@@ -44,10 +46,10 @@ public class FlowTestActivity extends Activity {
         setContentView(R.layout.activity_testflow);
         ButterKnife.bind(this);
         mList = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 20; i++) {
             mList.add("data " + i);
         }
-        ScrollView scrollView = new ScrollView(this);
+        ScrollView scrollView = new ScrollView(UIUtils.getContext());
 
         int padding = UIUtils.dip2px(10);
         // 设置ScrollView边距
@@ -61,7 +63,7 @@ public class FlowTestActivity extends Activity {
 
         // 根据接口返回的数据个数,动态添加TextView
         for (final String str : mList) {
-            TextView view = new TextView(UIUtils.getContext());
+            TextView view = new TextView(this);
             view.setText(str);
             view.setTextColor(Color.WHITE);
             view.setGravity(Gravity.CENTER);
@@ -94,9 +96,12 @@ public class FlowTestActivity extends Activity {
             });
 
             // 给自定义控件添加view对象
+            Log.e("=========","flow add " + str);
             flow.addView(view);
         }
+        Log.e("=========","scroll add");
         scrollView.addView(flow);
+        //setContentView(scrollView);
         ll_top.addView(scrollView);
     }
 

@@ -9,11 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.alarm.utils.UIUtils;
+import com.orhanobut.logger.Logger;
 
 
 /**
  * 自定义排行页控件
- * 
+ *
  * @author Kevin
  */
 public class MyFlowLayout extends ViewGroup {
@@ -25,6 +26,7 @@ public class MyFlowLayout extends ViewGroup {
 	private int mVerticalSpacing = UIUtils.dip2px(10);// 竖直间距
 
 	private int MAX_LINE = 100;// 允许最多的行数
+	boolean isFirst = true;
 
 	private ArrayList<Line> mLineList = new ArrayList<MyFlowLayout.Line>();// 行的集合
 
@@ -47,7 +49,7 @@ public class MyFlowLayout extends ViewGroup {
 			// 获取控件左上角的位置
 			int left = getPaddingLeft();
 			int top = getPaddingTop();
-			Log.e("=====","left = " + left);
+
 			for (int i = 0; i < mLineList.size(); i++) {
 				Line line = mLineList.get(i);
 				line.layoutView(left, top);
@@ -59,6 +61,13 @@ public class MyFlowLayout extends ViewGroup {
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		Logger.e("onMeasure");
+		/*if(isFirst){
+			super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+			isFirst = false;
+			return;
+		}*/
+
 		// 获取可用宽度(减去左右边距)
 		int widthSize = MeasureSpec.getSize(widthMeasureSpec)
 				- getPaddingLeft() - getPaddingRight();
@@ -69,9 +78,10 @@ public class MyFlowLayout extends ViewGroup {
 		int widthMode = MeasureSpec.getMode(widthMeasureSpec);
 		// 获取高度模式
 		int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-
+		restoreLine();//还原数据，以便重新记录
 		// 获取所有孩子数量
 		int childCount = getChildCount();
+		Log.e("==========","childCount " + childCount);
 		for (int i = 0; i < childCount; i++) {
 			// 获取当前索引的子控件
 			View childView = getChildAt(i);
@@ -151,7 +161,11 @@ public class MyFlowLayout extends ViewGroup {
 		// 设置整个控件的宽高
 		setMeasuredDimension(totalWidth, totalHeight);
 	}
-
+	private void restoreLine() {
+		mLineList.clear();
+		mLine = new Line();
+		mUsedWidth = 0;
+	}
 	/**
 	 * 创建新的一行
 	 */
@@ -183,6 +197,7 @@ public class MyFlowLayout extends ViewGroup {
 
 		// 给当前行添加一个控件
 		public void addView(View view) {
+			Log.e("=========","add view ");
 			// 获取控件宽高
 			int height = view.getMeasuredHeight();
 			int width = view.getMeasuredWidth();
@@ -197,6 +212,7 @@ public class MyFlowLayout extends ViewGroup {
 		// 设置当前行中每个控件的位置,同时根据留白分配每个控件的宽度
 		public void layoutView(int left, int top) {
 			int count = getViewCount();
+			Log.e("=======","count = "+count);
 			// 有效宽度
 			int validWidth = getMeasuredWidth() - getPaddingTop()
 					- getPaddingBottom();
@@ -231,7 +247,7 @@ public class MyFlowLayout extends ViewGroup {
 					// 设置控件的位置
 					childView.layout(left, top + topOffset, left
 							+ measuredWidth, top + topOffset + measuredHeight);
-					Log.e("=======","count left = " + left);
+					Log.e("=======",i + "count left = " + left);
 					// 更新left值,作为下一个控件的left位置
 					left += measuredWidth + mHorizontalSpacing;
 				}
@@ -241,7 +257,9 @@ public class MyFlowLayout extends ViewGroup {
 				childView.layout(left, top,
 						left + childView.getMeasuredWidth(), top
 								+ childView.getMeasuredHeight());
+				Log.e("=======","one count left = " + left);
 			}
 		}
 	}
 }
+
