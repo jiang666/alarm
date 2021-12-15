@@ -1,6 +1,20 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
 android {
+    signingConfigs {
+        release {
+            keyAlias 'share'
+            keyPassword 'jiang3124'
+            storeFile file("share.jks")
+            storePassword 'jiang3124'
+        }
+        debug {
+            keyAlias 'share'
+            keyPassword 'jiang3124'
+            storeFile file("share.jks")
+            storePassword 'jiang3124'
+        }
+    }
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.example.alarm"
