@@ -11,9 +11,11 @@ import android.util.ArrayMap;
 import android.util.Log;
 import android.util.Property;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -143,5 +145,33 @@ public class AnimationActivity extends AppCompatActivity {
         //同样cancel（）也能取消掉动画
         //scaleAnimation2.cancel();
     }
+    /*mCameralayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        @Override
+        public void onGlobalLayout() {
+            if(isMove){
+                isMove = false;
+                int[] location = new int[2];
+
+                // getLocationInWindow方法要在onWindowFocusChanged方法里面调用
+                // 个人理解是onCreate时，View尚未被绘制，因此无法获得具体的坐标点
+                mCameralayout.getLocationInWindow(location);
+
+                // 模拟的mPreviewView的左右上下坐标坐标
+                int left = mCameralayout.getLeft();
+                int right = mCameralayout.getRight();
+                int top = mCameralayout.getTop();
+                int bottom = mCameralayout.getBottom();
+
+                // 从上到下的平移动画
+                verticalAnimation = new TranslateAnimation(left, left, top+80, bottom-100);
+                verticalAnimation.setDuration(3000); // 动画持续时间
+                verticalAnimation.setRepeatCount(Animation.INFINITE); // 无限循环
+
+                // 播放动画
+                mScanHorizontalLineImageView.setAnimation(verticalAnimation);
+                verticalAnimation.startNow();
+            }
+        }
+    });*/
 
 }

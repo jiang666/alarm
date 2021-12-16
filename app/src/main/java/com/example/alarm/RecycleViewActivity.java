@@ -124,6 +124,9 @@ public class RecycleViewActivity extends Activity {
                 case 6:
                     list.add("anim");
                     break;
+                case 7:
+                    list.add("camera");
+                    break;
                 default:
                     list.add("item" + i);
                     break;
@@ -160,6 +163,10 @@ public class RecycleViewActivity extends Activity {
                 break;
             case "anim":
                 intent = new Intent(this, AnimationActivity.class);
+                startActivity(intent);
+                break;
+            case "camera":
+                intent = new Intent(this, CameraActivity.class);
                 startActivity(intent);
                 break;
             default:
