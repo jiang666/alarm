@@ -127,6 +127,9 @@ public class RecycleViewActivity extends Activity {
                 case 7:
                     list.add("camera");
                     break;
+                case 8:
+                    list.add("滚动文字");
+                    break;
                 default:
                     list.add("item" + i);
                     break;
@@ -167,6 +170,9 @@ public class RecycleViewActivity extends Activity {
                 break;
             case "camera":
                 intent = new Intent(this, CameraActivity.class);
+                startActivity(intent);
+            case "滚动文字":
+                intent = new Intent(this, ScrollTextActivity.class);
                 startActivity(intent);
                 break;
             default:

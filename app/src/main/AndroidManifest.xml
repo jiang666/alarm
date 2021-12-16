@@ -68,6 +68,9 @@
 
         <!--拍照-->
         <activity android:name=".CameraActivity"/>
+        <!--滚动文字-->
+        <activity android:name=".ScrollTextActivity"/>
+
     </application>
 
 </manifest>
