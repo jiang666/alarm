@@ -3,6 +3,7 @@ package com.example.alarm;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.hardware.Camera;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -50,7 +51,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         } catch (Exception e){
             e.printStackTrace();
         }
-
+        Log.e("==========","CameraPreview surfaceChanged");
         try {
             mCamera.setPreviewDisplay(mHolder);
             mCamera.startPreview();

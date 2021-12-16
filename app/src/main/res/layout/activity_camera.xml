@@ -19,12 +19,22 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="47dp"
         android:orientation="horizontal">
-
         <FrameLayout
-            android:id="@+id/camera_preview"
-            android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@color/cardview_dark_background" />
+            android:layout_width="100dp">
+            <FrameLayout
+                android:id="@+id/camera_preview"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@color/cardview_dark_background" >
+            </FrameLayout>
+            <ImageView
+                android:id="@+id/scanHorizontalLineImageView"
+                android:layout_width="100dp"
+                android:scaleType="fitXY"
+                android:layout_height="wrap_content"
+                android:src="@drawable/scan_ray" />
+        </FrameLayout>
 
         <ImageView
             android:id="@+id/iv_enter_image"

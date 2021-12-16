@@ -9,14 +9,16 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,11 +36,16 @@ public class CameraActivity extends AppCompatActivity {
     ImageView ivEnterImage;
     private static final int FRONT = 1;//前置摄像头标记
     private static final int BACK = 0;//后置摄像头标记
+    @BindView(R.id.scanHorizontalLineImageView)
+    ImageView scanHorizontalLineImageView;
     private int currentCameraType = 0;//当前打开的摄像头标记
     private Camera mCamera;
     private CameraPreview mPreview;
-    private String sdPath,caremaPhotoPath;
+    private String sdPath, caremaPhotoPath;
     private int mDisplayOrientation;
+    private boolean isThreadWorking = false;
+    private FaceDetectThread detectThread;
+    private boolean isMove = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +54,7 @@ public class CameraActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         sdPath = Environment.getExternalStorageDirectory().getAbsolutePath();
         caremaPhotoPath = sdPath + "/temp.jpg";
-        //开启
-        if (!checkCameraHardware(this)) {
-            makeToast("相机不支持");
-        } else {
-            if(mCamera ==null){
-                openCamera();
-            }
-        }
+
         state.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,23 +62,22 @@ public class CameraActivity extends AppCompatActivity {
             }
         });
     }
+
     // 拍照回调
     private Camera.PictureCallback mPictureCallback = new Camera.PictureCallback() {
 
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
-            FileUtil.writeByteArrayToFile(data,caremaPhotoPath);
-            if (caremaPhotoPath != null) {
-                try {
-                    updateResult(caremaPhotoPath);
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+            if (!isThreadWorking) {
+                isThreadWorking = true;
+                detectThread = new FaceDetectThread();
+                detectThread.setData(data);
+                detectThread.start();
             }
         }
     };
-    private void updateResult(String imgFilePath) throws IOException {
+
+    private void updateResult(final String imgFilePath) throws IOException {
         /*SimpleDateFormat sdf = new SimpleDateFormat("HH_mm_ss");
         String path = sdPath + "/veryfy" + sdf.format(new Date()) + ".jpg";
         Bitmap bitmapZoom = ImgUtil.zoomPic(imgFilePath, 640, 480, Bitmap.Config.ARGB_8888);
@@ -87,27 +86,49 @@ public class CameraActivity extends AppCompatActivity {
             return;
         }
         ImgUtil.saveJPGE_After(bitmapZoom, path, 100);*/
-       Log.e("=========="," 旋转的角度 " + ImgUtil.readPictureDegree(imgFilePath));
+        Log.e("==========", " 旋转的角度 " + ImgUtil.readPictureDegree(imgFilePath));
 
-        Bitmap bitmap = ImgUtil.getBitmapByPath(imgFilePath);
-        bitmap = ImgUtil.rotatingImage(90,bitmap);
-        ivEnterImage.setImageBitmap(bitmap);
+
+        ivEnterImage.post(new Runnable() {
+            @Override
+            public void run() {
+                mCamera.stopPreview(); //解决预览停止问题
+                Bitmap bitmap = ImgUtil.getBitmapByPath(imgFilePath);
+                bitmap = ImgUtil.rotatingImage(mDisplayOrientation, bitmap);//旋转图片
+                ivEnterImage.setImageBitmap(bitmap);
+                mCamera.startPreview();//解决预览停止问题
+            }
+        });
+
         //FileUtil.deleteFile(new File(imgFilePath));
     }
-    // 开始预览相机
-    public void openCamera(){
 
-        if(mCamera == null){
+    // 开始预览相机
+    public void openCamera() {
+
+        if (mCamera == null) {
             mCamera = getCameraInstance();
             int mDisplayRotation = Util.getDisplayRotation(CameraActivity.this);
             mDisplayOrientation = Util.getDisplayOrientation(mDisplayRotation, currentCameraType);
-            if (mCamera != null)
+            if (mCamera != null){
                 mCamera.setDisplayOrientation(mDisplayOrientation);
+                Camera.Parameters params = mCamera.getParameters(); //解决预览框停止问题 无效
+                setAutoFocus(params);
+                //params.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);//解决预览框停止问题 无效
+                mCamera.setParameters(params);
+            }
             openCaneraView();
         }
     }
-    private void openCaneraView(){
-        if(mCamera!=null){
+
+    private void setAutoFocus(Camera.Parameters cameraParameters) {
+        List<String> focusModes = cameraParameters.getSupportedFocusModes();
+        if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
+            cameraParameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+    }
+
+    private void openCaneraView() {
+        if (mCamera != null) {
             mPreview = new CameraPreview(this, mCamera);
             cameraPreview.removeAllViews();
             cameraPreview.addView(mPreview);
@@ -116,32 +137,44 @@ public class CameraActivity extends AppCompatActivity {
             }else if(currentCameraType == BACK && currentCameraType != -1){
                 cameratype.setText("正在测试后置摄像头(点击此处切换)");
             }*/
-        }else {
+        } else {
             makeToast("相机不可用");
         }
     }
+
+    /*   // 获取相机
+       public  Camera getCameraInstance() {
+           Camera c = null;
+           int id = getDefaultCameraId();
+           Log.e("----",""+id);
+           try {
+               c = Camera.open(id);
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+           return c;
+       }*/
     // 获取相机
-    public  Camera getCameraInstance() {
+    public static Camera getCameraInstance() {
         Camera c = null;
-        int id = getDefaultCameraId();
-        Log.e("----",""+id);
         try {
-            c = Camera.open(id);
+            c = Camera.open(0);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return c;
     }
+
     private int getDefaultCameraId() {
         int defaultId = -1;
-        int	mNumberOfCameras = Camera.getNumberOfCameras();
+        int mNumberOfCameras = Camera.getNumberOfCameras();
         Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
         for (int i = 0; i < mNumberOfCameras; i++) {
             Camera.getCameraInfo(i, cameraInfo);
-            if(cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT){
+            if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
                 defaultId = i;
                 currentCameraType = defaultId;
-            }else if(cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK){
+            } else if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
                 defaultId = i;
                 currentCameraType = defaultId;
             }
@@ -154,23 +187,24 @@ public class CameraActivity extends AppCompatActivity {
         currentCameraType = defaultId;
         return defaultId;
     }
-    private Camera openCamera(int type){
-        int frontIndex =-1;
+
+    private Camera openCamera(int type) {
+        int frontIndex = -1;
         int backIndex = -1;
         int cameraCount = Camera.getNumberOfCameras();
         Camera.CameraInfo info = new Camera.CameraInfo();
-        for(int cameraIndex = 0; cameraIndex<cameraCount; cameraIndex++){
+        for (int cameraIndex = 0; cameraIndex < cameraCount; cameraIndex++) {
             Camera.getCameraInfo(cameraIndex, info);
-            if(info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT){
+            if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
                 frontIndex = cameraIndex;
-            }else if(info.facing == Camera.CameraInfo.CAMERA_FACING_BACK){
+            } else if (info.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
                 backIndex = cameraIndex;
             }
         }
         currentCameraType = type;
-        if(type == FRONT && frontIndex != -1){
+        if (type == FRONT && frontIndex != -1) {
             return Camera.open(frontIndex);
-        }else if(type == BACK && backIndex != -1){
+        } else if (type == BACK && backIndex != -1) {
             return Camera.open(backIndex);
         }
         return null;
@@ -186,13 +220,53 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
-    public void	makeToast(String msg){
+    public void makeToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onResume() {
+        super.onResume();
+        //开启
+        if (!checkCameraHardware(this)) {
+            makeToast("相机不支持");
+        } else {
+            if (mCamera == null) {
+                openCamera();
+            }
+        }
+        cameraPreview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (isMove) {
+                    isMove = false;
+                    int[] location = new int[2];
+                    // getLocationInWindow方法要在onWindowFocusChanged方法里面调用
+                    // 个人理解是onCreate时，View尚未被绘制，因此无法获得具体的坐标点
+                    cameraPreview.getLocationInWindow(location);
+
+                    // 模拟的mPreviewView的左右上下坐标坐标
+                    int left = cameraPreview.getLeft();
+                    int right = cameraPreview.getRight();
+                    int top = cameraPreview.getTop();
+                    int bottom = cameraPreview.getBottom();
+
+                    // 从上到下的平移动画
+                    TranslateAnimation verticalAnimation = new TranslateAnimation(left, left, top - 330, bottom - 330);
+                    verticalAnimation.setDuration(3000); // 动画持续时间
+                    verticalAnimation.setRepeatCount(Animation.INFINITE); // 无限循环
+
+                    // 播放动画
+                    scanHorizontalLineImageView.setAnimation(verticalAnimation);
+                    verticalAnimation.startNow();
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
         releaseCamera();
     }
 
@@ -203,6 +277,49 @@ public class CameraActivity extends AppCompatActivity {
             mCamera.stopPreview();
             mCamera.release();
             mCamera = null;
+        }
+    }
+
+    /**
+     * Do face detect in thread
+     */
+    private class FaceDetectThread extends Thread {
+        private byte[] data = null;
+        //private Context ctx;
+
+        public FaceDetectThread() {
+            //this.ctx = ctx;
+        }
+
+
+        public void setData(byte[] data) {
+            this.data = data;
+        }
+
+        public void run() {
+            FileUtil.writeByteArrayToFile(data, caremaPhotoPath);
+            if (caremaPhotoPath != null) {
+                try {
+                    updateResult(caremaPhotoPath);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            /*if (caremaPhotoPath != null) {
+
+                path = publicFilePath + "/temporary.jpg";
+                Bitmap bitmapZoom = ImgUtil.zoomPic(caremaPhotoPath, 640, 480, Bitmap.Config.ARGB_8888);
+                if(bitmapZoom != null)
+                    ivFaceimage.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ivFaceimage.setImageBitmap(bitmapZoom);
+                        }
+                    });
+                ImgUtil.saveJPGE_After(bitmapZoom, path, 80);
+            }*/
+            isThreadWorking = false;
         }
     }
 }
