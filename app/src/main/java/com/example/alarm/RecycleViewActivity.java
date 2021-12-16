@@ -45,7 +45,7 @@ public class RecycleViewActivity extends Activity {
         ButterKnife.bind(this);
         initData();
         testAdapter = new TestAdapter(this,list);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
         rvTest.setLayoutManager(layoutManager);
         rvTest.setAdapter(testAdapter);
@@ -70,7 +70,7 @@ public class RecycleViewActivity extends Activity {
             @Override
             public void onItemClick(int position) {
                 intoItem(position);
-                Toast.makeText(RecycleViewActivity.this," 点击 " + position,Toast.LENGTH_LONG).show();
+                //Toast.makeText(RecycleViewActivity.this," 点击 " + position,Toast.LENGTH_LONG).show();
             }
         });
         SimpleDateFormat format =  new SimpleDateFormat("HH:mm:ss");
@@ -130,6 +130,12 @@ public class RecycleViewActivity extends Activity {
                 case 8:
                     list.add("滚动文字");
                     break;
+                case 9:
+                    list.add("推荐");
+                    break;
+                case 10:
+                    list.add("流布局");
+                    break;
                 default:
                     list.add("item" + i);
                     break;
@@ -171,8 +177,20 @@ public class RecycleViewActivity extends Activity {
             case "camera":
                 intent = new Intent(this, CameraActivity.class);
                 startActivity(intent);
+                break;
             case "滚动文字":
                 intent = new Intent(this, ScrollTextActivity.class);
+                startActivity(intent);
+            case "推荐":
+                intent = new Intent(this, StellarActivity.class);
+                startActivity(intent);
+                break;
+            /*case "流布局":
+                intent = new Intent(this, FlowActivity.class);
+                startActivity(intent);
+                break;*/
+            case "流布局":
+                intent = new Intent(this, FlowTestActivity.class);
                 startActivity(intent);
                 break;
             default:
