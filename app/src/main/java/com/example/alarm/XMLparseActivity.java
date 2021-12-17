@@ -6,6 +6,8 @@ import android.util.Log;
 import android.util.Xml;
 import android.view.View;
 
+import com.example.alarm.utils.DomUtils;
+import com.example.alarm.utils.FileUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -40,8 +42,8 @@ import javax.xml.transform.stream.StreamResult;
 
 import butterknife.ButterKnife;
 
-import static com.example.alarm.FileUtils.readFile;
-import static com.example.alarm.FileUtils.writeFile;
+import static com.example.alarm.utils.FileUtils.readFile;
+import static com.example.alarm.utils.FileUtils.writeFile;
 
 /**
  * xml解析

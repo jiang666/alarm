@@ -1,4 +1,4 @@
-package com.example.alarm;
+package com.example.alarm.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;

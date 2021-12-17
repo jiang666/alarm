@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.ViewUtils;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -181,6 +182,7 @@ public class RecycleViewActivity extends Activity {
             case "滚动文字":
                 intent = new Intent(this, ScrollTextActivity.class);
                 startActivity(intent);
+                break;
             case "推荐":
                 intent = new Intent(this, StellarActivity.class);
                 startActivity(intent);

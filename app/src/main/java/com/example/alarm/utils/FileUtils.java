@@ -1,4 +1,4 @@
-package com.example.alarm;
+package com.example.alarm.utils;
 
 /*
  *   Copyright (C)  2016 android@19code.com

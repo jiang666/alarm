@@ -17,6 +17,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.alarm.utils.FileUtil;
+import com.example.alarm.utils.ImgUtil;
+import com.example.alarm.widget.CameraPreview;
+
 import java.io.IOException;
 import java.util.List;
 
