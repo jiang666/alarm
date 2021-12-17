@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="5000"
+    android:fillAfter="false"
+    android:fillBefore="true"
+    android:fillEnabled="true"
+    android:repeatCount="0"
+    android:repeatMode="restart">
+    <!--以上为共有属性-->
+
+    <!--先进行平移动画-->
+    <translate
+        android:fromXDelta="0"
+        android:fromYDelta="0"
+        android:startOffset="0"
+        android:toXDelta="52"
+        android:toYDelta="52"></translate>
+    <!--进行缩放动画，同时要进行旋转-->
+
+    <!--再进行旋转动画-->
+    <rotate
+        android:fromDegrees="0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:startOffset="1000"
+        android:toDegrees="30"></rotate>
+
+    <scale
+        android:fromXScale="1"
+        android:fromYScale="1"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:startOffset="1000"
+        android:toXScale="2"
+        android:toYScale="1"></scale>
+
+    <alpha
+        android:startOffset="1300"
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0"></alpha>
+
+</set>
