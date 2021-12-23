@@ -102,7 +102,7 @@ public class RecycleViewActivity extends Activity {
     }
     private void initData() {
 
-        for ( int i=0; i < 10; i++) {
+        for ( int i=0; i < 18; i++) {
             switch (i) {
                 case 0:
                     list.add("calljs");
@@ -136,6 +136,9 @@ public class RecycleViewActivity extends Activity {
                     break;
                 case 10:
                     list.add("流布局");
+                    break;
+                case 11:
+                    list.add("viewpager");
                     break;
                 default:
                     list.add("item" + i);
@@ -193,6 +196,10 @@ public class RecycleViewActivity extends Activity {
                 break;*/
             case "流布局":
                 intent = new Intent(this, FlowTestActivity.class);
+                startActivity(intent);
+                break;
+            case "viewpager":
+                intent = new Intent(this, FragmentActivity.class);
                 startActivity(intent);
                 break;
             default:

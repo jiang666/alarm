@@ -211,8 +211,14 @@ public class DetailsActivity extends Activity {
         while (!(parent instanceof ScrollView)) {
             parent = parent.getParent();
         }
-
+        min(10,30);
+        min("mark","aa");
+        String dd = "";
         return (ScrollView) parent;
+    }
+
+    public static <T extends Comparable> T min(T a,T b){
+        if(a.compareTo(b)> 0)return a;else return b;
     }
 
 }

@@ -56,6 +56,7 @@ public class AlermActivity extends AppCompatActivity {
         Intent intent = new Intent(AlermActivity.this, ClockActivity.class);
         pi = PendingIntent.getActivity(AlermActivity.this, 0, intent, 0);
         Calendar currentTime = Calendar.getInstance();
+        //@param is24HourView Whether this is a 24 hour view, or AM/PM.
         new TimePickerDialog(this, 0, new TimePickerDialog.OnTimeSetListener() {
 
             @Override

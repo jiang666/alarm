@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="30dp"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        percent:layout_heightPercent="15%">
+        <TextView
+            percent:layout_widthPercent="10%"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="3dp"
+            android:textSize="@dimen/warning_fragment_top"
+            android:textColor="@color/white"
+            android:gravity="end"
+            android:text="告警类型:"/>
+        <Spinner
+            percent:layout_widthPercent="15%"
+            percent:layout_heightPercent="60%"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/warning_fragment_top"
+            android:popupBackground="@color/video_real_topbutton"
+            android:id="@+id/sp_datatype"
+            android:spinnerMode="dropdown"
+            android:background="@drawable/edit_text_background"
+            android:entries="@array/serial_port"/>
+        <TextView
+            android:layout_marginRight="3dp"
+            android:gravity="end"
+            percent:layout_widthPercent="11%"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/warning_fragment_top"
+            android:textColor="@color/white"
+            android:text="查询开始时间:"/>
+        <TextView
+            android:id="@+id/tv_starttime"
+            percent:layout_widthPercent="16%"
+            percent:layout_heightPercent="60%"
+            android:textSize="@dimen/warning_fragment_top"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="@color/white"
+            android:background="@drawable/edit_text_background"/>
+        <TextView
+            android:layout_marginLeft="6dp"
+            percent:layout_widthPercent="11%"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/warning_fragment_top"
+            android:gravity="end"
+            android:textColor="@color/white"
+            android:text="查询结束时间:"/>
+        <TextView
+            android:id="@+id/tv_endtime"
+            percent:layout_widthPercent="16%"
+            percent:layout_heightPercent="60%"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/warning_fragment_top"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/edit_text_background" />
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_marginLeft="6dp"
+            percent:layout_widthPercent="10%"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/applybt_bg"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="查询"/>
+        <TextView
+            android:id="@+id/tv_reset"
+            android:layout_marginLeft="6dp"
+            percent:layout_widthPercent="10%"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/applybt_bg"
+            android:text="重置"/>
+
+    </com.zhy.android.percent.support.PercentLinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white"  />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:orientation="horizontal">
+            <View
+                android:layout_height="match_parent"
+                android:layout_width="1dp"
+                android:background="@color/white" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="日期时间"
+                android:textColor="@color/white"
+                android:textSize="24dp"  />
+            <View
+                android:layout_height="match_parent"
+                android:layout_width="1dp"
+                android:background="@color/white" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="类型名称"
+                android:textColor="@color/white"
+                android:textSize="24dp"  />
+            <View
+                android:layout_height="match_parent"
+                android:layout_width="1dp"
+                android:background="@color/white"  />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="告警事件"
+                android:textColor="@color/white"
+                android:textSize="24dp"  />
+            <View
+                android:layout_height="match_parent"
+                android:layout_width="1dp"
+                android:background="@color/white"  />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="备注"
+                android:textColor="@color/white"
+                android:textSize="24dp"  />
+            <View
+                android:layout_height="match_parent"
+                android:layout_width="1dp"
+                android:background="@color/white" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white"  />
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_personal_day"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</com.zhy.android.percent.support.PercentLinearLayout>
