@@ -18,6 +18,9 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
+import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -72,9 +75,12 @@ public class AnimationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.e("=======","ivArrow click");
-                //startScaleAnimation();
+                //rotateAnimation();
+                //translateAnimation();
+                //scaleAnimation();
+                alphaAnimation();
                 //startAttributeScaleAnimation();
-                startShakeByPropertyAnim(ivArrowTwo,2,4,3,1000);
+                //startShakeByPropertyAnim(ivArrowTwo,2,4,3,1000);
             }
         });
         String name = "000-0000";
@@ -232,5 +238,62 @@ public class AnimationActivity extends AppCompatActivity {
             }
         }
     });*/
+    private void rotateAnimation(){
+        Animation animation = new RotateAnimation(0, 359);
+        animation.setDuration(500);
+        animation.setRepeatCount(8);//动画的反复次数
+        animation.setFillAfter(true);//设置为true，动画转化结束后被应用
+        ivArrowTwo.startAnimation(animation);//開始动画
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                //动画开始
+                Log.e("======","onAnimationStart");
+            }
 
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                //动画结束
+                Log.e("======","onAnimationEnd");
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                //动画重复
+                Log.e("======","onAnimationRepeat");
+            }
+        });
+    }
+    private void scaleAnimation(){
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 2f, 1f, 2f);
+        scaleAnimation.setDuration(500);
+        scaleAnimation.setRepeatCount(8);//动画的反复次数
+        scaleAnimation.setFillAfter(true);//设置为true，动画转化结束后被应用
+        ivArrowTwo.startAnimation(scaleAnimation);//開始动画
+    }
+    private void alphaAnimation(){
+        Animation animation = new AlphaAnimation(1f,0.5f);
+        animation.setDuration(500);
+        animation.setRepeatCount(8);//动画的反复次数
+        animation.setFillAfter(true);//设置为true，动画转化结束后被应用
+        ivArrowTwo.startAnimation(animation);//開始动画
+    }
+    private void translateAnimation(){
+        Animation animation = new TranslateAnimation(1,10,1,1);
+        animation.setDuration(5000);
+        animation.setRepeatCount(3);//动画的反复次数
+        animation.setFillAfter(true);//设置为true，动画转化结束后被应用
+
+//        Interpolator interpolator = new LinearInterpolator();//匀速
+//        Interpolator interpolator = new AccelerateInterpolator();//先慢后快
+//        Interpolator interpolator = new AnticipateInterpolator();//开始回弹效果
+//        Interpolator interpolator = new BounceInterpolator();//结束回弹效果
+//        Interpolator interpolator = new CycleInterpolator(2);//跳一跳效果
+//        Interpolator interpolator = new OvershootInterpolator(1);//动画结束时向前弹一定距离再回到原来位置
+//        Interpolator interpolator = new AccelerateDecelerateInterpolator();//系统默认的动画效果，先加速后减速
+//        Interpolator interpolator = new AnticipateOvershootInterpolator();//开始之前向前甩，结束的时候向后甩
+        Interpolator interpolator = new DecelerateInterpolator();//开始加速再减速
+        animation.setInterpolator(interpolator);
+        ivArrowTwo.startAnimation(animation);//開始动画
+    }
 }

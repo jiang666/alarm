@@ -140,6 +140,9 @@ public class RecycleViewActivity extends Activity {
                 case 11:
                     list.add("viewpager");
                     break;
+                case 12:
+                    list.add("属性动画");
+                    break;
                 default:
                     list.add("item" + i);
                     break;
@@ -190,10 +193,10 @@ public class RecycleViewActivity extends Activity {
                 intent = new Intent(this, StellarActivity.class);
                 startActivity(intent);
                 break;
-            /*case "流布局":
-                intent = new Intent(this, FlowActivity.class);
+            case "属性动画":
+                intent = new Intent(this, DetailsActivity.class);
                 startActivity(intent);
-                break;*/
+                break;
             case "流布局":
                 intent = new Intent(this, FlowTestActivity.class);
                 startActivity(intent);
