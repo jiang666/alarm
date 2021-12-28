@@ -80,6 +80,9 @@
 
         <!--FramentActivity-->
         <activity android:name=".FragmentActivity"/>
+
+        <!--FramentActivity-->
+        <activity android:name=".KotlinActivity"/>
     </application>
 
 </manifest>

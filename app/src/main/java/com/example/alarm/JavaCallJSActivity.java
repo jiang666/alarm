@@ -58,8 +58,6 @@ public class JavaCallJSActivity extends AppCompatActivity {
         MJavascriptInterface mJavascriptInterface = new MJavascriptInterface(this);
         mWvJavaCallJs.addJavascriptInterface(mJavascriptInterface,"web");
         mWvJavaCallJs.addJavascriptInterface(mJavascriptInterface,"jump");
-
-
     }
 
 

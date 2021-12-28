@@ -96,11 +96,11 @@ public class XMLparseActivity extends AppCompatActivity {
         Log.e("====2",requestStr + "  "+ programNodeList2.getLength()+"  "
                 + programNodeList2.item(0).getNodeName()
                 +"  " +  programNodeList2.item(0).getTextContent());
-
+        //读取bean
         String path = "sdcard/touch/bbb.txt";
         TestBean testBean = new Gson().fromJson(FileUtils.readFile(path), TestBean.class);
         Log.e("==date time==",testBean.getDatetime());
-
+        //读取list
         Type listType = new TypeToken<List<TestBean>>() {}.getType();
         String listpath= "sdcard/touch/ccc.txt";
         String timetableList = FileUtils.readFile(listpath);
@@ -111,7 +111,7 @@ public class XMLparseActivity extends AppCompatActivity {
         }catch (IllegalStateException e){
             e.printStackTrace();
         }
-
+        //读取map
         String mappath= "sdcard/touch/ddd.txt";
         String jsonContent = FileUtils.readFile(mappath);
         Type type = new TypeToken<Map<String, String>>() {}.getType();

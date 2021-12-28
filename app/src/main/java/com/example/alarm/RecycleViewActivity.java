@@ -143,6 +143,9 @@ public class RecycleViewActivity extends Activity {
                 case 12:
                     list.add("属性动画");
                     break;
+                case 13:
+                    list.add("kotlin");
+                    break;
                 default:
                     list.add("item" + i);
                     break;
@@ -203,6 +206,10 @@ public class RecycleViewActivity extends Activity {
                 break;
             case "viewpager":
                 intent = new Intent(this, FragmentActivity.class);
+                startActivity(intent);
+                break;
+            case "kotlin":
+                intent = new Intent(this, KotlinActivity.class);
                 startActivity(intent);
                 break;
             default:
