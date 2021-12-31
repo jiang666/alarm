@@ -81,8 +81,11 @@
         <!--FramentActivity-->
         <activity android:name=".FragmentActivity"/>
 
-        <!--FramentActivity-->
+        <!--kt-->
         <activity android:name=".KotlinActivity"/>
+        <!--本地视频截屏-->
+        <activity android:name=".VideoScreenshotsActivity"/>
+
     </application>
 
 </manifest>

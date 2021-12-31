@@ -146,6 +146,9 @@ public class RecycleViewActivity extends Activity {
                 case 13:
                     list.add("kotlin");
                     break;
+                case 14:
+                    list.add("视频截屏");
+                    break;
                 default:
                     list.add("item" + i);
                     break;
@@ -210,6 +213,10 @@ public class RecycleViewActivity extends Activity {
                 break;
             case "kotlin":
                 intent = new Intent(this, KotlinActivity.class);
+                startActivity(intent);
+                break;
+            case "视频截屏":
+                intent = new Intent(this, VideoScreenshotsActivity.class);
                 startActivity(intent);
                 break;
             default:
