@@ -149,6 +149,12 @@ public class RecycleViewActivity extends Activity {
                 case 14:
                     list.add("视频截屏");
                     break;
+                case 15:
+                    list.add("图案解锁");
+                    break;
+                case 16:
+                    list.add("测试");
+                    break;
                 default:
                     list.add("item" + i);
                     break;
@@ -217,6 +223,14 @@ public class RecycleViewActivity extends Activity {
                 break;
             case "视频截屏":
                 intent = new Intent(this, VideoScreenshotsActivity.class);
+                startActivity(intent);
+                break;
+            case "图案解锁":
+                intent = new Intent(this, ImageUnlockActivity.class);
+                startActivity(intent);
+                break;
+            case "测试":
+                intent = new Intent(this, TestActivity.class);
                 startActivity(intent);
                 break;
             default:

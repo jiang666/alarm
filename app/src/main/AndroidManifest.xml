@@ -86,6 +86,10 @@
         <!--本地视频截屏-->
         <activity android:name=".VideoScreenshotsActivity"/>
 
+        <!--图案解锁-->
+        <activity android:name=".ImageUnlockActivity"/>
+        <!--测试Activity-->
+        <activity android:name=".TestActivity"/>
     </application>
 
 </manifest>
