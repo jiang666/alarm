@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 /**
  * 图案解锁
+ * https://www.jianshu.com/p/4cb16df894cb
  */
 public class ImageUnlockActivity extends AppCompatActivity {
     private static String TAG = ImageUnlockActivity.class.getSimpleName();
