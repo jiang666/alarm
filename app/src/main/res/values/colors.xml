@@ -70,4 +70,16 @@
     <color name="realdataline_bottom_text">#C1C1C1</color>
     <color name="video_list_bg">#047668</color>
     <color name="video_list_onbg">#03665A</color>
+
+    <color name="color_999999">#999999</color>
+    <color name="color_666666">#666666</color>
+    <color name="color_eeeeee">#eeeeee</color>
+    <color name="color_333333">#333333</color>
+    <color name="color_ffffff">#ffffff</color>
+    <color name="color_c61a04">#c61a04</color>
+    <color name="color_cccccc">#cccccc</color>
+    <color name="color_d81e06">#d81e06</color>
+    <color name="color_b0b8b2">#b0b8b2</color>
+    <color name="color_28d19d">#28d19d</color>
+    <color name="color_000000">#000000</color>
 </resources>
