@@ -90,6 +90,10 @@
         <activity android:name=".ImageUnlockActivity"/>
         <!--测试Activity-->
         <activity android:name=".TestActivity"/>
+
+        <!--图片移动-->
+        <activity android:name=".ImageMoveActivity"/>
+
     </application>
 
 </manifest>

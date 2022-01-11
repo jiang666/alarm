@@ -155,6 +155,9 @@ public class RecycleViewActivity extends Activity {
                 case 16:
                     list.add("测试");
                     break;
+                case 17:
+                    list.add("图片移动");
+                    break;
                 default:
                     list.add("item" + i);
                     break;
@@ -233,6 +236,11 @@ public class RecycleViewActivity extends Activity {
                 intent = new Intent(this, TestActivity.class);
                 startActivity(intent);
                 break;
+            case "图片移动":
+                intent = new Intent(this, ImageMoveActivity.class);
+                startActivity(intent);
+                break;
+
             default:
                 break;
         }

@@ -64,5 +64,8 @@ class KotlinActivity : Activity() {
     ) {
         //..
     }
+    fun main(){
+        Log.e("======","age = 90")
+    }
 
 }
