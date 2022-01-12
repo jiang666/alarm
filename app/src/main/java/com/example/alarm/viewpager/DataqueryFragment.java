@@ -72,7 +72,7 @@ public class DataqueryFragment extends Fragment implements View.OnClickListener{
         ok.setOnClickListener(this);
         gestureDetector = new GestureDetector(getContext(),onGestureListener);
         currentDateTv = (TextView)mRootView.findViewById(R.id.now_month);
-        this.date = "2022-01-11" ;
+        this.date = "" ;
         if (TextUtils.isEmpty(date)){
             this.date = DataUtils.getCurrDate("yyyy-MM-dd");
         }
@@ -88,8 +88,10 @@ public class DataqueryFragment extends Fragment implements View.OnClickListener{
                 //if (onItemClick!=null && !TextUtils.isEmpty(adapter.getItem(position).date)){
                 if (!TextUtils.isEmpty(adapter.getItem(position).date)){
                     adapter.setSelectedPosition(position);
-                    currentDateTv.setText("当前月份："+DataUtils.formatDate(adapter.getItem(position).date,"yyyy-MM"));
+                    //currentDateTv.setText("当前月份："+DataUtils.formatDate(adapter.getItem(position).date,"yyyy-MM"));
                     date = adapter.getItem(position).date ;
+                    currentDateTv.setText(date);
+                    Log.e("=======","data =" + date);
                 }
             }
         });

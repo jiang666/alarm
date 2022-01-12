@@ -12,6 +12,7 @@ import com.example.alarm.bean.DateEntity;
 
 import java.util.ArrayList;
 
+
 /**
  * author：Administrator on 2017/4/10 16:11
  * description:文件说明
@@ -49,7 +50,7 @@ public class DateMonthAdapter extends BaseAdapter<DateEntity> {
             convertView = View.inflate(mContext, R.layout.item_month_data, null);
             holder.data = (TextView) convertView.findViewById(R.id.data);
             holder.luna = (TextView) convertView.findViewById(R.id.luna);
-            holder.bg = convertView.findViewById(R.id.sl_content);
+            holder.bg = convertView.findViewById(R.id.bg);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
