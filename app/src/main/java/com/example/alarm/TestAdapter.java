@@ -2,6 +2,7 @@ package com.example.alarm;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ class TestAdapter extends RecyclerView.Adapter {
     private TestAdapter.onRecyclerViewItemClickListener onRecyclerViewItemClickListener;
     private List<String> mList;
     private Context mContent;
+    private int ooooo;
 
     public TestAdapter(Context context, List<String> list) {
         this.mContent = context;
@@ -29,7 +31,7 @@ class TestAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        CommonDialogHolder commonDialogHolder = (CommonDialogHolder) holder;;
+        final CommonDialogHolder commonDialogHolder = (CommonDialogHolder) holder;;
         // 6->11   11->6
 
         final int positiona;
@@ -44,6 +46,11 @@ class TestAdapter extends RecyclerView.Adapter {
         String ddd = mList.get(positiona);
         if(ddd.length() > 1) ddd = phoneMask(ddd);
         commonDialogHolder.tvData.setText(ddd);
+        if (ooooo == position) {
+            commonDialogHolder.tvData.setTextColor(Color.GREEN);
+        }else {
+            commonDialogHolder.tvData.setTextColor(Color.BLUE);
+        }
         commonDialogHolder.tvData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,5 +89,9 @@ class TestAdapter extends RecyclerView.Adapter {
     //定义一个公用方法来实例化自定义接口
     public void setOnItemClickListener(TestAdapter.onRecyclerViewItemClickListener onRecyclerViewItemClickListener) {
         this.onRecyclerViewItemClickListener = onRecyclerViewItemClickListener;
+    }
+
+    public void setOnItem(int ooooo) {
+        this.ooooo = ooooo;
     }
 }

@@ -30,6 +30,8 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
+import android.util.Base64;
+import android.view.View;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -1121,6 +1123,46 @@ public class ImgUtil {
 		}
 
 		return new File(filePath);
+	}
+
+	/**
+	 * 获取view的bitmap并且base64加密的String
+	 * @param v
+	 * @return
+	 */
+	public static String getBitmapString(View v) {
+		Bitmap bitmap = Bitmap.createBitmap(v.getWidth(), v.getHeight(),
+				Config.RGB_565);
+		Canvas canvas = new Canvas(bitmap);
+		v.draw(canvas);
+		ByteArrayOutputStream bos=new ByteArrayOutputStream();
+		bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);//参数100表示不压缩
+		byte[] bytes=bos.toByteArray();
+		return Base64.encodeToString(bytes, Base64.DEFAULT);
+		//String activation64 = Base64.encodeToString(byteArray, Base64.DEFAULT);//encryption
+		//byte[] bitmapArray = Base64.decode(activation64, Base64.DEFAULT);//decryption
+		//bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
+		//return activation64;
+	}
+
+	/**
+	 * 获取view的bitmap, 包含view内部字view
+	 * @param v
+	 * @return
+	 */
+	public static Bitmap getBitmapForView(View v) {
+		Bitmap bitmap = Bitmap.createBitmap(v.getWidth(), v.getHeight(),
+				Config.RGB_565);
+		Canvas canvas = new Canvas(bitmap);
+		v.draw(canvas);
+		ByteArrayOutputStream bos=new ByteArrayOutputStream();
+		bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);//参数100表示不压缩
+		byte[] bytes=bos.toByteArray();
+		return  BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+		//String activation64 = Base64.encodeToString(byteArray, Base64.DEFAULT);//encryption
+		//byte[] bitmapArray = Base64.decode(activation64, Base64.DEFAULT);//decryption
+		//bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
+		//return activation64;
 	}
 
 }
