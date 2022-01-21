@@ -70,11 +70,11 @@ public class RecycleViewActivity extends Activity {
         testAdapter.setOnItemClickListener(new TestAdapter.onRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                //intoItem(position);
-                testAdapter.setOnItem(position);
+                intoItem(position);
+                /*testAdapter.setOnItem(position);
                 tvShow.setText(list.get(position));
                 testAdapter.notifyDataSetChanged();
-                Toast.makeText(RecycleViewActivity.this, " 点击 " + position, Toast.LENGTH_LONG).show();
+                Toast.makeText(RecycleViewActivity.this, " 点击 " + position, Toast.LENGTH_LONG).show();*/
             }
         });
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");

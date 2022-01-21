@@ -33,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * java 调用js
+ * anim
  */
 
 public class AnimationActivity extends AppCompatActivity {
@@ -47,6 +47,7 @@ public class AnimationActivity extends AppCompatActivity {
     ImageView ivArrowTwo;
     private Map pagerMap = new ArrayMap();
     private Animation animation1 = null;
+    private boolean iclick = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +58,8 @@ public class AnimationActivity extends AppCompatActivity {
         mainEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Random rand = new Random();
-                Log.e("=======","mainEdit click " + rand.nextInt(10));
-                //缩放---ofFloat用4个参数的ofFloat
+
+                /*//缩放---ofFloat用4个参数的ofFloat
                 PropertyValuesHolder scaleXProper = PropertyValuesHolder.ofFloat("scaleX", 1f, 2f);
                 PropertyValuesHolder scaleYProper = PropertyValuesHolder.ofFloat("scaleY", 1f, 2f);
                 ValueAnimator objectAnimator1 = ObjectAnimator.ofPropertyValuesHolder(ivArrow, scaleXProper, scaleYProper);
@@ -67,8 +67,17 @@ public class AnimationActivity extends AppCompatActivity {
                 ivArrow.setPivotX(0);
                 ivArrow.setPivotY(0);
                 objectAnimator1.setDuration(1000);
-                objectAnimator1.start();
+                objectAnimator1.start();*/
                 //startScaleAnimation();
+                if(iclick){
+                    scaleAnimation();
+                }else {
+                    scaleBigAnimation();
+                }
+                ivArrow.measure(0, 0);
+                int textWidth = ivArrow.getMeasuredWidth();
+                Log.e("======"," textWidth " + textWidth);
+
             }
         });
         ivArrow.setOnClickListener(new View.OnClickListener() {
@@ -238,6 +247,7 @@ public class AnimationActivity extends AppCompatActivity {
             }
         }
     });*/
+    //旋转
     private void rotateAnimation(){
         Animation animation = new RotateAnimation(0, 359);
         animation.setDuration(500);
@@ -264,13 +274,71 @@ public class AnimationActivity extends AppCompatActivity {
             }
         });
     }
+    //缩小
     private void scaleAnimation(){
-        ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 2f, 1f, 2f);
-        scaleAnimation.setDuration(500);
-        scaleAnimation.setRepeatCount(8);//动画的反复次数
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 0f, 1f, 0f);
+        scaleAnimation.setDuration(5000);
+        scaleAnimation.setRepeatCount(0);//动画的反复次数
         scaleAnimation.setFillAfter(true);//设置为true，动画转化结束后被应用
         ivArrowTwo.startAnimation(scaleAnimation);//開始动画
+        scaleAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                onescaleBigAnimation();
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                scaleBigAnimation();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
     }
+
+    //放大
+    private void scaleBigAnimation(){
+        ScaleAnimation scaleAnimation = new ScaleAnimation(0f, 1f, 0f, 1f);
+        scaleAnimation.setDuration(5000);
+        scaleAnimation.setRepeatCount(0);//动画的反复次数
+        scaleAnimation.setFillAfter(true);//设置为true，动画转化结束后被应用
+        ivArrowTwo.startAnimation(scaleAnimation);//開始动画
+        scaleAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                onescaleAnimation();
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                scaleAnimation();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+    }
+
+    //放大
+    private void onescaleBigAnimation(){
+        ScaleAnimation scaleAnimation = new ScaleAnimation(0f, 1f, 0f, 1f);
+        scaleAnimation.setDuration(5000);
+        scaleAnimation.setRepeatCount(0);//动画的反复次数
+        scaleAnimation.setFillAfter(true);//设置为true，动画转化结束后被应用
+        ivArrow.startAnimation(scaleAnimation);//開始动画
+    }
+    //缩小
+    private void onescaleAnimation(){
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 0f, 1f, 0f);
+        scaleAnimation.setDuration(5000);
+        scaleAnimation.setRepeatCount(0);//动画的反复次数
+        scaleAnimation.setFillAfter(true);//设置为true，动画转化结束后被应用
+        ivArrow.startAnimation(scaleAnimation);//開始动画
+    }
+    //透明度
     private void alphaAnimation(){
         Animation animation = new AlphaAnimation(1f,0.5f);
         animation.setDuration(500);
@@ -278,6 +346,7 @@ public class AnimationActivity extends AppCompatActivity {
         animation.setFillAfter(true);//设置为true，动画转化结束后被应用
         ivArrowTwo.startAnimation(animation);//開始动画
     }
+    //移动
     private void translateAnimation(){
         Animation animation = new TranslateAnimation(1,10,1,1);
         animation.setDuration(5000);
