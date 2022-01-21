@@ -1,23 +1,14 @@
 package com.example.alarm;
 
-import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.TimePicker;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.widget.Toast;
 
-import java.util.Calendar;
-import android.os.Bundle;
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.view.Menu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.alarm.widget.LockPatterView;
 

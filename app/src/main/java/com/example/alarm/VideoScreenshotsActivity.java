@@ -1,9 +1,5 @@
 package com.example.alarm;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
@@ -12,17 +8,14 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
-import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -31,7 +24,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Calendar;
 
 import static android.media.MediaMetadataRetriever.OPTION_PREVIOUS_SYNC;
 

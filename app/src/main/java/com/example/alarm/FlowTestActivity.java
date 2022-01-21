@@ -4,20 +4,18 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.alarm.utils.DrawableUtils;
 import com.example.alarm.utils.UIUtils;
-import com.example.alarm.widget.FlowTwoLayout;
 import com.example.alarm.widget.MyFlowLayout;
 
 import java.util.ArrayList;

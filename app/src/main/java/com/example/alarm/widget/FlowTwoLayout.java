@@ -3,7 +3,7 @@ package com.example.alarm.widget;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;

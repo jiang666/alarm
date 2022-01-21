@@ -4,24 +4,13 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.iflytek.aiui.AIUIConstant;
-import com.iflytek.aiui.AIUIEvent;
-import com.iflytek.aiui.AIUIListener;
-
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Calendar;
 
 import static java.lang.Thread.sleep;

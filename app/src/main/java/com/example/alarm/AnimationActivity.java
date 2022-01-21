@@ -1,22 +1,17 @@
 package com.example.alarm;
 
-import android.animation.Animator;
 import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.animation.ValueAnimator;
 import android.os.Bundle;
-import android.renderscript.RenderScript;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.ArrayMap;
 import android.util.Log;
-import android.util.Property;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
@@ -27,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Map;
-import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

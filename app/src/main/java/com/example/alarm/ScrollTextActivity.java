@@ -1,12 +1,10 @@
 package com.example.alarm;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Bundle;
 
 import com.example.alarm.widget.AutoScrollView;
 
