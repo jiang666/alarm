@@ -268,6 +268,7 @@ public class AnimationActivity extends AppCompatActivity {
         ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 2f, 1f, 2f);
         scaleAnimation.setDuration(500);
         scaleAnimation.setRepeatCount(8);//动画的反复次数
+        //scaleAnimation.setRepeatCount(Animation.INFINITE);//无限次重复
         scaleAnimation.setFillAfter(true);//设置为true，动画转化结束后被应用
         ivArrowTwo.startAnimation(scaleAnimation);//開始动画
     }

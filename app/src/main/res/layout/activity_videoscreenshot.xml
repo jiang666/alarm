@@ -5,11 +5,13 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
+    android:background="@color/color_999999"
+    android:id="@+id/ll_conyent"
     tools:context="com.example.alarm.MainActivity">
 
     <TextureView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:id="@+id/textureView1" />
     <Button
         android:id="@+id/textureViewButton"
@@ -17,17 +19,33 @@
         android:layout_width="wrap_content"
         android:text="截屏"/>
 
+    <Button
+        android:id="@+id/Viewtobitmap"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="viewtobitmap"/>
+
     <VideoView
+        android:visibility="gone"
         android:id="@+id/vv_player"
-        android:layout_width="300dp"
-        android:layout_height="300dp"/>
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
+    <TextView
+        android:id="@+id/tv_updata_thread"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blue"
+        android:layout_width="wrap_content"
+        android:background="@drawable/ic_launcher"
+        android:text="ffffffffffff"/>
+
     <SeekBar
         android:id="@+id/sb_select"
         android:layout_width="300dp"
         android:layout_height="wrap_content"/>
     <ImageView
         android:id="@+id/iv_head"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:scaleType="fitXY"
+        android:layout_width="200dp"
+        android:layout_height="200dp"/>
 
 </LinearLayout>
