@@ -32,6 +32,8 @@ class TestAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         final CommonDialogHolder commonDialogHolder = (CommonDialogHolder) holder;;
+
+        //GridLayoutManager layoutManager = new GridLayoutManager(this, 4);设置为4时 S型数据
         // 6->11   11->6
 
         final int positiona;

@@ -71,6 +71,7 @@ public class RecycleViewActivity extends Activity {
             @Override
             public void onItemClick(int position) {
                 intoItem(position);
+                //点击条目变颜色
                 /*testAdapter.setOnItem(position);
                 tvShow.setText(list.get(position));
                 testAdapter.notifyDataSetChanged();
