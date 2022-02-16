@@ -94,6 +94,9 @@
         <!--图片移动-->
         <activity android:name=".ImageMoveActivity"/>
 
+        <!--五星好评-->
+        <activity android:name=".RatingBarActivity"/>
+
     </application>
 
 </manifest>

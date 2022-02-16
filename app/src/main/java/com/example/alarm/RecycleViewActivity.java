@@ -46,7 +46,7 @@ public class RecycleViewActivity extends Activity {
         initData();
         testAdapter = new TestAdapter(this, list);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
-        layoutManager.setOrientation(OrientationHelper.VERTICAL);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
         rvTest.setLayoutManager(layoutManager);
         rvTest.setAdapter(testAdapter);
         btUpdata.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +106,7 @@ public class RecycleViewActivity extends Activity {
 
     private void initData() {
 
-        for (int i = 0; i < 18; i++) {
+        for (int i = 0; i < 20; i++) {
             switch (i) {
                 case 0:
                     list.add("calljs");
@@ -161,6 +161,9 @@ public class RecycleViewActivity extends Activity {
                     break;
                 case 17:
                     list.add("图片移动");
+                    break;
+                case 18:
+                    list.add("五星好评");
                     break;
                 default:
                     list.add("item" + i);
@@ -243,6 +246,11 @@ public class RecycleViewActivity extends Activity {
                 break;
             case "图片移动":
                 intent = new Intent(this, ImageMoveActivity.class);
+                startActivity(intent);
+                break;
+
+            case "五星好评":
+                intent = new Intent(this, RatingBarActivity.class);
                 startActivity(intent);
                 break;
 
