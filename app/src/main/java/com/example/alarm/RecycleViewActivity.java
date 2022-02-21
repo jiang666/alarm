@@ -108,7 +108,7 @@ public class RecycleViewActivity extends Activity {
 
     private void initData() {
 
-        for (int i = 0; i < 18; i++) {
+        for (int i = 0; i < 19; i++) {
             switch (i) {
                 case 0:
                     list.add("calljs");
@@ -163,6 +163,9 @@ public class RecycleViewActivity extends Activity {
                     break;
                 case 17:
                     list.add("图片移动");
+                    break;
+                case 18:
+                    list.add("顶部移动");
                     break;
                 default:
                     list.add("item" + i);
@@ -247,7 +250,10 @@ public class RecycleViewActivity extends Activity {
                 intent = new Intent(this, ImageMoveActivity.class);
                 startActivity(intent);
                 break;
-
+            case "顶部移动":
+                intent = new Intent(this, TopMoveActivity.class);
+                startActivity(intent);
+                break;
             default:
                 break;
         }
