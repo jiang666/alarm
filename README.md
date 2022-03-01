@@ -16,3 +16,5 @@ Log.e("======"," textWidth " + textWidth);
 
 
 DataqueryFragment 添加日历
+
+XMLparseActivity 添加权限申请
