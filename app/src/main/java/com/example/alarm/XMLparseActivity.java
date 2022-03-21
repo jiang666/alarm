@@ -55,6 +55,7 @@ import static com.example.alarm.utils.FileUtils.writeFile;
  * xml解析
  * textview 滚动文字
  * 权限申请
+ * https://github.com/getActivity/XXPermissions
  */
 
 public class XMLparseActivity extends AppCompatActivity {

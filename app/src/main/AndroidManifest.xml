@@ -94,8 +94,15 @@
         <!--图片移动-->
         <activity android:name=".ImageMoveActivity"/>
 
-        <!--图片移动-->
+        <!--顶部上划-->
         <activity android:name=".TopMoveActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <!--Evenbus  测试-->
+        <activity android:name=".evenbus.EvenbusActivity" />
+
+        <!--Evenbus  测试-->
+        <activity android:name=".evenbus.EvenbusTActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

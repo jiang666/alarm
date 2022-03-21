@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.alarm.evenbus.EvenbusActivity;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,7 +48,7 @@ public class RecycleViewActivity extends Activity {
         ButterKnife.bind(this);
         initData();
         testAdapter = new TestAdapter(this, list);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
         rvTest.setLayoutManager(layoutManager);
         rvTest.setAdapter(testAdapter);
@@ -108,7 +110,7 @@ public class RecycleViewActivity extends Activity {
 
     private void initData() {
 
-        for (int i = 0; i < 19; i++) {
+        for (int i = 0; i < 20; i++) {
             switch (i) {
                 case 0:
                     list.add("calljs");
@@ -166,6 +168,9 @@ public class RecycleViewActivity extends Activity {
                     break;
                 case 18:
                     list.add("顶部移动");
+                    break;
+                case 19:
+                    list.add("evenbus使用");
                     break;
                 default:
                     list.add("item" + i);
@@ -252,6 +257,10 @@ public class RecycleViewActivity extends Activity {
                 break;
             case "顶部移动":
                 intent = new Intent(this, TopMoveActivity.class);
+                startActivity(intent);
+                break;
+            case "evenbus使用":
+                intent = new Intent(this, EvenbusActivity.class);
                 startActivity(intent);
                 break;
             default:
