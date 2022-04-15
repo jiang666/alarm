@@ -1,5 +1,13 @@
 # alarm
 知识点
+
+FragmentActivity.java
+   切换滑动
+   viewPager.setCurrentItem(DATA_FRAGMENT);
+   切换无动画
+   viewPager.setCurrentItem(DATA_FRAGMENT,false);
+
+
 version 1.1
 添加字体和RecycleView S形显示。
 
@@ -21,6 +29,9 @@ Log.e("======"," textWidth " + textWidth);
 
 DataqueryFragment 添加日历
 
-XMLparseActivity 添加权限申请
-
+XMLparseActivity 添加权限申请、文字可以滑动（setMovementMethod(ScrollingMovementMethod.getInstance());）
+NestedScrollView + TextView
 添加EventBus 使用 EvenbusActivity
+
+
+CameraActivity  添加图片上覆盖文字

@@ -3,6 +3,11 @@ package com.example.alarm;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,6 +26,9 @@ import com.example.alarm.utils.FileUtil;
 import com.example.alarm.utils.ImgUtil;
 import com.example.alarm.widget.CameraPreview;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -99,6 +107,7 @@ public class CameraActivity extends AppCompatActivity {
                 mCamera.stopPreview(); //解决预览停止问题
                 Bitmap bitmap = ImgUtil.getBitmapByPath(imgFilePath);
                 bitmap = ImgUtil.rotatingImage(mDisplayOrientation, bitmap);//旋转图片
+                bitmap = drawTextToLeftBottom(CameraActivity.this,bitmap,"san",80, Color.BLUE,100,20);
                 ivEnterImage.setImageBitmap(bitmap);
                 mCamera.startPreview();//解决预览停止问题
             }
@@ -162,7 +171,7 @@ public class CameraActivity extends AppCompatActivity {
     public static Camera getCameraInstance() {
         Camera c = null;
         try {
-            c = Camera.open(0);
+            c = Camera.open(1);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -326,4 +335,55 @@ public class CameraActivity extends AppCompatActivity {
             isThreadWorking = false;
         }
     }
+
+    /* 绘制文字到左下方
+     *
+     * @param context
+     * @param bitmap
+     * @param text
+     * @param size
+     * @param color
+     * @param paddingLeft
+     * @param paddingBottom
+     * @return
+     */
+    public static Bitmap drawTextToLeftBottom(Context context, Bitmap bitmap, String text, int size, int color, int paddingLeft, int paddingBottom) {
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(color);
+        paint.setTextSize(dp2px(context, size));
+        Rect bounds = new Rect();
+        paint.getTextBounds(text, 0, text.length(), bounds);
+        return drawTextToBitmap(context, bitmap, text, paint, bounds,
+                dp2px(context, paddingLeft),
+                bitmap.getHeight() - dp2px(context, paddingBottom));
+    }
+
+    /**
+     * dip转pix
+     *
+     * @param context
+     * @param dp
+     * @return
+     */
+    public static int dp2px(Context context, float dp) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dp * scale + 0.5f);
+    }
+
+    //图片上绘制文字
+    private static Bitmap drawTextToBitmap(Context context, Bitmap bitmap, String text, Paint paint, Rect bounds, int paddingLeft, int paddingTop) {
+        android.graphics.Bitmap.Config bitmapConfig = bitmap.getConfig();
+
+        paint.setDither(true); // 获取跟清晰的图像采样
+        paint.setFilterBitmap(true);// 过滤一些
+        if (bitmapConfig == null) {
+            bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
+        }
+        bitmap = bitmap.copy(bitmapConfig, true);
+        Canvas canvas = new Canvas(bitmap);
+
+        canvas.drawText(text, paddingLeft, paddingTop, paint);
+        return bitmap;
+    }
+
 }

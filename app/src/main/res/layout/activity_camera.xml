@@ -20,17 +20,17 @@
         android:layout_marginTop="47dp"
         android:orientation="horizontal">
         <FrameLayout
-            android:layout_height="100dp"
-            android:layout_width="100dp">
+            android:layout_height="400dp"
+            android:layout_width="400dp">
             <FrameLayout
                 android:id="@+id/camera_preview"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="400dp"
+                android:layout_height="400dp"
                 android:background="@color/cardview_dark_background" >
             </FrameLayout>
             <ImageView
                 android:id="@+id/scanHorizontalLineImageView"
-                android:layout_width="100dp"
+                android:layout_width="400dp"
                 android:scaleType="fitXY"
                 android:layout_height="wrap_content"
                 android:src="@drawable/scan_ray" />
@@ -38,8 +38,8 @@
 
         <ImageView
             android:id="@+id/iv_enter_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
             android:layout_marginStart="55dp"
             android:background="@color/cardview_dark_background" />
     </LinearLayout>
