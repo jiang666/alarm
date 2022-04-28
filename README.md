@@ -35,3 +35,6 @@ NestedScrollView + TextView
 
 
 CameraActivity  添加图片上覆盖文字
+
+2022-04-28
+底部按钮切换动画

@@ -45,6 +45,7 @@ class TestAdapter extends RecyclerView.Adapter {
         }
         //正常数据
         //positiona = holder.getAdapterPosition();
+        if(positiona >= mList.size())return;
         String ddd = mList.get(positiona);
         if(ddd.length() > 1) ddd = phoneMask(ddd);
         commonDialogHolder.tvData.setText(ddd);

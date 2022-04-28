@@ -109,8 +109,8 @@ public class RecycleViewActivity extends Activity {
     }
 
     private void initData() {
-
-        for (int i = 0; i < 20; i++) {
+        //S型数据  条目个数必须是24 倍数
+        for (int i = 0; i < 24; i++) {
             switch (i) {
                 case 0:
                     list.add("calljs");
@@ -171,6 +171,9 @@ public class RecycleViewActivity extends Activity {
                     break;
                 case 19:
                     list.add("evenbus使用");
+                    break;
+                case 20:
+                    list.add("底部切换动画");
                     break;
                 default:
                     list.add("item" + i);
@@ -261,6 +264,10 @@ public class RecycleViewActivity extends Activity {
                 break;
             case "evenbus使用":
                 intent = new Intent(this, EvenbusActivity.class);
+                startActivity(intent);
+                break;
+            case "底部切换动画":
+                intent = new Intent(this, ButtomTapAnimActivity.class);
                 startActivity(intent);
                 break;
             default:

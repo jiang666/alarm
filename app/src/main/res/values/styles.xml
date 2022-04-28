@@ -19,5 +19,9 @@
         <item name="android:textColor">#ffffff</item>
     </style>
 
-
+    <declare-styleable name="ShelfTabLayout">
+        <attr name="bgRadius" format="integer" />
+        <attr name="checked" format="boolean" />
+        <attr name="bgColor" format="color|reference" />
+    </declare-styleable>
 </resources>

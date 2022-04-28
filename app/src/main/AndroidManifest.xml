@@ -104,6 +104,10 @@
         <!--Evenbus  测试-->
         <activity android:name=".evenbus.EvenbusTActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <!--底部按钮切换动画-->
+        <activity android:name=".ButtomTapAnimActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
     </application>
 
 </manifest>
