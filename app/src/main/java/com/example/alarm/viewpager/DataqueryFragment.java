@@ -21,7 +21,7 @@ import com.example.alarm.adapter.DateMonthAdapter;
 import com.example.alarm.utils.DataUtils;
 
 /**
- * 数据查询
+ * 日历
  */
 public class DataqueryFragment extends Fragment implements View.OnClickListener{
     private static final String TAG = DataqueryFragment.class.getSimpleName();

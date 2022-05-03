@@ -4,15 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.ViewUtils;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.alarm.evenbus.EvenbusActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,6 +36,8 @@ public class RecycleViewActivity extends Activity {
     @BindView(R.id.rv_test)
     RecyclerView rvTest;
     List<String> list = new ArrayList<>();
+    @BindView(R.id.tv_show)
+    TextView tvShow;
     private TestAdapter testAdapter;
     private int click = 0;
 
@@ -45,7 +47,7 @@ public class RecycleViewActivity extends Activity {
         setContentView(R.layout.activity_recycleview);
         ButterKnife.bind(this);
         initData();
-        testAdapter = new TestAdapter(this,list);
+        testAdapter = new TestAdapter(this, list);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
         rvTest.setLayoutManager(layoutManager);
@@ -54,13 +56,13 @@ public class RecycleViewActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                click = click +1;
-                if(click % 2 ==0){
+                click = click + 1;
+                if (click % 2 == 0) {
                     list.clear();
-                    for (int i = click; i < 30 ; i++) {
+                    for (int i = click; i < 30; i++) {
                         list.add("ts " + i);
                     }
-                }else {
+                } else {
                     initData();
                 }
 
@@ -71,7 +73,11 @@ public class RecycleViewActivity extends Activity {
             @Override
             public void onItemClick(int position) {
                 intoItem(position);
-                //Toast.makeText(RecycleViewActivity.this," 点击 " + position,Toast.LENGTH_LONG).show();
+                //点击条目变颜色
+                /*testAdapter.setOnItem(position);
+                tvShow.setText(list.get(position));
+                testAdapter.notifyDataSetChanged();
+                Toast.makeText(RecycleViewActivity.this, " 点击 " + position, Toast.LENGTH_LONG).show();*/
             }
         });
 
@@ -80,7 +86,8 @@ public class RecycleViewActivity extends Activity {
 
     private void initData() {
 
-        for ( int i=0; i < 20; i++) {
+        //S型数据  条目个数必须是24 倍数
+        for (int i = 0; i < 24; i++) {
             switch (i) {
                 case 0:
                     list.add("calljs");
@@ -142,13 +149,23 @@ public class RecycleViewActivity extends Activity {
                 case 19:
                     list.add("蓝牙接收端");
                     break;
+                case 20:
+                    list.add("顶部移动");
+                    break;
+                case 21:
+                    list.add("evenbus使用");
+                    break;
+                case 22:
+                    list.add("底部切换动画");
+                    break;
                 default:
                     list.add("item" + i);
                     break;
             }
         }
     }
-    private void intoItem(int position){
+
+    private void intoItem(int position) {
         String item = (String) list.get(position);
         Intent intent = null;
         switch (item) {
@@ -230,6 +247,17 @@ public class RecycleViewActivity extends Activity {
                 break;
             case "蓝牙接收端":
                 intent = new Intent(this, BluetoothClientActivity.class);
+                break;
+            case "顶部移动":
+                intent = new Intent(this, TopMoveActivity.class);
+                startActivity(intent);
+                break;
+            case "evenbus使用":
+                intent = new Intent(this, EvenbusActivity.class);
+                startActivity(intent);
+                break;
+            case "底部切换动画":
+                intent = new Intent(this, ButtomTapAnimActivity.class);
                 startActivity(intent);
                 break;
             default:

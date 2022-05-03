@@ -1,34 +1,22 @@
 package com.example.alarm;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.io.File;
-import java.util.ArrayList;
 
 
 /**
  * 图案移动
  */
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.FrameLayout;
 
 import com.example.alarm.utils.ImgUtil;
-import com.example.alarm.widget.starView;
+import com.example.alarm.widget.StarView;
 
 public class ImageMoveActivity extends AppCompatActivity {
     private static final String TAG = ImageMoveActivity.class.getSimpleName();
@@ -39,7 +27,7 @@ public class ImageMoveActivity extends AppCompatActivity {
         setContentView(R.layout.activity_image_move);
         FrameLayout layout=(FrameLayout)findViewById(R.id.layout);//获得帧布局
 
-        final starView star=new starView(this);//创建一个自定义的starView的View对象
+        final StarView star=new StarView(this);//创建一个自定义的starView的View对象
         String filepath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "photos" + File.separator + "0138a6d52af2419088d5f78a9368df75.jpg";
         Log.e(TAG, filepath);
         File file = new File(filepath);

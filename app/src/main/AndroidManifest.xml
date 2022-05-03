@@ -103,6 +103,20 @@
         <!--蓝牙接收端-->
         <activity android:name=".BluetoothClientActivity"/>
 
+        <!--顶部上划-->
+        <activity android:name=".TopMoveActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <!--Evenbus  测试-->
+        <activity android:name=".evenbus.EvenbusActivity" />
+
+        <!--Evenbus  测试-->
+        <activity android:name=".evenbus.EvenbusTActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--底部按钮切换动画-->
+        <activity android:name=".ButtomTapAnimActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
     </application>
 
 </manifest>
