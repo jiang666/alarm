@@ -107,7 +107,8 @@
         <!--底部按钮切换动画-->
         <activity android:name=".ButtomTapAnimActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-
+        <!--串口读取-->
+        <activity android:name=".SerialPortActivity" />
     </application>
 
 </manifest>

@@ -175,6 +175,9 @@ public class RecycleViewActivity extends Activity {
                 case 20:
                     list.add("底部切换动画");
                     break;
+                case 21:
+                    list.add("串口读取");
+                    break;
                 default:
                     list.add("item" + i);
                     break;
@@ -268,6 +271,10 @@ public class RecycleViewActivity extends Activity {
                 break;
             case "底部切换动画":
                 intent = new Intent(this, ButtomTapAnimActivity.class);
+                startActivity(intent);
+                break;
+            case "串口读取":
+                intent = new Intent(this, SerialPortActivity.class);
                 startActivity(intent);
                 break;
             default:

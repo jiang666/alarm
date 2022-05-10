@@ -40,3 +40,4 @@ CameraActivity  添加图片上覆盖文字
 底部按钮切换动画
 
 2022-05-10 添加串口读取
+SerialPortActivity
