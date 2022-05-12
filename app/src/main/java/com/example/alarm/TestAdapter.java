@@ -30,23 +30,23 @@ class TestAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         final CommonDialogHolder commonDialogHolder = (CommonDialogHolder) holder;;
 
         //GridLayoutManager layoutManager = new GridLayoutManager(this, 4);设置为4时 S型数据
         // 6->11   11->6
 
-        final int positiona;
+        //final int positiona;
         //S形数据
-        if(position/4%2 == 1){
+        /*if(position/4%2 == 1){
             positiona = (position/4+1)*4-position%4-1;
         }else {
             positiona = holder.getAdapterPosition();
-        }
+        }*/
         //正常数据
         //positiona = holder.getAdapterPosition();
-        if(positiona >= mList.size())return;
-        String ddd = mList.get(positiona);
+        if(position >= mList.size())return;
+        String ddd = mList.get(position);
         if(ddd.length() > 1) ddd = phoneMask(ddd);
         commonDialogHolder.tvData.setText(ddd);
         if (ooooo == position) {
@@ -57,7 +57,7 @@ class TestAdapter extends RecyclerView.Adapter {
         commonDialogHolder.tvData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onRecyclerViewItemClickListener.onItemClick(positiona);
+                onRecyclerViewItemClickListener.onItemClick(position);
             }
         });
     }

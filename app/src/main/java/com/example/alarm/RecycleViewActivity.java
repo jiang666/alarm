@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.alarm.evenbus.EvenbusActivity;
+import com.example.alarm.widget.RefreshRecyclerView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,7 +36,7 @@ public class RecycleViewActivity extends Activity {
     @BindView(R.id.bt_updata)
     Button btUpdata;
     @BindView(R.id.rv_test)
-    RecyclerView rvTest;
+    RefreshRecyclerView rvTest;
     List<String> list = new ArrayList<>();
     @BindView(R.id.tv_show)
     TextView tvShow;
@@ -48,7 +50,7 @@ public class RecycleViewActivity extends Activity {
         ButterKnife.bind(this);
         initData();
         testAdapter = new TestAdapter(this, list);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
         rvTest.setLayoutManager(layoutManager);
         rvTest.setAdapter(testAdapter);
