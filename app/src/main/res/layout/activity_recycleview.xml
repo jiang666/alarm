@@ -10,7 +10,10 @@
        android:text="更新数据"/>
    <android.support.v7.widget.RecyclerView
        android:id="@+id/rv_test"
-       android:layout_height="match_parent"
+       android:layout_height="500dp"
        android:layout_width="match_parent"/>
-
+   <TextView
+       android:id="@+id/tv_show"
+       android:layout_height="wrap_content"
+       android:layout_width="wrap_content"/>
 </LinearLayout>

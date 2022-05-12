@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="serial_port">
+        <item>value_0</item>
+        <item>value_1</item>
+        <item>value_2</item>
+        <item>value_3</item>
+        <item>value_4</item>
+        <item>value_5</item>
+        <item>value_6</item>
+        <item>value_7</item>
+        <item>value_8</item>
+        <item>value_9</item>
+        <item>value_10</item>
+        <item>value_11</item>
+        <item>value_12</item>
+        <item>value_13</item>
+    </string-array>
+    <string-array name="video_port">
+        <item>红外探头</item>
+        <item>门磁开关</item>
+        <item>水位下限</item>
+    </string-array>
+    <string-array name="video_record_time">
+        <item>10秒</item>
+        <item>20秒</item>
+        <item>40秒</item>
+        <item>60秒</item>
+    </string-array>
+    <string-array name="video_record_save_place">
+        <item>SD卡</item>
+        <item>本地</item>
+    </string-array>
+</resources>

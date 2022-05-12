@@ -22,6 +22,12 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <!--配置权限，用来记录应用配置信息 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.microphone" />
+    <uses-feature android:name="android.hardware.camera.flash" />
     <!--手机定位信息，用来为语义等功能提供定位，提供更精准的服务-->
     <!--定位信息是敏感信息，可通过Setting.setLocationEnable(false)关闭定位请求 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -61,12 +67,47 @@
         <!--动画-->
         <activity android:name=".AnimationActivity"/>
 
+        <!--拍照-->
+        <activity android:name=".CameraActivity"/>
+        <!--滚动文字-->
+        <activity android:name=".ScrollTextActivity"/>
         <!--推荐和热门-->
         <activity android:name=".StellarActivity"/>
         <!--流布局-->
         <activity android:name=".FlowActivity"/>
         <!--流布局-->
         <activity android:name=".FlowTestActivity"/>
+
+        <!--FramentActivity-->
+        <activity android:name=".FragmentActivity"/>
+
+        <!--kt-->
+        <activity android:name=".KotlinActivity"/>
+        <!--本地视频截屏-->
+        <activity android:name=".VideoScreenshotsActivity"/>
+
+        <!--图案解锁-->
+        <activity android:name=".ImageUnlockActivity"/>
+        <!--测试Activity-->
+        <activity android:name=".TestActivity"/>
+
+        <!--图片移动-->
+        <activity android:name=".ImageMoveActivity"/>
+
+        <!--顶部上划-->
+        <activity android:name=".TopMoveActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <!--Evenbus  测试-->
+        <activity android:name=".evenbus.EvenbusActivity" />
+
+        <!--Evenbus  测试-->
+        <activity android:name=".evenbus.EvenbusTActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--底部按钮切换动画-->
+        <activity android:name=".ButtomTapAnimActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
     </application>
 
 </manifest>

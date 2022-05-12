@@ -1,13 +1,31 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.jakewharton.butterknife'
 android {
+    signingConfigs {
+        release {
+            keyAlias 'share'
+            keyPassword 'jiang3124'
+            storeFile file("share.jks")
+            storePassword 'jiang3124'
+        }
+        debug {
+            keyAlias 'share'
+            keyPassword 'jiang3124'
+            storeFile file("share.jks")
+            storePassword 'jiang3124'
+        }
+    }
     compileSdkVersion 26
+    buildToolsVersion '26.0.3'
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
     defaultConfig {
         applicationId "com.example.alarm"
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters 'armeabi'
@@ -28,6 +46,7 @@ android {
 dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:design:26.1.0'
     compile files('libs/AIUI.jar')
     compile files('libs/Msc.jar')
     implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -38,7 +57,16 @@ dependencies {
     //classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-    compile "com.android.support:recyclerview-v7:25.3.1"
+    compile "com.android.support:recyclerview-v7:26.1.0"
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.github.orhanobut:logger:2.1.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+    implementation 'com.zhy:percent-support-extends:1.1.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation('org.greenrobot:eventbus:3.0.0') {
+        exclude module: 'support-compat'
+    }
+}
+repositories {
+    mavenCentral()
 }
