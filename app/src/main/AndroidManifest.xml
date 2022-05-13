@@ -109,6 +109,9 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <!--串口读取-->
         <activity android:name=".SerialPortActivity" />
+        <!--串口读取-->
+        <activity android:name=".RefreshRecycleViewActivity" />
+
     </application>
 
 </manifest>

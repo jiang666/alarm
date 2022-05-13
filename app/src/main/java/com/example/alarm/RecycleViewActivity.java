@@ -3,6 +3,7 @@ package com.example.alarm;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
@@ -36,12 +37,13 @@ public class RecycleViewActivity extends Activity {
     @BindView(R.id.bt_updata)
     Button btUpdata;
     @BindView(R.id.rv_test)
-    RefreshRecyclerView rvTest;
+    RecyclerView rvTest;
     List<String> list = new ArrayList<>();
     @BindView(R.id.tv_show)
     TextView tvShow;
     private TestAdapter testAdapter;
     private int click = 0;
+    Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,7 @@ public class RecycleViewActivity extends Activity {
         ButterKnife.bind(this);
         initData();
         testAdapter = new TestAdapter(this, list);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        GridLayoutManager layoutManager = new GridLayoutManager(this,4);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
         rvTest.setLayoutManager(layoutManager);
         rvTest.setAdapter(testAdapter);
@@ -180,6 +182,9 @@ public class RecycleViewActivity extends Activity {
                 case 21:
                     list.add("串口读取");
                     break;
+                case 22:
+                    list.add("下拉刷新");
+                    break;
                 default:
                     list.add("item" + i);
                     break;
@@ -277,6 +282,10 @@ public class RecycleViewActivity extends Activity {
                 break;
             case "串口读取":
                 intent = new Intent(this, SerialPortActivity.class);
+                startActivity(intent);
+                break;
+            case "下拉刷新":
+                intent = new Intent(this, RefreshRecycleViewActivity.class);
                 startActivity(intent);
                 break;
             default:

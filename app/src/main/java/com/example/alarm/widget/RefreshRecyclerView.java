@@ -193,8 +193,8 @@ public class RefreshRecyclerView extends RecyclerView {
                 int firstVisibleItemPosition = lm.findFirstVisibleItemPosition();
                 int top = -mHeaderMeasuredHeight + disY;
                 Log.e("=======", firstVisibleItemPosition + " ==========" + disY);
-                if(firstVisibleItemPosition == 0 && disY > 0){
-                //if( disY > 0){
+                //if(firstVisibleItemPosition == 0 && disY > 0){
+                if( disY > 0){
                     //切换头的状态
                     if(mHeaderState == DOWN_REFRESH_STATE && top >= 0){
                         //由下拉刷新变为释放刷新
@@ -270,7 +270,8 @@ public class RefreshRecyclerView extends RecyclerView {
         boolean isState = state == RecyclerView.SCROLL_STATE_IDLE;
         //最后一个条目显示的下标
         int lastVisibleItemPosition = lm.findLastVisibleItemPosition();
-        boolean isLastVisibleItem = lastVisibleItemPosition == getAdapter().getItemCount() - 1;
+        boolean isLastVisibleItem = lastVisibleItemPosition == getAdapter().getItemCount() - 2;
+        Log.e("======="," 滑动状态改变底部=========="+ isState + " " + lastVisibleItemPosition + "  " + (getAdapter().getItemCount() - 2));
         if(isState && isLastVisibleItem && !hasLoadMoreData && mOnLoadMoreListener != null){
             hasLoadMoreData = true;
             //显示脚
