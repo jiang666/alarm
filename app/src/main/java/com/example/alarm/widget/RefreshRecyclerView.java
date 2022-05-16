@@ -178,16 +178,17 @@ public class RefreshRecyclerView extends RecyclerView {
                 int[] rvLocation = new int[2];
                 getLocationInWindow(rvLocation);
 
-                /*//获取轮播图在窗体上的位置
+                //获取轮播图在窗体上的位置
                 int[] location = new int[2];
-                mSwitchImageView.getLocationInWindow(location);
+                if(mSwitchImageView != null){
+                    mSwitchImageView.getLocationInWindow(location);
 
-                //对比RecyclerView和轮播图的Y轴的值
-                if(location[1] < rvLocation[1]){
-                    //不处理
-                    return super.dispatchTouchEvent(ev);
-                }*/
-
+                    //对比RecyclerView和轮播图的Y轴的值
+                    if(location[1] < rvLocation[1]){
+                        //不处理
+                        return super.dispatchTouchEvent(ev);
+                    }
+                }
                 //条件 RecyclerView的第一个条目的下标是0 && 往下拽的行为
                 disY = moveY - downY;
                 int firstVisibleItemPosition = lm.findFirstVisibleItemPosition();

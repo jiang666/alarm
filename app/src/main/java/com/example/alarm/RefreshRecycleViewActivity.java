@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.alarm.adapter.RefreshTestAdapter;
@@ -47,6 +50,11 @@ public class RefreshRecycleViewActivity extends Activity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
         rvTest.setLayoutManager(layoutManager);
+        TextView textView = new TextView(this);
+        textView.setText("测试滚动");
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,50);
+        textView.setLayoutParams(params);
+        rvTest.addSwitchImageView(textView);
         rvTest.setAdapter(testAdapter);
         rvTest.setOnRefreshListener(new RefreshRecyclerView.OnRefreshListener() {
             @Override
