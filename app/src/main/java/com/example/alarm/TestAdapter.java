@@ -5,6 +5,7 @@ import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,8 @@ public class TestAdapter extends RecyclerView.Adapter {
     private TestAdapter.onRecyclerViewItemClickListener onRecyclerViewItemClickListener;
     private List<String> mList;
     private Context mContent;
-    private int ooooo;
+    private int onClickItem;
+    private int rowSize =6;
 
     public TestAdapter(Context context, List<String> list) {
         this.mContent = context;
@@ -32,24 +34,29 @@ public class TestAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         final CommonDialogHolder commonDialogHolder = (CommonDialogHolder) holder;;
-
+        /**
+         * 解决方案　１、添加空数据补全
+         * 　　　　　２、
+         */
         //GridLayoutManager layoutManager = new GridLayoutManager(this, 4);设置为4时 S型数据
         // 6->11   11->6
-
         final int positiona;
         //S形数据
-        if(position/4%2 == 1){
-            positiona = (position/4+1)*4-position%4-1;
+        if(position/rowSize%2 == 1){
+            positiona = (position/rowSize+1)*rowSize-position%rowSize-1;
         }else {
             positiona = holder.getAdapterPosition();
         }
+
         //正常数据
         //positiona = holder.getAdapterPosition();
+
         if(positiona >= mList.size())return;
         String ddd = mList.get(positiona);
+        if(ddd.equals("null"))return;
         if(ddd.length() > 1) ddd = phoneMask(ddd);
         commonDialogHolder.tvData.setText(ddd);
-        if (ooooo == positiona) {
+        if (onClickItem == positiona) {
             commonDialogHolder.tvData.setTextColor(Color.GREEN);
         }else {
             commonDialogHolder.tvData.setTextColor(Color.BLUE);
@@ -94,7 +101,11 @@ public class TestAdapter extends RecyclerView.Adapter {
         this.onRecyclerViewItemClickListener = onRecyclerViewItemClickListener;
     }
 
-    public void setOnItem(int ooooo) {
-        this.ooooo = ooooo;
+    public void setOnItem(int onClickItem) {
+        this.onClickItem = onClickItem;
+    }
+
+    public void setRowSize(int rowSize) {
+        this.rowSize = rowSize;
     }
 }

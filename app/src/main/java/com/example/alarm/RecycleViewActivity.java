@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.alarm.evenbus.EvenbusActivity;
 import com.example.alarm.widget.RefreshRecyclerView;
+import com.google.gson.Gson;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,6 +45,7 @@ public class RecycleViewActivity extends Activity {
     private TestAdapter testAdapter;
     private int click = 0;
     Handler mHandler = new Handler();
+    private int spanCount =6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +54,16 @@ public class RecycleViewActivity extends Activity {
         ButterKnife.bind(this);
         initData();
         testAdapter = new TestAdapter(this, list);
-        GridLayoutManager layoutManager = new GridLayoutManager(this,4);
-        layoutManager.setOrientation(OrientationHelper.VERTICAL);
+        testAdapter.setRowSize(spanCount);
+        GridLayoutManager layoutManager = new GridLayoutManager(this,spanCount);
+        layoutManager.setOrientation(OrientationHelper.HORIZONTAL);
         rvTest.setLayoutManager(layoutManager);
         rvTest.setAdapter(testAdapter);
         btUpdata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                click = click + 1;
+                /*click = click + 1;
                 if (click % 2 == 0) {
                     list.clear();
                     for (int i = click; i < 30; i++) {
@@ -69,8 +72,15 @@ public class RecycleViewActivity extends Activity {
                 } else {
                     initData();
                 }
-
-                testAdapter.notifyDataSetChanged();
+                testAdapter.notifyDataSetChanged();*/
+                for (int i = 0; i < list.size(); i++) {
+                    //if("Clock".equals(list.get(i))){
+                    if("item30".equals(list.get(i))){
+                        testAdapter.setOnItem(i);
+                        testAdapter.notifyDataSetChanged();
+                        return;
+                    }
+                }
             }
         });
         testAdapter.setOnItemClickListener(new TestAdapter.onRecyclerViewItemClickListener() {
@@ -78,10 +88,10 @@ public class RecycleViewActivity extends Activity {
             public void onItemClick(int position) {
                 intoItem(position);
                 //点击条目变颜色
-                /*testAdapter.setOnItem(position);
+                testAdapter.setOnItem(position);
                 tvShow.setText(list.get(position));
                 testAdapter.notifyDataSetChanged();
-                Toast.makeText(RecycleViewActivity.this, " 点击 " + position, Toast.LENGTH_LONG).show();*/
+                Toast.makeText(RecycleViewActivity.this, " 点击 " + position, Toast.LENGTH_LONG).show();
             }
         });
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
@@ -114,7 +124,7 @@ public class RecycleViewActivity extends Activity {
 
     private void initData() {
         //S型数据  条目个数必须是24 倍数
-        for (int i = 0; i < 24; i++) {
+        for (int i = 0; i < 31; i++) {
             switch (i) {
                 case 0:
                     list.add("calljs");
@@ -190,6 +200,16 @@ public class RecycleViewActivity extends Activity {
                     break;
             }
         }
+        /**
+         * 解决最后一列向上又数据未满
+         */
+        int listsize = list.size();
+        int aa = listsize%spanCount;
+        int add = spanCount-aa;
+        for (int i = 0; i < add; i++) {
+            list.add(listsize-aa+i,"null");
+        }
+        Log.e("=======","list = " + new Gson().toJson(list));
     }
 
     private void intoItem(int position) {
