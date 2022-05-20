@@ -9,7 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.iflytek.cloud.Setting;
 
 import java.util.List;
 
@@ -50,7 +53,12 @@ public class TestAdapter extends RecyclerView.Adapter {
 
         //正常数据
         //positiona = holder.getAdapterPosition();
-
+        if((position+1)%rowSize == 0){
+            String ddd = mList.get(positiona);
+            Log.e("=====",ddd);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+            commonDialogHolder.ll_aaaaa.setLayoutParams(params);
+        }
         if(positiona >= mList.size())return;
         String ddd = mList.get(positiona);
         if(ddd.equals("null"))return;
@@ -88,9 +96,11 @@ public class TestAdapter extends RecyclerView.Adapter {
 
     public class CommonDialogHolder extends RecyclerView.ViewHolder {
         private TextView tvData;
+        private LinearLayout ll_aaaaa;
         public CommonDialogHolder(View itemView) {
             super(itemView);
             tvData  = (TextView) itemView.findViewById(R.id.tv_data);
+            ll_aaaaa  = (LinearLayout) itemView.findViewById(R.id.ll_aaaaa);
         }
     }
 

@@ -117,7 +117,7 @@ public class XMLparseActivity extends AppCompatActivity {
         //Please register permissions in the AndroidManifest.xml file <uses-permission android:name="android.permission.WRITE_CALENDAR" />
         XXPermissions.with(this)
                 // 申请单个权限
-                //.permission(Permission.RECORD_AUDIO)
+                .permission(Permission.RECORD_AUDIO)
                 // 申请多个权限
                 .permission(PERMISSIONS_STORAGE)
                 .request(new OnPermissionCallback() {

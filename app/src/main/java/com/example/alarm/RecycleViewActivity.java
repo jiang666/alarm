@@ -57,7 +57,7 @@ public class RecycleViewActivity extends Activity {
         testAdapter = new TestAdapter(this, list);
         testAdapter.setRowSize(spanCount);
         GridLayoutManager layoutManager = new GridLayoutManager(this,spanCount);
-        layoutManager.setOrientation(OrientationHelper.HORIZONTAL);
+        layoutManager.setOrientation(OrientationHelper.VERTICAL);
         rvTest.setLayoutManager(layoutManager);
         rvTest.setAdapter(testAdapter);
         btUpdata.setOnClickListener(new View.OnClickListener() {
