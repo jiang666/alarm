@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.example.alarm">
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <!--连接网络权限，用于执行云端语音能力 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -88,7 +90,7 @@
 
         <!--图案解锁-->
         <activity android:name=".ImageUnlockActivity"/>
-        <!--测试Activity-->
+        <!--图案解锁Activity-->
         <activity android:name=".TestActivity"/>
 
         <!--图片移动-->

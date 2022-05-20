@@ -5,7 +5,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.hardware.Camera;
@@ -24,11 +23,9 @@ import android.widget.Toast;
 
 import com.example.alarm.utils.FileUtil;
 import com.example.alarm.utils.ImgUtil;
+import com.example.alarm.utils.Util;
 import com.example.alarm.widget.CameraPreview;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 

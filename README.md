@@ -41,3 +41,8 @@ CameraActivity  添加图片上覆盖文字
 
 2022-05-10 添加串口读取
 SerialPortActivity
+
+2022-05-20
+ButtomTapAnimActivity  添加广播接收
+
+XMLparseActivity 添加权限申请

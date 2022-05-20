@@ -64,6 +64,7 @@ public class TestAdapter extends RecyclerView.Adapter {
         commonDialogHolder.tvData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Log.e("==========="," position = " + position + " " + "positiona = " + positiona);
                 onRecyclerViewItemClickListener.onItemClick(positiona);
             }
         });

@@ -1,31 +1,16 @@
 package com.example.alarm;
-
-import android.animation.Animator;
-import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewParent;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.alarm.utils.UIUtils;
 import com.example.alarm.widget.fly.StellarMap;
-
 import java.util.ArrayList;
 import java.util.Random;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

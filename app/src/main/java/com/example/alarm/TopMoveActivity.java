@@ -14,8 +14,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.example.alarm.utils.UIUtils;
 import com.example.alarm.viewpager.FragmentFactory;
 
+/**
+ * 顶部上划
+ */
 public class TopMoveActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
