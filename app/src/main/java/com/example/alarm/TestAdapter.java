@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.alarm.utils.UIUtils;
 import com.iflytek.cloud.Setting;
 
 import java.util.List;
@@ -57,6 +58,7 @@ public class TestAdapter extends RecyclerView.Adapter {
             String ddd = mList.get(positiona);
             Log.e("=====",ddd);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.topMargin = UIUtils.dip2Px(10);
             commonDialogHolder.ll_aaaaa.setLayoutParams(params);
         }
         if(positiona >= mList.size())return;
