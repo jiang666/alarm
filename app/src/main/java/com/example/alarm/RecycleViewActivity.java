@@ -202,6 +202,9 @@ public class RecycleViewActivity extends Activity {
                 case 22:
                     list.add("下拉刷新");
                     break;
+                case 23:
+                    list.add("socket");
+                    break;
                 default:
                     list.add("item" + i);
                     break;
@@ -313,6 +316,10 @@ public class RecycleViewActivity extends Activity {
                 break;
             case "下拉刷新":
                 intent = new Intent(this, RefreshRecycleViewActivity.class);
+                startActivity(intent);
+                break;
+            case "socket":
+                intent = new Intent(this, SockettestActivity.class);
                 startActivity(intent);
                 break;
             default:

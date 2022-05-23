@@ -111,8 +111,11 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <!--串口读取-->
         <activity android:name=".SerialPortActivity" />
-        <!--串口读取-->
+        <!--下拉刷新-->
         <activity android:name=".RefreshRecycleViewActivity" />
+        <!--TCP Socket 通信-->
+        <activity android:name=".SockettestActivity" />
+
 
     </application>
 
