@@ -3,7 +3,9 @@ package com.example.alarm;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,12 +15,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.alarm.evenbus.EvenbusActivity;
+import com.example.alarm.widget.RefreshRecyclerView;
+import com.google.gson.Gson;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -40,6 +45,8 @@ public class RecycleViewActivity extends Activity {
     TextView tvShow;
     private TestAdapter testAdapter;
     private int click = 0;
+    Handler mHandler = new Handler();
+    private int spanCount =6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +55,8 @@ public class RecycleViewActivity extends Activity {
         ButterKnife.bind(this);
         initData();
         testAdapter = new TestAdapter(this, list);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
+        testAdapter.setRowSize(spanCount);
+        GridLayoutManager layoutManager = new GridLayoutManager(this,spanCount);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
         rvTest.setLayoutManager(layoutManager);
         rvTest.setAdapter(testAdapter);
@@ -56,7 +64,7 @@ public class RecycleViewActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                click = click + 1;
+                /*click = click + 1;
                 if (click % 2 == 0) {
                     list.clear();
                     for (int i = click; i < 30; i++) {
@@ -65,8 +73,15 @@ public class RecycleViewActivity extends Activity {
                 } else {
                     initData();
                 }
-
-                testAdapter.notifyDataSetChanged();
+                testAdapter.notifyDataSetChanged();*/
+                for (int i = 0; i < list.size(); i++) {
+                    //if("Clock".equals(list.get(i))){
+                    if("item30".equals(list.get(i))){
+                        testAdapter.setOnItem(i);
+                        testAdapter.notifyDataSetChanged();
+                        return;
+                    }
+                }
             }
         });
         testAdapter.setOnItemClickListener(new TestAdapter.onRecyclerViewItemClickListener() {
@@ -74,10 +89,10 @@ public class RecycleViewActivity extends Activity {
             public void onItemClick(int position) {
                 intoItem(position);
                 //点击条目变颜色
-                /*testAdapter.setOnItem(position);
+                testAdapter.setOnItem(position);
                 tvShow.setText(list.get(position));
                 testAdapter.notifyDataSetChanged();
-                Toast.makeText(RecycleViewActivity.this, " 点击 " + position, Toast.LENGTH_LONG).show();*/
+                Toast.makeText(RecycleViewActivity.this, " 点击 " + position, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -87,7 +102,7 @@ public class RecycleViewActivity extends Activity {
     private void initData() {
 
         //S型数据  条目个数必须是24 倍数
-        for (int i = 0; i < 24; i++) {
+        for (int i = 0; i < 31; i++) {
             switch (i) {
                 case 0:
                     list.add("calljs");
@@ -158,11 +173,30 @@ public class RecycleViewActivity extends Activity {
                 case 22:
                     list.add("底部切换动画");
                     break;
+                case 23:
+                    list.add("串口读取");
+                    break;
+                case 24:
+                    list.add("下拉刷新");
+                    break;
+                case 25:
+                    list.add("socket");
+                    break;
                 default:
                     list.add("item" + i);
                     break;
             }
         }
+        /**
+         * 解决最后一列向上又数据未满
+         */
+        int listsize = list.size();
+        int aa = listsize%spanCount;
+        int add = spanCount-aa;
+        for (int i = 0; i < add; i++) {
+            list.add(listsize-aa+i,"null");
+        }
+        Log.e("=======","list = " + new Gson().toJson(list));
     }
 
     private void intoItem(int position) {
@@ -258,6 +292,18 @@ public class RecycleViewActivity extends Activity {
                 break;
             case "底部切换动画":
                 intent = new Intent(this, ButtomTapAnimActivity.class);
+                startActivity(intent);
+                break;
+            case "串口读取":
+                intent = new Intent(this, SerialPortActivity.class);
+                startActivity(intent);
+                break;
+            case "下拉刷新":
+                intent = new Intent(this, RefreshRecycleViewActivity.class);
+                startActivity(intent);
+                break;
+            case "socket":
+                intent = new Intent(this, SockettestActivity.class);
                 startActivity(intent);
                 break;
             default:

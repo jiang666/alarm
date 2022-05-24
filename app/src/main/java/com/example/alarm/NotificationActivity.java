@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * java 调用js
+ * 通知
  */
 
 public class NotificationActivity extends AppCompatActivity {

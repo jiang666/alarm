@@ -159,7 +159,7 @@ public class VideoScreenshotsActivity extends AppCompatActivity implements Textu
 
                 @Override
                 public void onClick(View v) {
-                    Bitmap bm = ImgUtil.getBitmapString(ll_conyent);
+                    Bitmap bm = ImgUtil.getBitmapForView(ll_conyent);
                     headImage.setImageBitmap(bm);
                 }
             });

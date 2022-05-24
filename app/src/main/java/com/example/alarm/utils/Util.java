@@ -1,4 +1,4 @@
-package com.example.alarm;
+package com.example.alarm.utils;
 
 import android.app.Activity;
 import android.graphics.Bitmap;

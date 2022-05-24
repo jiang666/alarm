@@ -1,30 +1,24 @@
-package com.example.alarm;
+package com.example.alarm.adapter;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.alarm.utils.UIUtils;
-import com.iflytek.cloud.Setting;
+import com.example.alarm.R;
 
 import java.util.List;
 
-public class TestAdapter extends RecyclerView.Adapter {
-    private TestAdapter.onRecyclerViewItemClickListener onRecyclerViewItemClickListener;
+public class RefreshTestAdapter extends RecyclerView.Adapter {
+    private RefreshTestAdapter.onRecyclerViewItemClickListener onRecyclerViewItemClickListener;
     private List<String> mList;
     private Context mContent;
-    private int onClickItem;
-    private int rowSize =6;
+    private int ooooo;
 
-    public TestAdapter(Context context, List<String> list) {
+    public RefreshTestAdapter(Context context, List<String> list) {
         this.mContent = context;
         this.mList = list;
     }
@@ -38,35 +32,24 @@ public class TestAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         final CommonDialogHolder commonDialogHolder = (CommonDialogHolder) holder;;
-        /**
-         * 解决方案　１、添加空数据补全
-         * 　　　　　２、
-         */
+
         //GridLayoutManager layoutManager = new GridLayoutManager(this, 4);设置为4时 S型数据
         // 6->11   11->6
-        final int positiona;
+
+        //final int positiona;
         //S形数据
-        if(position/rowSize%2 == 1){
-            positiona = (position/rowSize+1)*rowSize-position%rowSize-1;
+        /*if(position/4%2 == 1){
+            positiona = (position/4+1)*4-position%4-1;
         }else {
             positiona = holder.getAdapterPosition();
-        }
-
+        }*/
         //正常数据
         //positiona = holder.getAdapterPosition();
-        if((position+1)%rowSize == 0){
-            String ddd = mList.get(positiona);
-            Log.e("=====",ddd);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.topMargin = UIUtils.dip2Px(10);
-            commonDialogHolder.ll_aaaaa.setLayoutParams(params);
-        }
-        if(positiona >= mList.size())return;
-        String ddd = mList.get(positiona);
-        if(ddd.equals("null"))return;
+        if(position >= mList.size())return;
+        String ddd = mList.get(position);
         if(ddd.length() > 1) ddd = phoneMask(ddd);
         commonDialogHolder.tvData.setText(ddd);
-        if (onClickItem == positiona) {
+        if (ooooo == position) {
             commonDialogHolder.tvData.setTextColor(Color.GREEN);
         }else {
             commonDialogHolder.tvData.setTextColor(Color.BLUE);
@@ -74,8 +57,7 @@ public class TestAdapter extends RecyclerView.Adapter {
         commonDialogHolder.tvData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Log.e("==========="," position = " + position + " " + "positiona = " + positiona);
-                onRecyclerViewItemClickListener.onItemClick(positiona);
+                onRecyclerViewItemClickListener.onItemClick(position);
             }
         });
     }
@@ -98,11 +80,9 @@ public class TestAdapter extends RecyclerView.Adapter {
 
     public class CommonDialogHolder extends RecyclerView.ViewHolder {
         private TextView tvData;
-        private LinearLayout ll_aaaaa;
         public CommonDialogHolder(View itemView) {
             super(itemView);
             tvData  = (TextView) itemView.findViewById(R.id.tv_data);
-            ll_aaaaa  = (LinearLayout) itemView.findViewById(R.id.ll_aaaaa);
         }
     }
 
@@ -110,15 +90,11 @@ public class TestAdapter extends RecyclerView.Adapter {
         void onItemClick(int position);
     }
     //定义一个公用方法来实例化自定义接口
-    public void setOnItemClickListener(TestAdapter.onRecyclerViewItemClickListener onRecyclerViewItemClickListener) {
+    public void setOnItemClickListener(RefreshTestAdapter.onRecyclerViewItemClickListener onRecyclerViewItemClickListener) {
         this.onRecyclerViewItemClickListener = onRecyclerViewItemClickListener;
     }
 
-    public void setOnItem(int onClickItem) {
-        this.onClickItem = onClickItem;
-    }
-
-    public void setRowSize(int rowSize) {
-        this.rowSize = rowSize;
+    public void setOnItem(int ooooo) {
+        this.ooooo = ooooo;
     }
 }

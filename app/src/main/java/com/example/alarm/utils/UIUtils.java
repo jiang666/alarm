@@ -2,8 +2,10 @@ package com.example.alarm.utils;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import com.example.alarm.BaseApplication;
@@ -28,28 +30,34 @@ public class UIUtils {
 	public static Handler getHandler() {
 		return BaseApplication.getHandler();
 	}
-
 	/**
-	 * 根据id获取字符串
+	 * 得到Resource对象
 	 */
-	public static String getString(int id) {
-		return getContext().getResources().getString(id);
+	public static Resources getResources() {
+		return getContext().getResources();
 	}
 
 	/**
-	 * 根据id获取图片
+	 * 得到String.xml中的字符串信息
 	 */
-	public static Drawable getDrawable(int id) {
-		return getContext().getResources().getDrawable(id);
+	public static String getString(int resId) {
+		return getResources().getString(resId);
+	}
+
+
+	/**
+	 * 得到String.xml中的字符串数组信息
+	 */
+	public static String[] getStrings(int resId) {
+		return getResources().getStringArray(resId);
 	}
 
 	/**
-	 * 根据id获取颜色值
+	 * 得到Color.xml中的颜色信息
 	 */
-	public static int getColor(int id) {
-		return getContext().getResources().getColor(id);
+	public static int getColor(int resId) {
+		return getResources().getColor(resId);
 	}
-
 	/**
 	 * 获取颜色状态集合
 	 */
@@ -114,5 +122,43 @@ public class UIUtils {
 		} else {
 			getHandler().post(runnable);
 		}
+	}
+
+	/**
+	 * 得到应用程序包名
+	 *
+	 * @return
+	 */
+	public static String getPackageName() {
+		return getContext().getPackageName();
+	}
+
+	/**
+	 * dip-->px
+	 *
+	 * @param dip
+	 * @return
+	 */
+	public static int dip2Px(int dip) {
+        /*
+        1.  px/(ppi/160) = dp
+        2.  px/dp = density
+         */
+
+		//取得当前手机px和dp的倍数关系
+		float density = getResources().getDisplayMetrics().density;
+        Log.e("=============","density = " + density );
+		int px = (int) (dip * density + .5f);
+		return px;
+	}
+
+	public static int px2Dip(int px) {
+		// 2.  px/dp = density
+
+		//取得当前手机px和dp的倍数关系
+		float density = getResources().getDisplayMetrics().density;
+
+		int dip = (int) (px / density + .5f);
+		return dip;
 	}
 }

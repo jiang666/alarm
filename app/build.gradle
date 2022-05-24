@@ -66,6 +66,7 @@ dependencies {
     implementation('org.greenrobot:eventbus:3.0.0') {
         exclude module: 'support-compat'
     }
+    implementation 'com.github.getActivity:XXPermissions:13.6'
 }
 repositories {
     mavenCentral()

@@ -1,4 +1,4 @@
-package com.example.alarm;
+package com.example.alarm.bean;
 
 public class TestBean {
     String datetime;
