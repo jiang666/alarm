@@ -74,3 +74,11 @@ SerialPortActivity
 ButtomTapAnimActivity  添加广播接收
 
 XMLparseActivity 添加权限申请
+
+ClockActivity 国际化时间显示 圆形钟表
+
+监听横竖屏
+android:configChanges="orientation|screenSize"
+ android:screenOrientation="portrait"//不能横屏
+
+ SystemFragment 商品展示页 切换左侧分类 ListView + StickyListHeadersListView 参考黑马外卖商品页

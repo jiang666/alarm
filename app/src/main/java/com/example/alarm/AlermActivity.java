@@ -22,7 +22,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 import static java.lang.Thread.sleep;
 
@@ -76,6 +80,52 @@ public class AlermActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         },currentTime.get(Calendar.HOUR_OF_DAY), currentTime.get(Calendar.MINUTE), false).show();
-    }
+        String format = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat d_f = new SimpleDateFormat(format);//设置日期格式
+        d_f.setTimeZone(TimeZone.getTimeZone("GMT+08"));  //设置时区，+08是北京时间
+        String date = d_f.format(new Date());
 
+        System.out.println("获取的时间为："  +date);
+
+        d_f.setTimeZone(TimeZone.getTimeZone("GMT+10:30"));  //设置时区，+08是北京时间
+        String Gmtdate = d_f.format(new Date());
+
+        System.out.println("获取的时间为："  +Gmtdate);
+
+        try {
+            System.out.println("时间差："  + (stringToLong(Gmtdate,format) - stringToLong(date,format)));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+/*————————————————
+        版权声明：本文为CSDN博主「我是giggleman」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+        原文链接：https://blog.csdn.net/ruiruiddd/article/details/106543067*/
+    }
+    public static long stringToLong(String strTime, String formatType)
+            throws ParseException {
+        Date date = stringToDate(strTime, formatType); // String类型转成date类型
+        if (date == null) {
+            return 0;
+        } else {
+            long currentTime = dateToLong(date); // date类型转成long类型
+            return currentTime;
+        }
+    }
+    // date类型转换为long类型
+    // date要转换的date类型的时间
+    public static long dateToLong(Date date) {
+        return date.getTime();
+    }
+    // string类型转换为date类型
+    // strTime要转换的string类型的时间，formatType要转换的格式yyyy-MM-dd HH:mm:ss//yyyy年MM月dd日
+    // HH时mm分ss秒，
+    // strTime的时间格式必须要与formatType的时间格式相同
+    public static Date stringToDate(String strTime, String formatType)
+            throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat(formatType);
+        Date date = null;
+        date = formatter.parse(strTime);
+        return date;
+    }
 }

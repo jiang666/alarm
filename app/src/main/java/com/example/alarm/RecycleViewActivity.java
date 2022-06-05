@@ -1,6 +1,9 @@
 package com.example.alarm;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -74,14 +77,15 @@ public class RecycleViewActivity extends Activity {
                     initData();
                 }
                 testAdapter.notifyDataSetChanged();*/
-                for (int i = 0; i < list.size(); i++) {
+
+                /*for (int i = 0; i < list.size(); i++) {
                     //if("Clock".equals(list.get(i))){
                     if("item30".equals(list.get(i))){
                         testAdapter.setOnItem(i);
                         testAdapter.notifyDataSetChanged();
                         return;
                     }
-                }
+                }*/
             }
         });
         testAdapter.setOnItemClickListener(new TestAdapter.onRecyclerViewItemClickListener() {
@@ -108,7 +112,7 @@ public class RecycleViewActivity extends Activity {
                     list.add("calljs");
                     break;
                 case 1:
-                    list.add("Clock");
+                    list.add("clock");
                     break;
                 case 2:
                     list.add("main");
@@ -281,6 +285,7 @@ public class RecycleViewActivity extends Activity {
                 break;
             case "蓝牙接收端":
                 intent = new Intent(this, BluetoothClientActivity.class);
+                startActivity(intent);
                 break;
             case "顶部移动":
                 intent = new Intent(this, TopMoveActivity.class);
