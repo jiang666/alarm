@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import com.example.alarm.BaseApplication;
@@ -146,6 +147,7 @@ public class UIUtils {
 
 		//取得当前手机px和dp的倍数关系
 		float density = getResources().getDisplayMetrics().density;
+        Log.e("=============","density = " + density );
 		int px = (int) (dip * density + .5f);
 		return px;
 	}

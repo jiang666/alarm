@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.alarm.bean.TestBean;
 import com.example.alarm.utils.DomUtils;
+import com.example.alarm.utils.UIUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hjq.permissions.OnPermissionCallback;
@@ -229,6 +230,11 @@ public class XMLparseActivity extends AppCompatActivity {
         String path = "sdcard/touch/bbb.txt";
         TestBean testBean = new Gson().fromJson(readFile(path), TestBean.class);
         Log.e("==date time==", testBean.getDatetime());
+        String cachePath = getCachePath()+ "touch/bbb.txt";
+        TestBean cacheBean = new Gson().fromJson(readFile(cachePath), TestBean.class);
+        if(cacheBean != null && cacheBean.getDatetime()!= null){
+            mainButton.setText(cacheBean.getDatetime());
+        }
         //读取list
         Type listType = new TypeToken<List<TestBean>>() {
         }.getType();
@@ -355,15 +361,34 @@ public class XMLparseActivity extends AppCompatActivity {
         if (!file1.exists()) {
             file1.mkdirs();
         }
+        File file2 = new File(getCachePath()+"touch/");
+        if (!file2.exists()) {
+            file2.mkdirs();
+        }
         writeFile("sdcard/touch/aaa.txt", requestStr, false);
         Log.e("=======", requestStr);
         TestBean testBean = new TestBean();
-        testBean.setDatetime("000000000");
+        testBean.setDatetime("openPerssion");
         writeFile("sdcard/touch/bbb.txt", new Gson().toJson(testBean), false);
+        Log.e("=======","bbb " + getCachePath()+ "touch/bbb.txt");
+        writeFile(getCachePath()+ "touch/bbb.txt", new Gson().toJson(testBean), false);
         testBeans.add(testBean);
         writeFile("sdcard/touch/ccc.txt", new Gson().toJson(testBeans), false);
         mapBeans.put("000", "000000");
         mapBeans.put("111", "111111");
         writeFile("sdcard/touch/ddd.txt", new Gson().toJson(mapBeans), false);
     }
+
+    /**
+     * 获取应用的cache目录
+     */
+    public static String getCachePath() {
+        File f = UIUtils.getContext().getCacheDir();
+        if (null == f) {
+            return null;
+        } else {
+            return f.getAbsolutePath() + "/";
+        }
+    }
+
 }

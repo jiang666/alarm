@@ -276,6 +276,12 @@ public class AnimationActivity extends AppCompatActivity {
     }
     //缩小
     private void scaleAnimation(){
+/*<<<<<<< HEAD
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 2f, 1f, 2f);
+        scaleAnimation.setDuration(500);
+        scaleAnimation.setRepeatCount(8);//动画的反复次数
+        //scaleAnimation.setRepeatCount(Animation.INFINITE);//无限次重复
+=======*/
         ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 0f, 1f, 0f);
         scaleAnimation.setDuration(5000);
         scaleAnimation.setRepeatCount(0);//动画的反复次数

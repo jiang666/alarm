@@ -30,6 +30,11 @@
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature android:name="android.hardware.microphone" />
     <uses-feature android:name="android.hardware.camera.flash" />
+    <!--创建rfcomm需要-->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <!--取消蓝牙扫描需要-->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <!--手机定位信息，用来为语义等功能提供定位，提供更精准的服务-->
     <!--定位信息是敏感信息，可通过Setting.setLocationEnable(false)关闭定位请求 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -95,6 +100,10 @@
 
         <!--图片移动-->
         <activity android:name=".ImageMoveActivity"/>
+        <!--蓝牙服务端-->
+        <activity android:name=".BluetoothServerActivity"/>
+        <!--蓝牙接收端-->
+        <activity android:name=".BluetoothClientActivity"/>
 
         <!--顶部上划-->
         <activity android:name=".TopMoveActivity"

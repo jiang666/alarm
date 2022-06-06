@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:text="正在测试前置摄像头（点击此处切换）"
+        android:textSize="14dp" />
+
+    <com.example.alarm.widget.ClockView
+        android:layout_gravity="center"
+        android:id="@+id/clock_view"
+        android:layout_height="100dp"
+        android:layout_width="100dp"/>
+
+
+
+</LinearLayout>

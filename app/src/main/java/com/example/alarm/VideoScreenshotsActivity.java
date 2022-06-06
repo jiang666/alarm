@@ -21,10 +21,14 @@ import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.VideoView;
+
+import com.example.alarm.utils.ImgUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -34,6 +38,7 @@ import java.io.OutputStream;
 import java.util.Calendar;
 
 import static android.media.MediaMetadataRetriever.OPTION_PREVIOUS_SYNC;
+import static java.lang.Thread.sleep;
 
 /**
  * 本地视频截图
@@ -54,18 +59,33 @@ public class VideoScreenshotsActivity extends AppCompatActivity implements Textu
     private int totalTime;
     private boolean isTouch = false;
     private int currentTime;
+    private LinearLayout ll_conyent;
+    private TextView tvUpdataThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_videoscreenshot);
-
+        ll_conyent =  (LinearLayout)findViewById(R.id.ll_conyent);
         tv = (TextureView) findViewById(R.id.textureView1);
         tv.setSurfaceTextureListener(this);
+        tvUpdataThread = (TextView) findViewById(R.id.tv_updata_thread);
 
         videoView = (VideoView) findViewById(R.id.vv_player);
         seekbar = (SeekBar) findViewById(R.id.sb_select);
         headImage = (ImageView) findViewById(R.id.iv_head);
+        /*new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    sleep(3000);
+                    tvUpdataThread.setText("0000000000000000");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();*/
         //initData();//无效
     }
 
@@ -117,13 +137,30 @@ public class VideoScreenshotsActivity extends AppCompatActivity implements Textu
 
             mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mp.start();
+            mp.setLooping(true);
+            /*mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
 
+                }
+            });*/
+            //mediaPlayer播放完成后不走回调，检查下是否设置了mediaPlayer.setLooping(true);
+            //设置循环播放就不会走onCompletion回调。
             Button b = (Button) findViewById(R.id.textureViewButton);
             b.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
                     VideoScreenshotsActivity.this.getBitmap(tv);
+                }
+            });
+            Button Viewtobitmap = (Button) findViewById(R.id.Viewtobitmap);
+            Viewtobitmap.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Bitmap bm = ImgUtil.getBitmapForView(ll_conyent);
+                    headImage.setImageBitmap(bm);
                 }
             });
         } catch (IllegalArgumentException e) {
