@@ -206,11 +206,13 @@ public class ClockView extends View {
         String date = d_f.format(new Date());
         Log.e("=========","data  " + date);
         Date zonedate = new Date();
+        Log.e("=========","偏差 " + date);
         try {
             zonedate = stringToDate(date,format);
         }catch (ParseException e){
 
         }
+        Log.e("=========","偏差 " + (zonedate.getTime() - new Date().getTime())/600000);
         calendar = Calendar.getInstance();
         calendar.setTime(zonedate);
 
