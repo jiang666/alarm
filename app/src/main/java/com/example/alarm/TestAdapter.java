@@ -32,6 +32,8 @@ public class TestAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContent).inflate(R.layout.recycleview_item, parent, false);
+        /*view.getLayoutParams().height = mRecyclerViewHeight;//设置单个条目高度
+        RecognitionViewHolder holder = new RecognitionViewHolder(view);*/
         return new CommonDialogHolder(view);
     }
 

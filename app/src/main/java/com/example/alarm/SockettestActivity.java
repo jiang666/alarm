@@ -71,14 +71,13 @@ public class SockettestActivity extends Activity {
 				// TODO Auto-generated method stub
 				  try {				        	
 			            if (socket != null && socket.isConnected()) {
-
-			        	 //byte[] dyopen = {(byte)0x7b, (byte)0x01, (byte)0x01, (byte)0x22, (byte)0x33,(byte)0x22,(byte)0x36,(byte)0x7d};
-			        	 dos =new  DataOutputStream(socket.getOutputStream()); 			        	
-			        	 dos.write("hello world".getBytes("UTF-8"));
-			        	 Log.e("======","发送数据");
-			        	 dos.close();//没有close 不发出值，服务端无接收打印
-
-			        	 //Socket is closed  添加下面重连
+			            	//byte[] dyopen = {(byte)0x7b, (byte)0x01, (byte)0x01, (byte)0x22, (byte)0x33,(byte)0x22,(byte)0x36,(byte)0x7d};
+							dos =new  DataOutputStream(socket.getOutputStream());
+							dos.write("hello world".getBytes("UTF-8"));
+							Log.e("======","发送数据");
+							dos.close();//没有close 不发出值，服务端无接收打印
+							socket.shutdownOutput();
+							//Socket is closed  添加下面重连
 			        	 new Thread(new Runnable() {
 							 @Override
 							 public void run() {
