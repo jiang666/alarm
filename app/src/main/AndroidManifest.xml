@@ -126,6 +126,9 @@
         <!--TCP Socket 通信-->
         <activity android:name=".SockettestActivity" />
 
+        <!--流式布局-->
+        <activity android:name=".FlowRecycleViewActivity" />
+
 
     </application>
 

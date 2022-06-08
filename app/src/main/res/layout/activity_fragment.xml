@@ -85,7 +85,10 @@
                         />
                 </LinearLayout>
             </com.zhy.android.percent.support.PercentRelativeLayout>
-
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"/>
             <LinearLayout
                 android:layout_height="0dp"
                 android:layout_weight="1"

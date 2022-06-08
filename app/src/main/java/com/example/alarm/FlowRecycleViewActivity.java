@@ -1,15 +1,11 @@
 package com.example.alarm;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -19,16 +15,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.alarm.adapter.FlowTestAdapter;
 import com.example.alarm.evenbus.EvenbusActivity;
-import com.example.alarm.widget.RefreshRecyclerView;
 import com.google.gson.Gson;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -38,7 +29,7 @@ import butterknife.ButterKnife;
  * Created by jianglei on 2018/1/14.
  */
 
-public class RecycleViewActivity extends Activity {
+public class FlowRecycleViewActivity extends Activity {
     private static final String TAG = "RecycleViewActivity";
 
     @BindView(R.id.bt_updata)
@@ -48,10 +39,10 @@ public class RecycleViewActivity extends Activity {
     List<String> list = new ArrayList<>();
     @BindView(R.id.tv_show)
     TextView tvShow;
-    private TestAdapter testAdapter;
+    private FlowTestAdapter testAdapter;
     private int click = 0;
     Handler mHandler = new Handler();
-    private int spanCount =6;
+    private int spanCount =2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,40 +50,13 @@ public class RecycleViewActivity extends Activity {
         setContentView(R.layout.activity_recycleview);
         ButterKnife.bind(this);
         initData();
-        testAdapter = new TestAdapter(this, list);
+        testAdapter = new FlowTestAdapter(this, list);
         testAdapter.setRowSize(spanCount);
-        //StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(spanCount,StaggeredGridLayoutManager.VERTICAL);//瀑布流
-        //LinearLayoutManager layoutManager = new LinearLayoutManager(this);//线性布局
-        GridLayoutManager layoutManager = new GridLayoutManager(this,spanCount);//网格布局管理器
-        layoutManager.setOrientation(OrientationHelper.VERTICAL);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(spanCount,StaggeredGridLayoutManager.VERTICAL);//瀑布流
         rvTest.setLayoutManager(layoutManager);
         rvTest.setAdapter(testAdapter);
-        btUpdata.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                /*click = click + 1;
-                if (click % 2 == 0) {
-                    list.clear();
-                    for (int i = click; i < 30; i++) {
-                        list.add("ts " + i);
-                    }
-                } else {
-                    initData();
-                }
-                testAdapter.notifyDataSetChanged();*/
-
-                /*for (int i = 0; i < list.size(); i++) {
-                    //if("Clock".equals(list.get(i))){
-                    if("item30".equals(list.get(i))){
-                        testAdapter.setOnItem(i);
-                        testAdapter.notifyDataSetChanged();
-                        return;
-                    }
-                }*/
-            }
-        });
-        testAdapter.setOnItemClickListener(new TestAdapter.onRecyclerViewItemClickListener() {
+        testAdapter.setOnItemClickListener(new FlowTestAdapter.onRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 intoItem(position);
@@ -100,7 +64,7 @@ public class RecycleViewActivity extends Activity {
                 testAdapter.setOnItem(position);
                 tvShow.setText(list.get(position));
                 testAdapter.notifyDataSetChanged();
-                Toast.makeText(RecycleViewActivity.this, " 点击 " + position, Toast.LENGTH_LONG).show();
+                Toast.makeText(FlowRecycleViewActivity.this, " 点击 " + position, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -195,9 +159,6 @@ public class RecycleViewActivity extends Activity {
                     break;
                 case 25:
                     list.add("socket");
-                    break;
-                case 26:
-                    list.add("流式布局");
                     break;
                 default:
                     list.add("item" + i);
@@ -322,10 +283,6 @@ public class RecycleViewActivity extends Activity {
                 break;
             case "socket":
                 intent = new Intent(this, SockettestActivity.class);
-                startActivity(intent);
-                break;
-            case "流式布局":
-                intent = new Intent(this, FlowRecycleViewActivity.class);
                 startActivity(intent);
                 break;
             default:

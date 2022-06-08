@@ -199,20 +199,8 @@ public class ClockView extends View {
             clockSize=minSize;
         }
     }
-    private void getTime() {
-        String format = "yyyy-MM-dd HH:mm:ss";
-        SimpleDateFormat d_f = new SimpleDateFormat(format);//设置日期格式
-        d_f.setTimeZone(TimeZone.getTimeZone(timezone));  //设置时区，+08是北京时间
-        String date = d_f.format(new Date());
-        Log.e("=========","data  " + date);
-        Date zonedate = new Date();
-        Log.e("=========","偏差 " + date);
-        try {
-            zonedate = stringToDate(date,format);
-        }catch (ParseException e){
+    /*private void getTime() {
 
-        }
-        Log.e("=========","偏差 " + (zonedate.getTime() - new Date().getTime())/600000);
         calendar = Calendar.getInstance();
         calendar.setTime(zonedate);
 
@@ -231,22 +219,37 @@ public class ClockView extends View {
         second = calendar.get(Calendar.SECOND);
 
         System.out.println(hour + ":" + minute + ":" + second);
-    }
+    }*/
 
-    private Date stringToDate(String strTime, String formatType)
-            throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat(formatType);
-        Date date = formatter.parse(strTime);
-        return date;
-    }
     public void setTimezone(String timezone){
          this.timezone = timezone;
+    }
+
+    public void setTimezoneData(Date zonedate){
+        calendar = Calendar.getInstance();
+        calendar.setTime(zonedate);
+
+        //calendar=Calendar.getInstance();
+        int judgehour = calendar.get(Calendar.HOUR_OF_DAY);
+        if(judgehour >= 18 || judgehour < 6){
+            clockPaint.setColor(CLOCK_BACKGROUND_BACK_COLOR);
+            clockTextPaint.setColor(TEXT_BACK_COLOR);
+
+        }else {
+            clockPaint.setColor(CLOCK_BACKGROUND_COLOR);
+            clockTextPaint.setColor(TEXT_COLOR);
+        }
+        hour = calendar.get(Calendar.HOUR);
+        minute = calendar.get(Calendar.MINUTE);
+        second = calendar.get(Calendar.SECOND);
+        invalidate();
+        //System.out.println(hour + ":" + minute + ":" + second);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        getTime();
+        //getTime();
         canvas.translate(clockSize / 2, clockSize / 2);
         drawClock(canvas);
         drawClockRing(canvas);
@@ -257,7 +260,7 @@ public class ClockView extends View {
         drawCenterOuterCircle(canvas);
         drawSecondPointer(canvas,second*DEGREE);
         drawCenterInnerCircle(canvas);
-        postInvalidateDelayed(1000);
+        //postInvalidateDelayed(1000);
     }
     /**
      * 画表盘背景

@@ -1,11 +1,13 @@
 package com.example.alarm;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.example.alarm.viewpager.DataqueryFragment;
@@ -85,16 +87,22 @@ public class FragmentActivity extends AppCompatActivity implements View.OnClickL
         tvAlarm.setOnClickListener(this);
         tvData.setOnClickListener(this);
         //绑定点击事件
-        viewPager.setOnPageChangeListener(new MyPagerChangeListener()) ;
+        viewPager.setOnPageChangeListener(new MyPagerChangeListener());
         //把Fragment添加到List集合里面
         mlist = new ArrayList<>();
-        mlist.add(new DataqueryFragment() );
-        mlist.add(new WarningDataFragment() );
-        mlist.add(new SystemFragment() );
+        mlist.add(new DataqueryFragment());
+        mlist.add(new WarningDataFragment());
+        mlist.add(new SystemFragment());
         adapter = new TabFragmentPagerAdapter(getSupportFragmentManager(), mlist);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);
+        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+        tabs.addTab(tabs.newTab().setText("数据"));
+        tabs.addTab(tabs.newTab().setText("警告查询"));
+        tabs.addTab(tabs.newTab().setText("分类条目"));
+        tabs.setupWithViewPager(viewPager);
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -122,9 +130,9 @@ public class FragmentActivity extends AppCompatActivity implements View.OnClickL
                 break;
         }
     }
+
     /**
      * 设置一个ViewPager的侦听事件，当左右滑动ViewPager时菜单栏被选中状态跟着改变
-     *
      */
     public class MyPagerChangeListener implements ViewPager.OnPageChangeListener {
 
@@ -159,6 +167,7 @@ public class FragmentActivity extends AppCompatActivity implements View.OnClickL
         }
 
     }
+
     private void openFragment(int page) {
         //FragmentManager FMs = getSupportFragmentManager();
         //FragmentTransaction MfragmentTransactions = FMs.beginTransaction();
