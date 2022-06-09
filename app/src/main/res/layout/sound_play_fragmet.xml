@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="正在测试：左声道"
+        android:layout_gravity="center_horizontal"
+        android:textSize="34dp" />
+<LinearLayout
+    android:layout_height="wrap_content"
+    android:layout_marginTop="47dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_width="wrap_content"
+    android:orientation="horizontal">
+    <ImageView
+        android:layout_height="40dp"
+        android:layout_width="40dp"
+        android:layout_gravity="center"
+        android:src="@drawable/sound"
+        />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="20dp" />
+</LinearLayout>
+    <View
+        android:layout_height="1dp"
+        android:layout_width="786dp"
+        android:layout_marginTop="98dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#000000" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="786dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <Button
+            android:id="@+id/bt_soundrestart"
+            android:layout_width="220dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/applybt_bg"
+            android:layout_toStartOf="@+id/bt_soundprevious"
+            android:text="重测"
+            android:textSize="36dp" />
+        <Button
+            android:id="@+id/bt_soundprevious"
+            android:layout_width="220dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/applybt_bg"
+            android:layout_alignParentBottom="true"
+            android:layout_toStartOf="@+id/bt_soundnext"
+            android:text="上一页"
+            android:textSize="36dp" />
+
+        <Button
+            android:id="@+id/bt_soundnext"
+            android:layout_width="220dp"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/applybt_bg"
+            android:layout_alignParentEnd="true"
+            android:text="下一页"
+            android:textSize="36dp" />
+    </RelativeLayout>
+</LinearLayout>
