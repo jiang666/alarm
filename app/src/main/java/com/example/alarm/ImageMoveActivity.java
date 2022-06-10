@@ -1,5 +1,6 @@
 package com.example.alarm;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -14,8 +15,10 @@ import java.io.File;
  * 图案移动
  */
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.example.alarm.utils.ImgUtil;
+import com.example.alarm.widget.DrawLineView;
 import com.example.alarm.widget.StarView;
 
 public class ImageMoveActivity extends AppCompatActivity {
@@ -26,8 +29,8 @@ public class ImageMoveActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_move);
         FrameLayout layout=(FrameLayout)findViewById(R.id.layout);//获得帧布局
-
-        final StarView star=new StarView(this);//创建一个自定义的starView的View对象
+        DrawLineView star=new DrawLineView(this);
+        /*final StarView star=new StarView(this);//创建一个自定义的starView的View对象
         String filepath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "photos" + File.separator + "0138a6d52af2419088d5f78a9368df75.jpg";
         Log.e(TAG, filepath);
         File file = new File(filepath);
@@ -46,6 +49,11 @@ public class ImageMoveActivity extends AppCompatActivity {
                 return true;
             }
         });
-        layout.addView(star);//向布局中添加组件
+        layout.addView(star);//向布局中添加组件*/
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
+        star.setLayoutParams(params);
+        star.setBackgroundColor(Color.BLUE);
+        star.setClickable(true);//解决只接收 down 事件
+        layout.addView(star);
     }
 }

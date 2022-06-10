@@ -16,6 +16,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,7 @@ public class RecycleViewActivity extends Activity {
     private int click = 0;
     Handler mHandler = new Handler();
     private int spanCount =6;
+    private GridLayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,14 +65,17 @@ public class RecycleViewActivity extends Activity {
         testAdapter.setRowSize(spanCount);
         //StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(spanCount,StaggeredGridLayoutManager.VERTICAL);//瀑布流
         //LinearLayoutManager layoutManager = new LinearLayoutManager(this);//线性布局
-        GridLayoutManager layoutManager = new GridLayoutManager(this,spanCount);//网格布局管理器
+        layoutManager = new GridLayoutManager(this,spanCount);//网格布局管理器
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
         rvTest.setLayoutManager(layoutManager);
         rvTest.setAdapter(testAdapter);
         btUpdata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //rvTest.scrollToPosition(27);
+                //rvTest.smoothScrollToPosition(27);
+                //layoutManager.scrollToPositionWithOffset(5,0);
+                //layoutManager.scrollToPositionWithOffset(5,0); //LinearLayoutManager 有次方法
                 /*click = click + 1;
                 if (click % 2 == 0) {
                     list.clear();
