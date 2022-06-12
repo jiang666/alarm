@@ -204,6 +204,9 @@ public class RecycleViewActivity extends Activity {
                 case 26:
                     list.add("流式布局");
                     break;
+                case 27:
+                    list.add("绘制图形");
+                    break;
                 default:
                     list.add("item" + i);
                     break;
@@ -331,6 +334,10 @@ public class RecycleViewActivity extends Activity {
                 break;
             case "流式布局":
                 intent = new Intent(this, FlowRecycleViewActivity.class);
+                startActivity(intent);
+                break;
+            case "绘制图形":
+                intent = new Intent(this, DrawDemoActivity.class);
                 startActivity(intent);
                 break;
             default:

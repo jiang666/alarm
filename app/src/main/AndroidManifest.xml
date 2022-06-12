@@ -129,6 +129,9 @@
         <!--流式布局-->
         <activity android:name=".FlowRecycleViewActivity" />
 
+        <!--绘制图形-->
+        <activity android:name=".DrawDemoActivity" />
+
 
     </application>
 

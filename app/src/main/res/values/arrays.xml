@@ -31,4 +31,11 @@
         <item>SD卡</item>
         <item>本地</item>
     </string-array>
+
+
+    <declare-styleable name="MoveView">
+        <attr name="MovePathColor" format="color" />
+        <attr name="MoveDrawableRes" format="reference" />
+        <attr name="MoveDuration" format="integer" />
+    </declare-styleable>
 </resources>
