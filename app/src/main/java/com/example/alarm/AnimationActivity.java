@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.util.Property;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
@@ -70,14 +71,45 @@ public class AnimationActivity extends AppCompatActivity {
                 objectAnimator1.start();*/
                 //startScaleAnimation();
                 if(iclick){
-                    scaleAnimation();
+                    //scaleAnimation();
                 }else {
-                    scaleBigAnimation();
+                    //scaleBigAnimation();
                 }
                 ivArrow.measure(0, 0);
                 int textWidth = ivArrow.getMeasuredWidth();
                 Log.e("======"," textWidth " + textWidth);
 
+            }
+        });
+        /**
+         * 按下缩小 松开放大
+         */
+        mainEdit.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()){
+                    case MotionEvent.ACTION_DOWN://按下
+                        //MyLogger.i(TAG,"按下");
+                        oneSignalscaleAnimation();
+                        Log.e("========",motionEvent.getDevice().getName() + " 按下 ");
+                        break;
+                    case MotionEvent.ACTION_MOVE://移动
+                        Log.e("========","移动");
+                        break;
+                    case MotionEvent.ACTION_UP://弹起
+                        oneSignalscaleBigAnimation();
+                        Log.e("========","弹起");
+                        break;
+                    case MotionEvent.ACTION_CANCEL://事件取消
+                        Log.e("========","事件取消");
+                        break;
+                    case MotionEvent.ACTION_OUTSIDE://外部点击
+                        //Weida Hi-Tech                CoolTouchR System           外部点击 ---触摸屏
+                        //PixA琀 USB Optical Mouse外部点击 ---鼠标
+                        Log.e("========",motionEvent.getDevice().getName() + "外部点击");
+                        break;
+                }
+                return false;
             }
         });
         ivArrow.setOnClickListener(new View.OnClickListener() {
@@ -328,6 +360,15 @@ public class AnimationActivity extends AppCompatActivity {
         });
     }
 
+    //放大 添加基于图片中心放大
+    private void oneSignalscaleBigAnimation(){
+        ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f, 1f, 0.8f, 1f,ivArrow.getWidth()/2f,ivArrow.getHeight()/2f);
+        scaleAnimation.setDuration(5000);
+        scaleAnimation.setRepeatCount(0);//动画的反复次数
+        scaleAnimation.setFillAfter(true);//设置为true，动画转化结束后被应用
+        ivArrow.startAnimation(scaleAnimation);//開始动画
+    }
+
     //放大
     private void onescaleBigAnimation(){
         ScaleAnimation scaleAnimation = new ScaleAnimation(0f, 1f, 0f, 1f);
@@ -339,6 +380,14 @@ public class AnimationActivity extends AppCompatActivity {
     //缩小
     private void onescaleAnimation(){
         ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 0f, 1f, 0f);
+        scaleAnimation.setDuration(5000);
+        scaleAnimation.setRepeatCount(0);//动画的反复次数
+        scaleAnimation.setFillAfter(true);//设置为true，动画转化结束后被应用
+        ivArrow.startAnimation(scaleAnimation);//開始动画
+    }
+    //缩小 添加基于图片中心缩小
+    private void oneSignalscaleAnimation(){
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 0.8f, 1f, 0.8f,ivArrow.getWidth()/2f,ivArrow.getHeight()/2f);
         scaleAnimation.setDuration(5000);
         scaleAnimation.setRepeatCount(0);//动画的反复次数
         scaleAnimation.setFillAfter(true);//设置为true，动画转化结束后被应用

@@ -14,8 +14,8 @@ version 1.1
 时间戳转换
  SimpleDateFormat format =  new SimpleDateFormat("HH:mm:ss");
         String time="11:45:55";
-        SimpleDateFormat YMDformat =  new SimpleDateFormat("yyyy:mm:dd");
-        String YMDtime="2021:10:10";
+        SimpleDateFormat YMDformat =  new SimpleDateFormat("yyyy:mm:dd");//"yyyy:MM:dd"
+        String YMDtime="2021:10:10";// 1610208600000  2021-01-10 00:10:00
         try {
             Date date = format.parse(time);
             Calendar calendar = dateToCalendar(date);
