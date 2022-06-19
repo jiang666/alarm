@@ -18,8 +18,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.alarm.utils.UIUtils;
-import com.example.alarm.viewpager.FragmentFactory;
-import com.example.alarm.widget.BezierCurveView;
 import com.example.alarm.widget.DrawLineView;
 import com.example.alarm.widget.PathView;
 import com.example.alarm.widget.Pie;
