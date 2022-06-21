@@ -13,6 +13,7 @@ import android.util.Log;
 import android.util.Property;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
@@ -25,6 +26,7 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Map;
@@ -84,6 +86,8 @@ public class AnimationActivity extends AppCompatActivity {
         /**
          * 按下缩小 松开放大
          */
+        /*LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mainEdit.getLayoutParams();
+        mainEdit.setLayoutParams(params);*/
         mainEdit.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent motionEvent) {

@@ -69,6 +69,7 @@ dependencies {
     }
     implementation 'com.github.getActivity:XXPermissions:13.6'
     compile 'se.emilsjolander:stickylistheaders:2.7.0'
+    compile 'com.github.bumptech.glide:glide:3.5.2'
     //compile project(':wavelibrary')
 }
 repositories {

@@ -1,35 +1,23 @@
 package com.example.alarm;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.alarm.evenbus.EvenbusActivity;
-import com.example.alarm.widget.RefreshRecyclerView;
 import com.google.gson.Gson;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -204,6 +192,9 @@ public class RecycleViewActivity extends Activity {
                 case 26:
                     list.add("流式布局");
                     break;
+                case 27:
+                    list.add("图片左右滑动");
+                    break;
                 default:
                     list.add("item" + i);
                     break;
@@ -331,6 +322,11 @@ public class RecycleViewActivity extends Activity {
                 break;
             case "流式布局":
                 intent = new Intent(this, FlowRecycleViewActivity.class);
+                startActivity(intent);
+                break;
+            case "图片左右滑动":
+                //intent = new Intent(this, SwipeCardActivity.class);
+                intent = new Intent(this, TANSwipeCardActivity.class);
                 startActivity(intent);
                 break;
             default:

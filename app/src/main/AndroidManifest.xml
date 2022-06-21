@@ -129,6 +129,10 @@
         <!--流式布局-->
         <activity android:name=".FlowRecycleViewActivity" />
 
+        <!--图片列表左右滑动-->
+        <activity android:name=".SwipeCardActivity" />
+        <activity android:name=".TANSwipeCardActivity" />
+
 
     </application>
 

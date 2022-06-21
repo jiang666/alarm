@@ -28,7 +28,7 @@ public class SerialPort {
             try {
                 /* Missing read/write permission, trying to chmod the file */
                 Process su;
-                su = Runtime.getRuntime().exec("/system/bin/su");
+                su = Runtime.getRuntime().exec("/system/bin/su");//"su"、"/system/bin/sh"
                 String cmd = "chmod 666 " + device.getAbsolutePath() + "\n"
                         + "exit\n";
                 su.getOutputStream().write(cmd.getBytes());
@@ -42,7 +42,7 @@ public class SerialPort {
             }
         }
 
-        mFd = open(device.getAbsolutePath(), baudrate, flags);
+        mFd = open(device.getAbsolutePath(), baudrate, flags);//anr 可能串口被占用
         if (mFd == null) {
             Log.e(TAG, "native open returns null");
             throw new IOException();
