@@ -6,5 +6,16 @@
     android:layout_height="match_parent"
     android:id="@+id/layout"
     tools:context="com.example.alarm.ImageMoveActivity">
+    <ImageView
+        android:src="@drawable/f2"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/iv_click"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher"/>
+
 </FrameLayout>
 

@@ -19,6 +19,7 @@ import com.example.alarm.viewpager.FragmentFactory;
 
 /**
  * 顶部上划
+ * 谷歌应用市场 069 Appbar 折叠布局
  */
 public class TopMoveActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
