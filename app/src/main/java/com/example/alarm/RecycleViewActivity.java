@@ -195,6 +195,9 @@ public class RecycleViewActivity extends Activity {
                 case 27:
                     list.add("图片左右滑动");
                     break;
+                case 28:
+                    list.add("绘制图形");
+                    break;
                 default:
                     list.add("item" + i);
                     break;
@@ -327,6 +330,10 @@ public class RecycleViewActivity extends Activity {
             case "图片左右滑动":
                 //intent = new Intent(this, SwipeCardActivity.class);
                 intent = new Intent(this, TANSwipeCardActivity.class);
+                startActivity(intent);
+                break;
+                case "绘制图形":
+                intent = new Intent(this, DrawDemoActivity.class);
                 startActivity(intent);
                 break;
             default:

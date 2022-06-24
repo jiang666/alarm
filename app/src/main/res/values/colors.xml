@@ -58,7 +58,7 @@
     <color name="newte_hint_5">#8543E0</color>
     <color name="newte_hint_6">#13C2C2</color>
     <color name="select_title_text">#B0B0B0</color>
-    <color name="personaltextcolor">#ffffff</color>
+    <color name="personaltextcolor">#000000</color>
     <color name="realdata_state">#00C523</color>
     <color name="realdata_state_error">#FC0200</color>
 

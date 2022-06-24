@@ -22,7 +22,9 @@ import android.widget.LinearLayout;
 
 import com.example.alarm.bean.DateEntity;
 import com.example.alarm.utils.ImgUtil;
+import com.example.alarm.widget.BezierCurveView;
 import com.example.alarm.widget.DrawLineView;
+import com.example.alarm.widget.LoveView;
 import com.example.alarm.widget.StarView;
 
 public class ImageMoveActivity extends AppCompatActivity {

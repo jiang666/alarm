@@ -31,8 +31,6 @@ public class FragmentActivity extends AppCompatActivity implements View.OnClickL
     private static final int VIDEO_FRAGMENT = 3;
     private static final int ALARM_FRAGMENT = 2;
     private static final int SYSTEM_FRAGMENT = 0;
-    @BindView(R.id.iv_logo)
-    ImageView ivLogo;
     @BindView(R.id.tv_activation)
     TextView tvActivation;
     @BindView(R.id.tv_4)
@@ -112,7 +110,7 @@ public class FragmentActivity extends AppCompatActivity implements View.OnClickL
                 viewPager.setCurrentItem(VIDEO_FRAGMENT);
                 break;
             case R.id.tv_system:
-                viewPager.setCurrentItem(SYSTEM_FRAGMENT);
+                viewPager.setCurrentItem(SYSTEM_FRAGMENT,false);
                 break;
             case R.id.tv_data:
                 viewPager.setCurrentItem(DATA_FRAGMENT);
