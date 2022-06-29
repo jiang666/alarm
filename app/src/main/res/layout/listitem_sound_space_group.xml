@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2008 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ProgressWheel="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+<RelativeLayout
+    android:layout_width="220dp"
+    android:layout_height="220dp"
+    android:layout_centerInParent="true"
+    >
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/stroke_out_gray_circle"
+        android:id="@+id/outcircle"
+        android:visibility="invisible"
+        />
+    <RelativeLayout
+        android:layout_width="210dp"
+        android:layout_height="210dp"
+        android:id="@+id/rl_soundspace"
+        android:background="@drawable/stroke_gray_circle"
+        android:layout_centerInParent="true"
+       >
+
+        <com.example.alarm.widget.ProgressWheel
+            android:id="@+id/pb_waiting"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            ProgressWheel:rimColor="#330097D6"
+            ProgressWheel:barLength="20dp"
+            ProgressWheel:barColor="#0097D6"
+            ProgressWheel:barWidth="1dp"
+            ProgressWheel:rimWidth="0dp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/iv_logo"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="LINK"
+            android:id="@+id/tv_link"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="60dp"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_item"
+            android:singleLine="true"
+            android:gravity="center_horizontal"
+            android:layout_below="@+id/tv_link"
+            android:layout_alignLeft="@+id/tv_link"
+            android:layout_alignRight="@+id/tv_link"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_number"
+            android:singleLine="true"
+            android:gravity="center_horizontal"
+            android:layout_below="@+id/tv_item"
+            android:layout_alignLeft="@+id/tv_item"
+            android:layout_alignRight="@+id/tv_item"
+            android:textSize="10sp" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:id="@+id/iv_status"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/exclamationmark"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="18dp"
+            android:background="@drawable/solid_circle"
+            android:layout_marginTop="18dp" />
+    </RelativeLayout>
+</RelativeLayout>
+</RelativeLayout>

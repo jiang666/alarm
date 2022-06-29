@@ -2,7 +2,7 @@
     <string name="app_name">alarm</string>
     <string name="open">open</string>
     <string name="close">close</string>
-
+    <string name="sound_space_introduce">视频介绍</string>
     <string-array name="content_title">
         <item>日历</item>
         <item>应用</item>

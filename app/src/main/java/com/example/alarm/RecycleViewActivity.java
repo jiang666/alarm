@@ -198,6 +198,9 @@ public class RecycleViewActivity extends Activity {
                 case 28:
                     list.add("绘制图形");
                     break;
+                case 29:
+                    list.add("拖拽合并");
+                    break;
                 default:
                     list.add("item" + i);
                     break;
@@ -332,10 +335,15 @@ public class RecycleViewActivity extends Activity {
                 intent = new Intent(this, TANSwipeCardActivity.class);
                 startActivity(intent);
                 break;
-                case "绘制图形":
+            case "绘制图形":
                 intent = new Intent(this, DrawDemoActivity.class);
                 startActivity(intent);
                 break;
+            case "拖拽合并":
+                intent = new Intent(this, MergeViewActivity.class);
+                startActivity(intent);
+                break;
+
             default:
                 break;
         }

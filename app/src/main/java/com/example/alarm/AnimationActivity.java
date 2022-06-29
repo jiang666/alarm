@@ -121,9 +121,9 @@ public class AnimationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.e("=======","ivArrow click");
                 //rotateAnimation();
-                //translateAnimation();
+                translateAnimation();
                 //scaleAnimation();
-                alphaAnimation();
+                //alphaAnimation();
                 //startAttributeScaleAnimation();
                 //startShakeByPropertyAnim(ivArrowTwo,2,4,3,1000);
             }

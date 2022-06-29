@@ -135,6 +135,9 @@
         <!--绘制图形-->
         <activity android:name=".DrawDemoActivity" />
 
+        <!--拖拽合并-->
+        <activity android:name=".MergeViewActivity" />
+
     </application>
 
 </manifest>

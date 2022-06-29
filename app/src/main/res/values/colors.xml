@@ -82,4 +82,13 @@
     <color name="color_b0b8b2">#b0b8b2</color>
     <color name="color_28d19d">#28d19d</color>
     <color name="color_000000">#000000</color>
+
+
+    <color name="deeper_grey">#8D8D8D</color>
+    <color name="irlearn_learned">#00d354</color>
+    <color name="ring_old_color">#F1F1F1</color>
+    <color name="light_grey">#E5E5E5</color>
+
+    <color name="ring_out_gray">#DDDDDD</color>
+    <color name="ring_out_gray_old">#EFEFEF</color>
 </resources>
