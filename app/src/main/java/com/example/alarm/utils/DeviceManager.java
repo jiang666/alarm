@@ -6,6 +6,9 @@ import android.os.Message;
 import android.text.TextUtils;
 
 import com.example.alarm.bean.MergeViewBean;
+import com.example.alarm.bean.ResearchEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -188,6 +191,18 @@ public class DeviceManager {
 
     public TreeMap<String, MergeViewBean> getMdeviceTree() {
         return mdeviceTree;
+    }
+
+
+    public void joinGroup(MergeViewBean master, MergeViewBean slave) {
+        if (master.isGroup()) {
+            // add node to group
+            MergeViewBean device_slave = (MergeViewBean) DeviceManager.getInstance().getDevice(slave.getId());
+            mdeviceTree.remove(device_slave.getId());
+            EventBus.getDefault().post(new ResearchEvent());
+        } else {
+        }
+
     }
 
 

@@ -16,10 +16,17 @@ import android.widget.Toast;
 
 import com.example.alarm.adapter.SoundSpaceRecyclerAdapter;
 import com.example.alarm.bean.MergeViewBean;
+import com.example.alarm.bean.ResearchEvent;
+import com.example.alarm.evenbus.Event;
 import com.example.alarm.utils.DeviceManager;
 import com.example.alarm.utils.UIUtils;
 import com.example.alarm.widget.LeftRightLayoutManager;
 import com.google.gson.Gson;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +61,8 @@ public class MergeViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mergeview);
         ButterKnife.bind(this);
+        //注册
+        EventBus.getDefault().register(this);
         nodes = new ArrayList<>();
         // listView.setLayoutManager(new StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL));
         // listView.setLayoutManager(new LinearLayoutManager());
@@ -85,10 +94,45 @@ public class MergeViewActivity extends Activity {
         listView.setAdapter(mAdapter);
     }
 
+    /**
+     * 事件响应方法
+     * 接收消息
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(ResearchEvent event) {
+        //String msg = event.getMsg();
+        Log.v(TAG, "refresh msg = ");
+        refresh();
+    }
+    private synchronized void refresh() {
+        // mAdapter.notifyDataSetChanged();
+        nodes.clear();
+        nodes.addAll(DeviceManager.getInstance().getGroupsAndSpeakers());
+        Log.v(TAG, "refresh nodes = " + nodes.size());
+
+        if (nodes.size() <= 0) {
+            listView.setVisibility(View.INVISIBLE);
+        } else {
+            listView.setVisibility(View.VISIBLE);
+            if (mAdapter == null){
+                mAdapter = new SoundSpaceRecyclerAdapter(this, nodes, listView);
+                listView.setAdapter(mAdapter);
+            }
+            mAdapter.notifyDataSetChanged();
+        }
+    }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         Log.e(TAG,"newConfig orientation " + newConfig.orientation);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //反注册
+        EventBus.getDefault().unregister(this);
+    }
 }

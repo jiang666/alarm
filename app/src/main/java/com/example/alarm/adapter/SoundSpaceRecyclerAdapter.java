@@ -32,6 +32,7 @@ import android.widget.TextView;
 import com.example.alarm.R;
 import com.example.alarm.bean.MergeViewBean;
 import com.example.alarm.utils.ColorDrawableGenerator;
+import com.example.alarm.utils.DeviceManager;
 import com.example.alarm.utils.UIUtils;
 import com.example.alarm.widget.ProgressWheel;
 
@@ -594,7 +595,8 @@ public class SoundSpaceRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
             return;
         }
         //TODO 添加设备
-        //DeviceManager.getInstance().joinGroup(master, slave);
+        DeviceManager.getInstance().joinGroup(master, slave);
+
         // de.greenrobot.event.EventBus.getDefault().post(new DeviceChangedEvent(slave.getId(), DeviceChangedEvent.OPERATION_REMOVE));
     }
 
