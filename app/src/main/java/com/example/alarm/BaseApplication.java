@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 
+import com.example.alarm.utils.FloatWindowManager;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
@@ -27,6 +28,8 @@ public class BaseApplication extends Application {
 		context = getApplicationContext();
 		mainThreadId = android.os.Process.myTid();// 获取当前主线程id
 		handler = new Handler();
+		FloatWindowManager.getInstance().requestPermission(this);
+		FloatWindowManager.getInstance().initManager(this);
 		Logger.clearLogAdapters();
 		FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
 				.tag("alarm")   // (Optional) Global tag for every log. Default PRETTY_LOGGER

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <TextView
@@ -19,6 +20,10 @@
         android:layout_height="100dp"
         android:layout_width="100dp"/>
 
-
+    <com.example.alarm.widget.CarClockView
+        android:id="@+id/carclock_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:text_title_dial="完成率"/>
 
 </LinearLayout>

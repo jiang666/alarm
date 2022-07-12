@@ -110,6 +110,12 @@ public class FileUtils {
         return str;
     }
 
+    /**
+     * 带换行符读写
+     * @param file
+     * @param charsetName
+     * @return
+     */
     public static StringBuilder readFile(File file, String charsetName) {
         StringBuilder fileContent = new StringBuilder("");
         if (file == null || !file.isFile()) {

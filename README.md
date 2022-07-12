@@ -1,7 +1,7 @@
 # alarm
 知识点
 
-FragmentActivity.java
+FragmentActivity.java  (TabLayout)
    切换滑动
    viewPager.setCurrentItem(DATA_FRAGMENT);
    切换无动画
@@ -82,3 +82,16 @@ android:configChanges="orientation|screenSize"
  android:screenOrientation="portrait"//不能横屏
 
  SystemFragment 商品展示页 切换左侧分类 ListView + StickyListHeadersListView 参考黑马外卖商品页
+
+
+ ================== 分隔符
+     //使用|作为分隔符,其余特殊字符同理
+         //String[] split = str.split("\\|");
+         String name = "000-0000";
+         name = name.split("-")[0];
+         //pagerMap.put(name, 000000000);
+         String nnn = "000000";
+         nnn = nnn.split("-")[0];
+         //pagerMap.put(nnn, 1111111);
+         Log.e("=====", " name " + name + " nnn = " + nnn);
+         // E/=====:  name 000 nnn = 000000

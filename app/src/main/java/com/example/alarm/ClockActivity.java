@@ -10,6 +10,7 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.example.alarm.widget.CarClockView;
 import com.example.alarm.widget.ClockView;
 
 import java.text.ParseException;
@@ -27,6 +28,7 @@ public class ClockActivity extends Activity {
 
     private MediaPlayer mediaPlayer;
     private ClockView clockView;
+    private CarClockView carClockView;
     private TextView state;
     //handler
     private Handler mHandler = new Handler() {
@@ -34,6 +36,7 @@ public class ClockActivity extends Activity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             drawClock(zoneande);
+
         }
     };
     private String zoneande;
@@ -44,6 +47,8 @@ public class ClockActivity extends Activity {
         setContentView(R.layout.activity_clock);
         clockView = (ClockView) findViewById(R.id.clock_view);
         state = (TextView) findViewById(R.id.state);
+        carClockView = (CarClockView) findViewById(R.id.carclock_view);
+        carClockView.setCompleteDegree(32.25f);//设置指针最终位置，附带动画效果
         //String str = "GMT+9|日本";
         String str = "UTC+9|日本";
         String[] zoneandename = str.split("\\|");
@@ -63,17 +68,6 @@ public class ClockActivity extends Activity {
                 //ClockActivity.this.finish();
             }
         }).show();
-        //使用|作为分隔符,其余特殊字符同理
-        //String[] split = str.split("\\|");
-        String name = "000-0000";
-        name = name.split("-")[0];
-        //pagerMap.put(name, 000000000);
-
-        String nnn = "000000";
-        nnn = nnn.split("-")[0];
-        //pagerMap.put(nnn, 1111111);
-
-        Log.e("=====", " name " + name + " nnn = " + nnn);
 
     }
     private void drawClock(String timezone){
@@ -81,7 +75,7 @@ public class ClockActivity extends Activity {
         SimpleDateFormat d_f = new SimpleDateFormat(format);//设置日期格式
         d_f.setTimeZone(TimeZone.getTimeZone(timezone));  //设置时区，+08是北京时间
         String date = d_f.format(new Date());
-        Log.e("=========","data  " + date);
+        //Log.e("=========","data  " + date);
         Date zonedate = new Date();
         try {
             zonedate = stringToDate(date,format);
@@ -89,9 +83,10 @@ public class ClockActivity extends Activity {
                 ParseException e){
 
         }
+        if(zonedate.getSeconds()%10 == 0) carClockView.setCompleteDegree(zonedate.getSeconds());
         clockView.setTimezoneData(zonedate);
         mHandler.sendEmptyMessageDelayed(1, 1000);
-        Log.e("=========","偏差 " + (zonedate.getTime() - new Date().getTime())/60000);
+        //Log.e("=========","偏差 " + (zonedate.getTime() - new Date().getTime())/60000);
     }
     private Date stringToDate(String strTime, String formatType)
             throws ParseException {

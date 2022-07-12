@@ -201,6 +201,9 @@ public class RecycleViewActivity extends Activity {
                 case 29:
                     list.add("拖拽合并");
                     break;
+                case 30:
+                    list.add("手指滑动");
+                    break;
                 default:
                     list.add("item" + i);
                     break;
@@ -341,6 +344,10 @@ public class RecycleViewActivity extends Activity {
                 break;
             case "拖拽合并":
                 intent = new Intent(this, MergeViewActivity.class);
+                startActivity(intent);
+                break;
+            case "手指滑动":
+                intent = new Intent(this, GestureDetectorActivity.class);
                 startActivity(intent);
                 break;
 

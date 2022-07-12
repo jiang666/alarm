@@ -1,6 +1,9 @@
 package com.example.alarm;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -12,17 +15,22 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.example.alarm.utils.ImgUtil;
 import com.example.alarm.utils.UIUtils;
 import com.example.alarm.widget.DrawLineView;
 import com.example.alarm.widget.PathView;
 import com.example.alarm.widget.Pie;
 import com.example.alarm.widget.PieEntity;
+import com.example.alarm.widget.StarView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,15 +84,18 @@ public class DrawDemoActivity extends AppCompatActivity {
 
         //LoveView loveView = new LoveView(this);
         //BezierCurveView bezierCurveView = new BezierCurveView(this);//贝塞尔线
-        /*final StarView star=new StarView(this);//创建一个自定义的starView的View对象
+        final StarView star=new StarView(this);//创建一个自定义的starView的View对象
         String filepath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "photos" + File.separator + "0138a6d52af2419088d5f78a9368df75.jpg";
-        Log.e(TAG, filepath);
+        Log.e("========", filepath);
         File file = new File(filepath);
         if (file.exists()) {
             Bitmap bitmap = ImgUtil.getBitmapByPath(filepath);
             if (bitmap != null) {
                 star.setBitmap(bitmap);
             }
+        }else {
+            BitmapDrawable bd = (BitmapDrawable) this.getResources().getDrawable(R.drawable.ic_launcher);
+            star.setBitmap(bd.getBitmap());
         }
         star.setOnTouchListener(new View.OnTouchListener() {//给view对象创建一个触摸的监听事件
             @Override
@@ -95,7 +106,7 @@ public class DrawDemoActivity extends AppCompatActivity {
                 return true;
             }
         });
-        layout.addView(star);//向布局中添加组件*/
+        layout.addView(star);//向布局中添加组件
        /* LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
         star.setLayoutParams(params);
         star.setBackgroundColor(Color.BLUE);

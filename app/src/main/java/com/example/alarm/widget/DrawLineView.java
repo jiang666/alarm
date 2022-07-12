@@ -15,9 +15,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.example.alarm.R;
-
-import static com.example.alarm.widget.ClockView.CLOCK_BACKGROUND_COLOR;
 
 /**
  * https://blog.csdn.net/fairy0000000/article/details/106085683/
