@@ -13,54 +13,53 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 /**
-  悬浮Manager
+ 悬浮Manager
  */
 public class FloatWindowManager {
-private volatile static FloatWindowManager mInstance;
-private WindowManager mWindowManager;
-private Context mContext;
-private WindowManager.LayoutParams mLayoutParams;
-private int layoutY;
-private int layoutX;
-private ValueAnimator animator;
-private TextView textView;
-private LinearLayout linearLayout;
+    private volatile static FloatWindowManager mInstance;
+    private WindowManager mWindowManager;
+    private Context mContext;
+    private WindowManager.LayoutParams mLayoutParams;
+    private int layoutY;
+    private int layoutX;
+    private ValueAnimator animator;
+    private TextView textView;
+    private LinearLayout linearLayout;
     private TextView textView1;
 
     public static synchronized FloatWindowManager getInstance() {
-    if (mInstance == null) {
-        synchronized (FloatWindowManager.class) {
-            if (mInstance == null) {
-                mInstance = new FloatWindowManager();
+        if (mInstance == null) {
+            synchronized (FloatWindowManager.class) {
+                if (mInstance == null) {
+                    mInstance = new FloatWindowManager();
+                }
             }
         }
+        return mInstance;
     }
-    return mInstance;
-}
 
-public FloatWindowManager initManager(Context context) {
+    public FloatWindowManager initManager(Context context) {
 
-    mContext = context;
+        mContext = context;
 
-    mWindowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+        mWindowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
 
-    showWindow();
+        showWindow();
 
-    return this;
+        return this;
 
-}
+    }
 
-/**
+    /**
    * 是否有悬浮框权限
    *
    * @return
    */
 
-public boolean requestPermission(Context context) {
-    return SettingsCompat.canDrawOverlays(context, true, false);
-}
+    public boolean requestPermission(Context context) {
+        return SettingsCompat.canDrawOverlays(context, true, false);
+    }
     /**
    * 加载 悬浮窗  没有内容
    */
@@ -94,14 +93,18 @@ public boolean requestPermission(Context context) {
 
         setListener();
 }
-public void showFloatWindow(){
-    mWindowManager.addView(linearLayout, mLayoutParams);
-}
-/**
-* 设置 悬浮窗 view 滑动事件
-*/
-private void setListener() {
-    if (linearLayout != null) {
+
+    /**
+     *外部调用弹出
+     */
+    public void showFloatWindow(){
+        mWindowManager.addView(linearLayout, mLayoutParams);
+    }
+    /**
+    * 设置 悬浮窗 view 滑动事件
+    */
+    private void setListener() {
+        if (linearLayout != null) {
         linearLayout.setOnTouchListener(new View.OnTouchListener() {
             private int moveX;//动画平移距离
             int startX, startY;//起始点

@@ -62,7 +62,7 @@ public class ImageMoveActivity extends AppCompatActivity {
                 return true;
             }
         });
-        //layout.addView(star);//向布局中添加组件
+        layout.addView(star);//向布局中添加组件
         /*LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
         star.setLayoutParams(params);
         star.setBackgroundColor(Color.BLUE);
