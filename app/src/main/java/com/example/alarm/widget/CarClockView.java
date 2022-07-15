@@ -18,41 +18,52 @@ import com.example.alarm.R;
 
 /**
  * Created by Android_Jian on 2018/11/3.
+ * https://www.cnblogs.com/changyiqiang/p/10874639.html
  */
 public class CarClockView extends View{
 
+    /**
+     * 刻度圆弧上游默认颜色
+     */
     private static final int DEFAULT_COLOR_LOWER = Color.parseColor("#1d953f");
+    /**
+     * 刻度圆弧中游默认颜色
+     */
     private static final int DEFAULT_COLOR_MIDDLE = Color.parseColor("#228fbd");
+    /**
+     * 刻度圆弧下游默认颜色
+     */
     private static final int DEFAULT_COLOR_HIGH = Color.RED;
-    private static final int DEAFAULT_COLOR_TITLE = Color.BLACK;
-    private static final int DEFAULT_TEXT_SIZE_DIAL = 11;
-    private static final int DEFAULT_STROKE_WIDTH = 8;
-    private static final int DEFAULT_RADIUS_DIAL = 128;
-    private static final int DEAFAULT_TITLE_SIZE = 16;
-    private static final int DEFAULT_VALUE_SIZE = 28;
-    private static final int DEFAULT_ANIM_PLAY_TIME = 2000;
 
-    private int colorDialLower;
-    private int colorDialMiddle;
-    private int colorDialHigh;
-    private int textSizeDial;
-    private int strokeWidthDial;
-    private String titleDial;
-    private int titleDialSize;
-    private int titleDialColor;
-    private int valueTextSize;
-    private int animPlayTime;
+    private static final int DEAFAULT_COLOR_TITLE = Color.BLACK;//标题颜色
+    private static final int DEFAULT_TEXT_SIZE_DIAL = 11;//转盘 字体大小
+    private static final int DEFAULT_STROKE_WIDTH = 8;//线的宽度
+    private static final int DEFAULT_RADIUS_DIAL = 128;//转盘半径
+    private static final int DEAFAULT_TITLE_SIZE = 16;//标题大小
+    private static final int DEFAULT_VALUE_SIZE = 28;//值的大小
+    private static final int DEFAULT_ANIM_PLAY_TIME = 2000;//动画时间
 
-    private int radiusDial;
-    private int mRealRadius;
-    private float currentValue;
+    private int colorDialLower;//转盘下游颜色
+    private int colorDialMiddle;//转盘中游颜色
+    private int colorDialHigh;//转盘上游颜色
+    private int textSizeDial;//转盘文字大小
+    private int strokeWidthDial;//转盘中风宽度
+    private String titleDial;//转盘标题
+    private int titleDialSize;//转盘标题大小
+    private int titleDialColor;//转盘标题颜色
+    private int valueTextSize;//值的大小
+    private int animPlayTime;//动画时间
 
-    private Paint arcPaint;
-    private RectF mRect;
-    private Paint pointerPaint;
-    private Paint.FontMetrics fontMetrics;
-    private Paint titlePaint;
-    private Path pointerPath;
+    private int radiusDial;//转盘半径
+    private int mRealRadius;//实际半径
+    private float currentValue;//当前值
+
+    private Paint arcPaint;//弧的画笔
+    private RectF mRect;//矩形
+    private Paint pointerPaint;//指针
+    private Paint.FontMetrics fontMetrics;//字体度量
+    private Paint titlePaint;//标题画笔
+    private Path pointerPath;//指示器路径
 
     public CarClockView(Context context) {
         this(context, null);
@@ -64,109 +75,117 @@ public class CarClockView extends View{
 
     public CarClockView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
+        //初始化属性
         initAttrs(context, attrs);
         initPaint();
     }
 
     private void initAttrs(Context context, AttributeSet attrs){
+        //获得样式属性
         TypedArray attributes = context.obtainStyledAttributes(attrs,R.styleable.ClockView);
-        colorDialLower = attributes.getColor(R.styleable.ClockView_color_dial_lower, DEFAULT_COLOR_LOWER);
-        colorDialMiddle = attributes.getColor(R.styleable.ClockView_color_dial_middle, DEFAULT_COLOR_MIDDLE);
-        colorDialHigh = attributes.getColor(R.styleable.ClockView_color_dial_high, DEFAULT_COLOR_HIGH);
-        textSizeDial = (int) attributes.getDimension(R.styleable.ClockView_text_size_dial, sp2px(DEFAULT_TEXT_SIZE_DIAL));
-        strokeWidthDial = (int) attributes.getDimension(R.styleable.ClockView_stroke_width_dial, dp2px(DEFAULT_STROKE_WIDTH));
-        radiusDial = (int) attributes.getDimension(R.styleable.ClockView_radius_circle_dial, dp2px(DEFAULT_RADIUS_DIAL));
-        titleDial = attributes.getString(R.styleable.ClockView_text_title_dial);
-        titleDialSize = (int) attributes.getDimension(R.styleable.ClockView_text_title_size, dp2px(DEAFAULT_TITLE_SIZE));
-        titleDialColor = attributes.getColor(R.styleable.ClockView_text_title_color, DEAFAULT_COLOR_TITLE);
-        valueTextSize = (int) attributes.getDimension(R.styleable.ClockView_text_size_value, dp2px(DEFAULT_VALUE_SIZE));
-        animPlayTime = attributes.getInt(R.styleable.ClockView_animator_play_time, DEFAULT_ANIM_PLAY_TIME);
+        colorDialLower = attributes.getColor(R.styleable.ClockView_color_dial_lower, DEFAULT_COLOR_LOWER);//转盘下游颜色
+        colorDialMiddle = attributes.getColor(R.styleable.ClockView_color_dial_middle, DEFAULT_COLOR_MIDDLE);//转盘中游颜色
+        colorDialHigh = attributes.getColor(R.styleable.ClockView_color_dial_high, DEFAULT_COLOR_HIGH);//转盘上游颜色
+        textSizeDial = (int) attributes.getDimension(R.styleable.ClockView_text_size_dial, sp2px(DEFAULT_TEXT_SIZE_DIAL));//文字大小
+        strokeWidthDial = (int) attributes.getDimension(R.styleable.ClockView_stroke_width_dial, dp2px(DEFAULT_STROKE_WIDTH));//线条宽度
+        radiusDial = (int) attributes.getDimension(R.styleable.ClockView_radius_circle_dial, dp2px(DEFAULT_RADIUS_DIAL));//转盘半径周期
+        titleDial = attributes.getString(R.styleable.ClockView_text_title_dial);//转盘标题
+        titleDialSize = (int) attributes.getDimension(R.styleable.ClockView_text_title_size, dp2px(DEAFAULT_TITLE_SIZE));//转盘标题大小
+        titleDialColor = attributes.getColor(R.styleable.ClockView_text_title_color, DEAFAULT_COLOR_TITLE);//转盘标题颜色
+        valueTextSize = (int) attributes.getDimension(R.styleable.ClockView_text_size_value, dp2px(DEFAULT_VALUE_SIZE));//转盘值
+        animPlayTime = attributes.getInt(R.styleable.ClockView_animator_play_time, DEFAULT_ANIM_PLAY_TIME);//动画时间
     }
 
     private void initPaint(){
+        //圆弧画笔
         arcPaint = new Paint();
-        arcPaint.setAntiAlias(true);
-        arcPaint.setStyle(Paint.Style.STROKE);
-        arcPaint.setStrokeWidth(strokeWidthDial);
+        arcPaint.setAntiAlias(true);//抗锯齿
+        arcPaint.setStyle(Paint.Style.STROKE);//风格
+        arcPaint.setStrokeWidth(strokeWidthDial);//转盘圆弧宽度
 
+        //指针画笔
         pointerPaint = new Paint();
-        pointerPaint.setAntiAlias(true);
-        pointerPaint.setTextSize(textSizeDial);
-        pointerPaint.setTextAlign(Paint.Align.CENTER);
-        fontMetrics = pointerPaint.getFontMetrics();
+        pointerPaint.setAntiAlias(true);//抗锯齿
+        pointerPaint.setTextSize(textSizeDial);//文字大小
+        pointerPaint.setTextAlign(Paint.Align.CENTER);//排成一行 居中
+        fontMetrics = pointerPaint.getFontMetrics();//获得字体度量
 
+        //标题画笔
         titlePaint = new Paint();
-        titlePaint.setAntiAlias(true);
-        titlePaint.setTextAlign(Paint.Align.CENTER);
-        titlePaint.setFakeBoldText(true);
+        titlePaint.setAntiAlias(true);//抗锯齿
+        titlePaint.setTextAlign(Paint.Align.CENTER);//排成一行 居中
+        titlePaint.setFakeBoldText(true);//设置黑体
 
+        //指针条
         pointerPath = new Path();
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
-        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);//获得测量宽的模式
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);//获得测量宽的大小
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);//获得测量高的模式
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);//获得测量高的大小
 
         int mWidth, mHeight;
-        if (widthMode == MeasureSpec.EXACTLY){
+        if (widthMode == MeasureSpec.EXACTLY){//精确地
             mWidth = widthSize;
         }else {
             mWidth = getPaddingLeft() + radiusDial * 2 + getPaddingRight();
-            if (widthMode == MeasureSpec.AT_MOST){
+            if (widthMode == MeasureSpec.AT_MOST){//大概
                 mWidth = Math.min(mWidth, widthSize);
             }
         }
 
-        if (heightMode == MeasureSpec.EXACTLY){
+        if (heightMode == MeasureSpec.EXACTLY){//精确地
             mHeight = heightSize;
         }else {
             mHeight = getPaddingTop() + radiusDial * 2 + getPaddingBottom();
-            if (heightMode == MeasureSpec.AT_MOST){
+            if (heightMode == MeasureSpec.AT_MOST){//大概
                 mHeight = Math.min(mHeight, heightSize);
             }
         }
-
+        //设置测量的大小
         setMeasuredDimension(mWidth, mHeight);
 
         radiusDial = Math.min((getMeasuredWidth() - getPaddingLeft() - getPaddingRight()),
                 (getMeasuredHeight() - getPaddingTop() - getPaddingBottom())) / 2;
-        mRealRadius = radiusDial - strokeWidthDial / 2;
-        mRect = new RectF(-mRealRadius, -mRealRadius, mRealRadius, mRealRadius);
+        mRealRadius = radiusDial - strokeWidthDial / 2;//真实的半径
+        mRect = new RectF(-mRealRadius, -mRealRadius, mRealRadius, mRealRadius);//矩形 左上右下
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        drawArc(canvas);
-        drawPointerLine(canvas);
-        drawTitleDial(canvas);
-        drawPointer(canvas);
+        drawArc(canvas);//画弧
+        drawPointerLine(canvas);//画指针线
+        drawTitleDial(canvas);//画标题
+        drawPointer(canvas);//画指针
     }
 
+    //画弧
     private void drawArc(Canvas canvas){
+        //画布转换
         canvas.translate(getPaddingLeft() + radiusDial, getPaddingTop() + radiusDial);
-        arcPaint.setColor(colorDialLower);
-        canvas.drawArc(mRect, 135, 54, false, arcPaint);
-        arcPaint.setColor(colorDialMiddle);
-        canvas.drawArc(mRect, 189, 162, false, arcPaint);
-        arcPaint.setColor(colorDialHigh);
-        canvas.drawArc(mRect, 351, 54, false, arcPaint);
+        arcPaint.setColor(colorDialLower);//转盘下游颜色
+        canvas.drawArc(mRect, 135, 54, false, arcPaint);//从135度开始扫描54度
+        arcPaint.setColor(colorDialMiddle);//转盘中游颜色
+        canvas.drawArc(mRect, 189, 162, false, arcPaint);//从189度开始扫描162度
+        arcPaint.setColor(colorDialHigh);//转盘高游颜色
+        canvas.drawArc(mRect, 351, 54, false, arcPaint);//从351度开始扫描54度
     }
-
+    //画指针刻度线
     private void drawPointerLine(Canvas canvas){
+        //画布旋转
         canvas.rotate(135);
         for (int i=0; i<101; i++){     //一共需要绘制101个表针
 
-            if (i <= 20){
+            if (i <= 20){//上游
                 pointerPaint.setColor(colorDialLower);
-            }else if (i<= 80){
+            }else if (i<= 80){//中游
                 pointerPaint.setColor(colorDialMiddle);
-            }else {
+            }else {//下游
                 pointerPaint.setColor(colorDialHigh);
             }
 
@@ -182,7 +201,7 @@ public class CarClockView extends View{
             canvas.rotate(2.7f);
         }
     }
-
+    //画指针文字
     private void drawPointerText(Canvas canvas, int i){
         canvas.save();
         int currentCenterX = (int) (radiusDial - strokeWidthDial - dp2px(21) - pointerPaint.measureText(String.valueOf(i)) / 2);
@@ -193,7 +212,7 @@ public class CarClockView extends View{
         canvas.drawText(String.valueOf(i), 0, textBaseLine, pointerPaint);
         canvas.restore();
     }
-
+    //画标题和当前值
     private void drawTitleDial(Canvas canvas){
         titlePaint.setColor(titleDialColor);
         titlePaint.setTextSize(titleDialSize);
@@ -210,7 +229,7 @@ public class CarClockView extends View{
         titlePaint.setTextSize(valueTextSize);
         canvas.drawText(currentValue + "%", 0, radiusDial * 2/3, titlePaint);
     }
-
+    //画旋转的指针
     private void drawPointer(Canvas canvas){
         int currentDegree = (int) (currentValue * 2.7 + 135);
         canvas.rotate(currentDegree);
@@ -222,9 +241,10 @@ public class CarClockView extends View{
         pointerPath.close();
         canvas.drawPath(pointerPath,titlePaint);
     }
-
+    //设置完成程度
     public void setCompleteDegree(float degree){
-
+        //currentValue = degree;
+        //invalidate();
         ValueAnimator animator = ValueAnimator.ofFloat(0, degree);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -234,7 +254,7 @@ public class CarClockView extends View{
             }
         });
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
-        animator.setDuration(animPlayTime);
+        animator.setDuration(animPlayTime);//动画完成时间
         animator.start();
     }
 

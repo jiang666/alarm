@@ -2,6 +2,7 @@ package com.example.alarm;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -10,6 +11,9 @@ import android.widget.Toast;
 
 import com.example.alarm.utils.FloatWindowManager;
 
+/**
+ * 手指滑动事件
+ */
 public class GestureDetectorActivity extends AppCompatActivity {
 
     //定义滑动的最小距离
@@ -26,9 +30,17 @@ public class GestureDetectorActivity extends AppCompatActivity {
         main_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e("GestureDetectorActivity","main_button click");
                 FloatWindowManager.getInstance().showFloatWindow();
             }
         });
+        /*main_button.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.e("GestureDetectorActivity","main_button touch");
+                return true;
+            }
+        });*/
         //实例化MyGestureDetector
         myGestureDetector=new MyGestureDetector();
         //实例化GestureDetector并将MyGestureDetector实例传入

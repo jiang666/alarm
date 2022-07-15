@@ -41,6 +41,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'armeabi-v7a'
+            universalApk true
+        }
+    }
 }
 
 dependencies {
@@ -70,7 +78,7 @@ dependencies {
     implementation 'com.github.getActivity:XXPermissions:13.6'
     compile 'se.emilsjolander:stickylistheaders:2.7.0'
     compile 'com.github.bumptech.glide:glide:3.5.2'
-    //compile project(':wavelibrary')
+    compile project(':superweb')
 }
 repositories {
     mavenCentral()

@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/alarm.iml" filepath="$PROJECT_DIR$/.idea/alarm.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/alarm.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/alarm.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/superweb/alarm.superweb.iml" filepath="$PROJECT_DIR$/.idea/modules/superweb/alarm.superweb.iml" />
     </modules>
   </component>
 </project>

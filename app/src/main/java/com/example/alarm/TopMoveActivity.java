@@ -18,8 +18,9 @@ import com.example.alarm.utils.UIUtils;
 import com.example.alarm.viewpager.FragmentFactory;
 
 /**
- * 顶部上划
- * 谷歌应用市场 069 Appbar 折叠布局
+ * 顶部上划  谷歌应用市场 069 Appbar 折叠布局
+ * 轮子哥 技术中台 首页
+ * 黑马外卖首页
  */
 public class TopMoveActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

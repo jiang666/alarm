@@ -109,7 +109,7 @@ public class RecycleViewActivity extends Activity {
     private void initData() {
 
         //S型数据  条目个数必须是24 倍数
-        for (int i = 0; i < 31; i++) {
+        for (int i = 0; i < 34; i++) {
             switch (i) {
                 case 0:
                     list.add("calljs");
@@ -203,6 +203,9 @@ public class RecycleViewActivity extends Activity {
                     break;
                 case 30:
                     list.add("手指滑动");
+                    break;
+                case 31:
+                    list.add("PPT");
                     break;
                 default:
                     list.add("item" + i);
@@ -350,7 +353,10 @@ public class RecycleViewActivity extends Activity {
                 intent = new Intent(this, GestureDetectorActivity.class);
                 startActivity(intent);
                 break;
-
+            case "PPT":
+                intent = new Intent(this, PPTPlayActivity.class);
+                startActivity(intent);
+                break;
             default:
                 break;
         }
