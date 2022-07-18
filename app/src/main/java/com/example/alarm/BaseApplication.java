@@ -11,6 +11,8 @@ import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.tencent.smtt.sdk.QbSdk;
+import com.tencent.smtt.sdk.TbsDownloader;
+import com.tencent.smtt.sdk.TbsListener;
 
 /**
  * 自定义Application
@@ -45,6 +47,36 @@ public class BaseApplication extends Application {
 				return true;
 			}
 		});
+		//设置非wifi条件下允许下载X5内核
+		QbSdk.setDownloadWithoutWifi(true);
+		/* SDK内核初始化周期回调，包括 下载、安装、加载 */
+		QbSdk.setTbsListener(new TbsListener() {
+
+			/**
+			 * @param stateCode 110: 表示当前服务器认为该环境下不需要下载
+			 */
+			@Override
+			public void onDownloadFinish(int stateCode) {
+				Log.e("app", "onDownloadFinished: " + stateCode);
+			}
+
+			/**
+			 * @param stateCode 200、232安装成功
+			 */
+			@Override
+			public void onInstallFinish(int stateCode) {
+				Log.e("app", "onInstallFinished: " + stateCode);
+			}
+
+			/**
+			 * 首次安装应用，会触发内核下载，此时会有内核下载的进度回调。
+			 * @param progress 0 - 100
+			 */
+			@Override
+			public void onDownloadProgress(int progress) {
+				Log.e("app", "Core Downloading: " + progress);
+			}
+		});
 		QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
 
 			@Override
@@ -65,6 +97,7 @@ public class BaseApplication extends Application {
 		//x5内核初始化接口
 		QbSdk.initX5Environment(getApplicationContext(), cb);
 		Log.e("app", " init ");
+		//TbsDownloader.startDownload(getApplicationContext());
 	}
 
 	public static Context getContext() {

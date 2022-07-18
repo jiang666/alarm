@@ -28,7 +28,7 @@ android {
         versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
-            abiFilters 'armeabi'
+            abiFilters "armeabi-v7a"
         }
         sourceSets.main{
             jni.srcDirs = []
@@ -41,14 +41,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    splits {
+    /*splits {
         abi {
             enable true
             reset()
             include 'x86', 'armeabi-v7a'
             universalApk true
         }
-    }
+    }*/
 }
 
 dependencies {
@@ -76,9 +76,10 @@ dependencies {
         exclude module: 'support-compat'
     }
     implementation 'com.github.getActivity:XXPermissions:13.6'
-    compile 'se.emilsjolander:stickylistheaders:2.7.0'
-    compile 'com.github.bumptech.glide:glide:3.5.2'
-    compile project(':superweb')
+    implementation 'se.emilsjolander:stickylistheaders:2.7.0'
+    implementation 'com.github.bumptech.glide:glide:3.5.2'
+    implementation project(':superweb')
+    //compile files('libs/tbs_sdk_thirdapp_v3.6.0.1249_43610_sharewithdownload_withoutGame_obfs_20180608_114954.jar')
 }
 repositories {
     mavenCentral()
