@@ -91,4 +91,6 @@
 
     <color name="ring_out_gray">#DDDDDD</color>
     <color name="ring_out_gray_old">#EFEFEF</color>
+    <color name="green">#62C01A</color>
+    <color name="yellow">#E4E660</color>
 </resources>

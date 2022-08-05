@@ -76,6 +76,8 @@ ButtomTapAnimActivity  添加广播接收
 XMLparseActivity 添加权限申请
 
 ClockActivity 国际化时间显示 圆形钟表
+Paint.setStyle(Paint.Style.STROKE);//默认是Full
+pointerPath.close();
 
 监听横竖屏
 android:configChanges="orientation|screenSize"

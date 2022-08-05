@@ -321,7 +321,8 @@ public class RecycleViewActivity extends Activity {
                 startActivity(intent);
                 break;
             case "串口读取":
-                intent = new Intent(this, SerialPortActivity.class);
+                //intent = new Intent(this, SerialPortActivity.class);
+                intent = new Intent(this, SerialPortSentImageActivity.class);
                 startActivity(intent);
                 break;
             case "下拉刷新":

@@ -29,6 +29,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Apple on 2016/9/28.
  * 上拉下拉加载数据的RecyclerView
+ * 智慧北京 新闻中心
  */
 public class RefreshRecyclerView extends RecyclerView {
 

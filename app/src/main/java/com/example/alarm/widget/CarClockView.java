@@ -233,7 +233,7 @@ public class CarClockView extends View{
     private void drawPointer(Canvas canvas){
         int currentDegree = (int) (currentValue * 2.7 + 135);
         canvas.rotate(currentDegree);
-
+        //titlePaint.setStyle(Paint.Style.STROKE);//默认是Full
         pointerPath.moveTo(radiusDial - strokeWidthDial - dp2px(12), 0);
         pointerPath.lineTo(0, -dp2px(5));
         pointerPath.lineTo(-12, 0);

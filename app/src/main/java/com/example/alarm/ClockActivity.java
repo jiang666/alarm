@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.example.alarm.widget.CarClockView;
+import com.example.alarm.widget.CircularProgressView;
 import com.example.alarm.widget.ClockView;
 
 import java.text.ParseException;
@@ -40,6 +41,7 @@ public class ClockActivity extends Activity {
         }
     };
     private String zoneande;
+    private CircularProgressView circularProgressView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,8 @@ public class ClockActivity extends Activity {
         state = (TextView) findViewById(R.id.state);
         carClockView = (CarClockView) findViewById(R.id.carclock_view);
         carClockView.setCompleteDegree(32.25f);//设置指针最终位置，附带动画效果
+        circularProgressView = (CircularProgressView) findViewById(R.id.circular_progress_view);
+        circularProgressView.setValues(0,500,200,"优");
         //String str = "GMT+9|日本";
         String str = "UTC+9|日本";
         String[] zoneandename = str.split("\\|");

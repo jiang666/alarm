@@ -73,7 +73,7 @@ class ShelfTabLayout(
         array.recycle()
         setWillNotDraw(false)
 
-        //        setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+        //setLayerType(View.LAYER_TYPE_SOFTWARE, null)
     }
 
     override fun addView(child: View?, index: Int, params: ViewGroup.LayoutParams?) {

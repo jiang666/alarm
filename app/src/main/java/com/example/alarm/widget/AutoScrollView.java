@@ -1,7 +1,7 @@
 package com.example.alarm.widget;
 
 /**
- * Created by jianglei on 2021/12/16.
+ * Created by  on 2021/12/16.
  */
 
 import android.content.Context;
@@ -29,7 +29,7 @@ public class AutoScrollView extends ScrollView {
 
     //三个可设置的属性
     private boolean autoToScroll = true;   //是否自动滚动
-    private boolean scrollLoop = false; //是否循环滚动
+    private boolean scrollLoop = true; //是否循环滚动
     private int fistTimeScroll = 5000;//多少秒后开始滚动，默认5秒
     private int scrollRate = 50;//多少毫秒滚动一个像素点
 

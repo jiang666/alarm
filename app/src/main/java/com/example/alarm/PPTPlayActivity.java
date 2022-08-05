@@ -24,10 +24,6 @@ public class PPTPlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.e("========","QbSdk是否加载成功 "+ QbSdk.isTbsCoreInited());;
         setContentView(R.layout.activity_ppt);
-        qqWebView = (WebView)findViewById(R.id.qq_webView);
-
-        qqWebView.loadUrl("https://x5.tencent.com/docs/questions.html");
-        Log.e("======",qqWebView.getX5WebViewExtension() + " x5 内核");
         documentReaderView = (FileReaderView)findViewById(R.id.documentReaderView);
         documentReaderView.show(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +"test.pptx");
     }

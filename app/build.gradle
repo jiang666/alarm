@@ -41,6 +41,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     /*splits {
         abi {
             enable true
@@ -78,8 +82,8 @@ dependencies {
     implementation 'com.github.getActivity:XXPermissions:13.6'
     implementation 'se.emilsjolander:stickylistheaders:2.7.0'
     implementation 'com.github.bumptech.glide:glide:3.5.2'
-    implementation project(':superweb')
-    //compile files('libs/tbs_sdk_thirdapp_v3.6.0.1249_43610_sharewithdownload_withoutGame_obfs_20180608_114954.jar')
+    //implementation project(':superweb')
+    compile files('libs/tbs_sdk_thirdapp_v4.3.0.299_44199_sharewithdownloadwithfile_withoutGame_obfs_20220615_101728.jar')
 }
 repositories {
     mavenCentral()

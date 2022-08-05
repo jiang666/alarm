@@ -150,7 +150,7 @@ public class XMLparseActivity extends AppCompatActivity {
                         }
                     }
                 });
-        //verifyStoragePermissions(XMLparseActivity.this);
+        verifyStoragePermissions(XMLparseActivity.this);
         //hasPermissionToReadNetworkStats();
     }
 
