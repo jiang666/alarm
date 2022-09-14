@@ -275,9 +275,7 @@ public class SerialPortSentImageActivity extends AppCompatActivity {
      */
     private static byte[] addCRC(byte[] bytes){
         byte[] check = toNewHH(calcCrc16(bytes));//获取crc校验值  toNewHH高低位调换方法（看协议是否需要）
-        //calcCrc16(bytes);
         byte[] new_byte = new byte[bytes.length +3];
-
         System.arraycopy(bytes, 0, new_byte, 0, bytes.length);
         new_byte[new_byte.length -3] = check[0];
         new_byte[new_byte.length -2] = check[1];

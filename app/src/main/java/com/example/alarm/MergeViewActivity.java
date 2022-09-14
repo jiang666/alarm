@@ -35,6 +35,7 @@ import butterknife.ButterKnife;
 
 /**
  * 拖拽合并
+ * E:\githubdemo\zhihuibeijing\DragView
  */
 
 public class MergeViewActivity extends Activity {

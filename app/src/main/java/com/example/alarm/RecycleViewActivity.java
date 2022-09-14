@@ -91,7 +91,7 @@ public class RecycleViewActivity extends Activity {
                 intoItem(position);
                 //点击条目变颜色
                 testAdapter.setOnItem(position);
-                tvShow.setText(list.get(position));
+                tvShow.setText(list.get(position) + position);
                 testAdapter.notifyDataSetChanged();
                 Toast.makeText(RecycleViewActivity.this, " 点击 " + position, Toast.LENGTH_LONG).show();
             }
@@ -206,6 +206,12 @@ public class RecycleViewActivity extends Activity {
                     break;
                 case 31:
                     list.add("PPT");
+                    break;
+                case 32:
+                    list.add("圆弧图片");
+                    break;
+                case 33:
+                    list.add("DrawRecycleViewActivity");
                     break;
                 default:
                     list.add("item" + i);
@@ -358,6 +364,15 @@ public class RecycleViewActivity extends Activity {
                 intent = new Intent(this, PPTPlayActivity.class);
                 startActivity(intent);
                 break;
+            case "圆弧图片":
+                intent = new Intent(this, ArcImageActivity.class);
+                startActivity(intent);
+                break;
+            case "DrawRecycleViewActivity":
+                intent = new Intent(this, DrawRecycleViewActivity.class);
+                startActivity(intent);
+                break;
+
             default:
                 break;
         }

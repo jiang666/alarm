@@ -10,8 +10,8 @@
     tools:context="com.example.alarm.MainActivity">
 
     <TextureView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:id="@+id/textureView1" />
     <Button
         android:id="@+id/textureViewButton"

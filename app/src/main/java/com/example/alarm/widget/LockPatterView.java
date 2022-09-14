@@ -17,7 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by wu on 2015/10/3.
+ * Created by wu on 2015/10/3.   9点连线
+ * https://blog.csdn.net/w690333243/article/details/90311187  Android滑块拼图验证码控件
  * ͼ�������ؼ�
  */
 public class LockPatterView extends View {

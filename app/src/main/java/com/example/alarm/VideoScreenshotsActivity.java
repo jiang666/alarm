@@ -123,8 +123,11 @@ public class VideoScreenshotsActivity extends AppCompatActivity implements Textu
 
         try {
             mp = new MediaPlayer();
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/"+ R.raw.fav_cn);
+            //Uri uri = Uri.parse("android.resource://" + getPackageName() + "/"+ R.raw.fav_cn);
             //String vidpath= "android.resource://" + getPackageName() + "/" + R.raw.fav_cn;
+
+            //Uri uri = Uri.parse("http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/gear2/prog_index.m3u8");
+            Uri uri = Uri.parse("rtmp://test.jyd.com.cn:1935/live/9525ec88edef9daa.stream");
             mp.setDataSource(VideoScreenshotsActivity.this,uri);
             //mp.setDataSource(MY_VIDEO);
             mp.setSurface(s);
@@ -250,6 +253,13 @@ public class VideoScreenshotsActivity extends AppCompatActivity implements Textu
         });
         videoView.setVideoPath(MY_VIDEO);
         videoView.start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mp!= null)
+        mp.stop();
     }
 }
 

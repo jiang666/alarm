@@ -28,6 +28,9 @@ import java.util.Random;
 import static android.animation.ValueAnimator.INFINITE;
 import static android.animation.ValueAnimator.RESTART;
 
+/**
+ * 心形view
+ */
 public class LoveView extends View {
 
     private final int[] colors = {Color.CYAN, Color.YELLOW,  Color.LTGRAY, Color.GREEN, Color.RED};

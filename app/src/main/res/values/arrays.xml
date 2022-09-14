@@ -79,4 +79,15 @@
         <attr name="text_size_value"/>
         <attr name="animator_play_time"/>
     </declare-styleable>
+
+    <attr name="arcHeight" format="dimension"/>
+
+    <declare-styleable name="ArcView">
+        <attr name="arcHeight"/>
+        <attr name="arc_bgColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="ArcImageView">
+        <attr name="arcHeight"/>
+    </declare-styleable>
 </resources>

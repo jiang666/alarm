@@ -11,6 +11,7 @@ import android.view.View;
 import com.example.alarm.R;
 
 /**
+ * Android实现图片随着手指触摸屏幕移动
  * https://blog.csdn.net/fairy0000000/article/details/106085683/
  */
 

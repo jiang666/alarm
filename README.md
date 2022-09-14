@@ -7,7 +7,7 @@ FragmentActivity.java  (TabLayout)
    切换无动画
    viewPager.setCurrentItem(DATA_FRAGMENT,false);
 
-
+FragmentActivity
 version 1.1
 添加字体和RecycleView S形显示。
 ---------------------------------------------------------------------------------------------------------------
@@ -97,3 +97,7 @@ android:configChanges="orientation|screenSize"
          //pagerMap.put(nnn, 1111111);
          Log.e("=====", " name " + name + " nnn = " + nnn);
          // E/=====:  name 000 nnn = 000000
+
+
+DrawRecycleViewActivity.java  拖拽
+compile 'com.android.support:support-v13:24.1.1'
