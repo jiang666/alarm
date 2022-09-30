@@ -1,9 +1,8 @@
 package com.example.alarm;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.app.TimePickerDialog;
-import android.content.Intent;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
@@ -12,39 +11,38 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.Surface;
 import android.view.TextureView;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.example.alarm.utils.ImgUtil;
+import com.example.alarm.adapter.VideoAdapter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.media.MediaMetadataRetriever.OPTION_PREVIOUS_SYNC;
-import static java.lang.Thread.sleep;
 
 /**
  * 本地视频截图
  */
 
-public class VideoScreenshotsActivity extends AppCompatActivity implements TextureView.SurfaceTextureListener,
+public class VideoListPlayActivity extends AppCompatActivity implements TextureView.SurfaceTextureListener,
         MediaPlayer.OnBufferingUpdateListener,
         MediaPlayer.OnCompletionListener,
         MediaPlayer.OnPreparedListener,
@@ -61,6 +59,12 @@ public class VideoScreenshotsActivity extends AppCompatActivity implements Textu
     private int currentTime;
     private LinearLayout ll_conyent;
     private TextView tvUpdataThread;
+    private Surface s;
+    private RecyclerView rvTest;
+    List<String> list = new ArrayList<>();
+    private VideoAdapter testAdapter;
+    private int spanCount =6;
+    private GridLayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,23 +74,68 @@ public class VideoScreenshotsActivity extends AppCompatActivity implements Textu
         tv = (TextureView) findViewById(R.id.textureView1);
         tv.setSurfaceTextureListener(this);
         tvUpdataThread = (TextView) findViewById(R.id.tv_updata_thread);
+        rvTest = (RecyclerView) findViewById(R.id.recyclerView);
+        getVideo(VideoListPlayActivity.this);
+        testAdapter = new VideoAdapter(this, list);
+        testAdapter.setRowSize(spanCount);
+        //StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(spanCount,StaggeredGridLayoutManager.VERTICAL);//瀑布流
+        //LinearLayoutManager layoutManager = new LinearLayoutManager(this);//线性布局
+        layoutManager = new GridLayoutManager(this,spanCount);//网格布局管理器
+        layoutManager.setOrientation(OrientationHelper.VERTICAL);
+        rvTest.setLayoutManager(layoutManager);
+        rvTest.setAdapter(testAdapter);
+        testAdapter.setOnItemClickListener(new VideoAdapter.onRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                /*if(mp != null){
+                    mp.stop();
+                    mp.release();
+                }*/
+                //点击条目变颜色
+                testAdapter.setOnItem(position);
+                try {
+                    if(mp==null)
+                    mp = new MediaPlayer();
+                    //Uri uri = Uri.parse("android.resource://" + getPackageName() + "/"+ R.raw.fav_cn);
+                    //String vidpath= "android.resource://" + getPackageName() + "/" + R.raw.fav_cn;
+                    //"/storage/emulated/0/touch/program/PlayRes/8c3c3a9e88d7efedf1438e679f2dfafa";
+                    //"/storage/emulated/0/touch/program/PlayRes/78c61272ae5c629076915c86d1ed9517";
+                    //Uri uri = Uri.parse("http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/gear2/prog_index.m3u8");
+                    //Uri uri = Uri.parse("rtmp://test.jyd.com.cn:1935/live/9525ec88edef9daa.stream");
+                    Uri uri = Uri.parse(list.get(position));
+                    mp.setDataSource(VideoListPlayActivity.this,uri);
+                    //mp.setDataSource(MY_VIDEO);
+                    mp.setSurface(s);
+                    mp.prepare();
+
+                    mp.setOnBufferingUpdateListener(VideoListPlayActivity.this);
+                    mp.setOnCompletionListener(VideoListPlayActivity.this);
+                    mp.setOnPreparedListener(VideoListPlayActivity.this);
+                    mp.setOnVideoSizeChangedListener(VideoListPlayActivity.this);
+
+                    mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                    mp.start();
+                    mp.setLooping(true);
+                } catch (IllegalArgumentException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (SecurityException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IllegalStateException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                testAdapter.notifyDataSetChanged();
+            }
+        });
 
         videoView = (VideoView) findViewById(R.id.vv_player);
         seekbar = (SeekBar) findViewById(R.id.sb_select);
         headImage = (ImageView) findViewById(R.id.iv_head);
-        /*new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    sleep(3000);
-                    tvUpdataThread.setText("0000000000000000");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }).start();*/
-        //initData();//无效
     }
 
     public void getBitmap(TextureView vv) {
@@ -119,67 +168,9 @@ public class VideoScreenshotsActivity extends AppCompatActivity implements Textu
 
     @Override
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
-        Surface s = new Surface(surface);
+         s = new Surface(surface);
 
-        try {
-            mp = new MediaPlayer();
-            //Uri uri = Uri.parse("android.resource://" + getPackageName() + "/"+ R.raw.fav_cn);
-            //String vidpath= "android.resource://" + getPackageName() + "/" + R.raw.fav_cn;
 
-            //Uri uri = Uri.parse("http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/gear2/prog_index.m3u8");
-            Uri uri = Uri.parse("rtmp://test.jyd.com.cn:1935/live/9525ec88edef9daa.stream");
-            mp.setDataSource(VideoScreenshotsActivity.this,uri);
-            //mp.setDataSource(MY_VIDEO);
-            mp.setSurface(s);
-            mp.prepare();
-
-            mp.setOnBufferingUpdateListener(this);
-            mp.setOnCompletionListener(this);
-            mp.setOnPreparedListener(this);
-            mp.setOnVideoSizeChangedListener(this);
-
-            mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mp.start();
-            mp.setLooping(true);
-            /*mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-
-                }
-            });*/
-            //mediaPlayer播放完成后不走回调，检查下是否设置了mediaPlayer.setLooping(true);
-            //设置循环播放就不会走onCompletion回调。
-            Button b = (Button) findViewById(R.id.textureViewButton);
-            b.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    chooseFile();
-                    //VideoScreenshotsActivity.this.getBitmap(tv);
-                }
-            });
-            Button Viewtobitmap = (Button) findViewById(R.id.Viewtobitmap);
-            Viewtobitmap.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    Bitmap bm = ImgUtil.getBitmapForView(ll_conyent);
-                    headImage.setImageBitmap(bm);
-                }
-            });
-        } catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SecurityException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalStateException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -216,13 +207,41 @@ public class VideoScreenshotsActivity extends AppCompatActivity implements Textu
 
     }
 
-    private void chooseFile() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("file/*");
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        startActivityForResult(intent, 2);
+    public void getVideo(Context context) {
+        Log.e("=========","path = 00000");
+        list.clear();
+        Uri videoUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+        ContentResolver mContentResolver = context.getContentResolver();
+
+        String[] projVideo = {MediaStore.Video.Thumbnails._ID
+                , MediaStore.Video.Thumbnails.DATA
+                , MediaStore.Video.Media.DURATION
+                , MediaStore.Video.Media.SIZE
+                , MediaStore.Video.Media.DISPLAY_NAME
+                , MediaStore.Video.Media.DATE_MODIFIED};
+
+        Cursor mCursor = mContentResolver.query(videoUri, projVideo,
+                MediaStore.Video.Media.MIME_TYPE + " in(?, ?, ?, ?)",
+                new String[]{"video/mp4", "video/3gp", "video/avi", "video/rmvb"},
+                MediaStore.Video.Media.DATE_MODIFIED + " desc");
+
+        if (mCursor != null) {
+            while (mCursor.moveToNext()) {
+                // 获取视频的路径
+                String path = mCursor.getString(mCursor.getColumnIndex(MediaStore.Video.Media.DATA));
+                list.add(path);
+                // 获取该视频的父路径名
+                //String dirPath = new File(path).getParentFile().getAbsolutePath();
+
+            }
+            mCursor.close();
+        }
     }
-    protected void initData() {
+
+
+
+
+        protected void initData() {
         //String mp4Path = Environment.getExternalStorageDirectory().getPath() + "/qwwz.mp4";
         final MediaMetadataRetriever mmr = new MediaMetadataRetriever();
         mmr.setDataSource(MY_VIDEO);
