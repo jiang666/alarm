@@ -123,4 +123,13 @@ public class TestAdapter extends RecyclerView.Adapter {
     public void setRowSize(int rowSize) {
         this.rowSize = rowSize;
     }
+
+    //更新数据
+    public void updateData(List<String> data) {
+        //这里的代码自己发挥，比如如下的写法等等
+        mList.clear();
+        mList.addAll(data);
+        notifyDataSetChanged();
+    }
+
 }
