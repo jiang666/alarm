@@ -109,7 +109,7 @@ public class RecycleViewActivity extends Activity {
     private void initData() {
 
         //S型数据  条目个数必须是24 倍数
-        for (int i = 0; i < 34; i++) {
+        for (int i = 0; i < 36; i++) {
             switch (i) {
                 case 0:
                     list.add("calljs");
@@ -212,6 +212,9 @@ public class RecycleViewActivity extends Activity {
                     break;
                 case 33:
                     list.add("DrawRecycleViewActivity");
+                    break;
+                case 34:
+                    list.add("TestDemo");
                     break;
                 default:
                     list.add("item" + i);
@@ -372,7 +375,10 @@ public class RecycleViewActivity extends Activity {
                 intent = new Intent(this, DrawRecycleViewActivity.class);
                 startActivity(intent);
                 break;
-
+            case "TestDemo":
+                intent = new Intent(this, RecycleViewDemoActivity.class);
+                startActivity(intent);
+                break;
             default:
                 break;
         }

@@ -129,7 +129,7 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <!--串口读取-->
         <activity android:name=".SerialPortActivity" />
-        <!--串口写入-->
+        <!--串口写入图片-->
         <activity android:name=".SerialPortSentImageActivity" />
 
         <!--下拉刷新-->
@@ -160,6 +160,9 @@
 
         <!--拖拽到某个区域-->
         <activity android:name=".DrawRecycleViewActivity" />
+
+        <!--Recycledemo-->
+        <activity android:name=".RecycleViewDemoActivity" />
 
         <service
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
