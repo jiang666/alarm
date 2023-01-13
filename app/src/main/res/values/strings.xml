@@ -8,4 +8,9 @@
         <item>应用</item>
         <item>游戏</item>
     </string-array>
+    <string name="cela_menu_cut">Screenshot</string>
+    <string name="annotation_save">Save</string>
+    <string name="package_not_find_ERROR_1">安装包未找到</string>
+
+
 </resources>

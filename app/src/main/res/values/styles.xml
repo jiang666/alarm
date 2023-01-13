@@ -30,4 +30,8 @@
         <attr name="min_adapter_stack" format="integer" />
         <attr name="max_visible" format="integer" />
     </declare-styleable>
+    <style name="AnimationFade">
+        <item name="android:windowEnterAnimation">@anim/fragment_in</item>
+    </style>
+
 </resources>

@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.alarm.evenbus.EvenbusActivity;
+import com.example.alarm.service.SideService;
+import com.example.alarm.widget.Constant;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -48,6 +50,30 @@ public class RecycleViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycleview);
         ButterKnife.bind(this);
+        byte[] dd = new byte[1];
+        byte[] dd2 = new byte[1];
+        dd[0] = (byte) 0x02;
+        dd2[0] = (byte) 0x60;
+        //int num_sensor2 = dd[0]*10 + dd[1]/10;//29
+        /*dd[0] = (int) 02;
+        dd[1] = (int) 96;
+        String ffff  = dd[0] + "" + dd[1];//296*/
+        //int num_sensor = Integer.valueOf("0296", 10);
+        int num_sensor2 = Integer.valueOf(byteArrayToHexStr(dd), 16);//2
+        int num_sensor23 = Integer.valueOf(byteArrayToHexStr(dd2), 16);//96
+
+        dd[0] = (byte) Integer.parseInt("40", 10);//28
+        String fff = Integer.toHexString(40);
+        //String fff = new String(dd);
+        Log.e("======", fff  + " " + num_sensor23+ " 40 = " + stringTurn(charToUpperCase(hexadecimal("375"))) + "  num_sensor = " );
+        try {
+            Intent intent = new Intent(this, SideService.class);
+            //intent.addFlags(268435456);
+            startService(intent);
+        } catch (Exception e) {
+            Log.d("e", ">>>>>SideService.class>>>>>>>>.." + e);
+        }
+
         initData();
         testAdapter = new TestAdapter(this, list);
         testAdapter.setRowSize(spanCount);
@@ -60,6 +86,10 @@ public class RecycleViewActivity extends Activity {
         btUpdata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent2 = new Intent();
+                intent2.setAction(Constant.ACTION_OPEN_SIDE_ICON);
+                RecycleViewActivity.this.sendBroadcast(intent2);
+
                 //rvTest.scrollToPosition(27);
                 //rvTest.smoothScrollToPosition(27);
                 //layoutManager.scrollToPositionWithOffset(5,0);
@@ -105,7 +135,42 @@ public class RecycleViewActivity extends Activity {
         super.onConfigurationChanged(newConfig);
         Log.e(TAG,"newConfig orientation " + newConfig.orientation);
     }
+    private String charToUpperCase(String str){
+        char[] ch = str.toCharArray();
+        StringBuffer sbf = new StringBuffer();
+        for(int i=0; i< ch.length; i++){
+            if(ch[i] <= 122 && ch[i] >= 97){
+                ch[i] -= 32;
+            }
+            sbf.append(ch[i]);
+        }
+        return sbf.toString();
 
+    }                                     //01100264000B16 0000420C 00004234 000042A0 000042B4 00004110 00004170 000041A0 00000000 000042C8 00000000 0000420C
+    private String stringTurn(String str){//01100264000B16 0000420C 00004234 000042A0 000042B4 00004110 00004170 000041A0 00000000 000042C8 00000000 000042C4
+        if(str.length() ==1)return "00000000";
+        String str0 = str.substring(0,4);
+        String str1 = str.substring(4,8);
+        return charToUpperCase(str1+str0);
+
+    }
+    public static String byteArrayToHexStr(byte[] byteArray) {
+        if (byteArray == null) {
+            return null;
+        }
+        char[] hexArray = "0123456789ABCDEF".toCharArray();
+        char[] hexChars = new char[byteArray.length * 2];
+        for (int j = 0; j < byteArray.length; j++) {
+            int v = byteArray[j] & 0xFF;
+            hexChars[j * 2] = hexArray[v >>> 4];
+            hexChars[j * 2 + 1] = hexArray[v & 0x0F];
+        }
+        return new String(hexChars);
+    }
+    public static String hexadecimal(String changeData){
+        float f = Float.parseFloat(changeData);
+        return Integer.toHexString(Float.floatToIntBits(f));
+    }
     private void initData() {
 
         //S型数据  条目个数必须是24 倍数

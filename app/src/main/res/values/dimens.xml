@@ -20,4 +20,10 @@
 
     <dimen name="realdataline_bottom_text">13dp</dimen>
     <dimen name="welecome_buttom_text">27dp</dimen>
+    <dimen name="side_button_height">100px</dimen>
+    <dimen name="side_button_width">40px</dimen>
+    <dimen name="side_window_height">350px</dimen>
+    <dimen name="side_window_width">158px</dimen>
+
+
 </resources>

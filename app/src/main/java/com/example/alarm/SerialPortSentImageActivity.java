@@ -1,6 +1,7 @@
 package com.example.alarm;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -51,7 +52,6 @@ public class SerialPortSentImageActivity extends AppCompatActivity {
                 sendindex = sendindex + 1;
                 send_order(bytes);
             }
-
         }
     };
     private ImageView iv_send;
@@ -75,7 +75,7 @@ public class SerialPortSentImageActivity extends AppCompatActivity {
                 return false;
             }
         });
-        String filepath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +"test_zhuopai.png";
+        String filepath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +"test_001.png";
         Log.e(TAG, filepath);
         File file = new File(filepath);
         if (file.exists()) {
@@ -84,8 +84,10 @@ public class SerialPortSentImageActivity extends AppCompatActivity {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    getImageByteSeven(bitmap);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
                     byte[] data = baos.toByteArray();
+                    Log.e("======",bitmap.getByteCount() + "  " +bitmap.getHeight()+ "  " +  "data.length= " + data.length + "  " + byteArrayToHexStr(Arrays.copyOfRange(data, 1, 6)));
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -121,6 +123,94 @@ public class SerialPortSentImageActivity extends AppCompatActivity {
             Log.e(TAG,serial + " 串口开启失败");
         }
     }
+
+    /**
+     * 转7色
+     */
+    private int[] getImageByteSeven(Bitmap image){
+
+        if (image == null) {
+            return null;
+        }
+
+        if ((image.getWidth() != 800) || (image.getHeight() != 480)) {
+            Log.e(TAG,"图片---异常：分辨率");
+            return null;
+        }
+
+        int [][] imageRawBuff = new int[800][480];
+        int [] imageDataBuff = new int[192000];
+        for (int row = 0; row < image.getHeight(); ++row) {
+            for (int col = 0; col < image.getWidth(); ++col) {
+                int color = image.getPixel(col,row);
+                int r = Color.red(color);
+                int g = Color.green(color);
+                int b = Color.blue(color);
+                int a =Color.alpha(color);
+                if ((r < 127) && (g < 127) && (b < 127)) {
+                    imageRawBuff[col][row] = 0x00; // Black
+                    r = 0;
+                    g = 0;
+                    b = 0;
+                } else if ((r >= 127) && (g >= 127) && (b >= 127)) {
+                    imageRawBuff[col][row] = 0x01; // White
+                    r = 255;
+                    g = 255;
+                    b = 255;
+                } else if ((r < 127) && (g >= 127) && (b < 127)) {
+                    imageRawBuff[col][row] = 0x02; // Green
+                    r = 0;
+                    g = 255;
+                    b = 0;
+                } else if ((r < 127) && (g < 127) && (b >= 127)) {
+                    imageRawBuff[col][row] = 0x03; // Blue
+                    r = 0;
+                    g = 0;
+                    b = 255;
+                } else if ((r >= 127) && (g < 127) && (b < 127)) {
+                    imageRawBuff[col][row] = 0x04; // Red
+                    r = 255;
+                    g = 0;
+                    b = 0;
+                } else if ((r >= 127) && (g >= 190) && (b < 127)) {
+                    imageRawBuff[col][row] = 0x05; // Yellow
+                    r = 255;
+                    g = 255;
+                    b = 0;
+                } else if ((r >= 127) && (g < 190) && (b < 127)) {
+                    imageRawBuff[col][row] = 0x06; // Orange
+                    r = 255;
+                    g = 165;
+                    b = 0;
+                } else {
+                    imageRawBuff[col][row] = 0x01; // White
+                    r = 255;
+                    g = 255;
+                    b = 255;
+                }
+                color = Color.argb(a, r, g, b);
+                image.setPixel(col, row, color);
+            }
+
+        }
+        String ddd = "";
+        int num = 0;
+        for (int row = 0; row < image.getHeight(); ++row) {
+            for (int col = 0; col < image.getWidth(); col += 2, ++num) {
+                imageDataBuff[num] = (imageRawBuff[col][row] << 4) | imageRawBuff[col + 1][row];
+                ddd = ddd + " " + Integer.toHexString(imageDataBuff[num]);
+            }
+        }
+        return imageDataBuff;
+        /*int num = 0;
+        for (int row = 0; row < image.getHeight(); ++row) {
+            for (int col = 0; col < image.getWidth(); col += 2, ++num) {
+                imageDataBuff[num] = (imageRawBuff[col][row] << 4) | imageRawBuff[col + 1][row];
+                imageBufShow += QString().asprintf("0x%.2x, ", imageDataBuff[num]);
+            }
+        }*/
+    }
+
     /**
      * 卡上报数据监控线程
      */
@@ -152,7 +242,7 @@ public class SerialPortSentImageActivity extends AppCompatActivity {
                     b[0] = respondAck[1];
                     num_sensor = Integer.valueOf(byteArrayToHexStr(b), 16);
                     //Log.e("========"," sendindex = " + sendindex +"  " + IMAGE_BYTE.length + "   " + (IMAGE_BYTE.length/20 +1));
-                    mHandler.sendEmptyMessageDelayed(0,30);
+                    mHandler.sendEmptyMessageDelayed(0,40);
                     //Log.e(TAG, byteArrayToHexStr(firstResult) + "  " + count + " imagelength = " + IMAGE_BYTE.length);
                 } catch (IOException e) {
                     e.printStackTrace();

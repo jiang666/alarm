@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_gravity="center_vertical"
+    android:id="@+id/right_icon_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <AbsoluteLayout android:id="@+id/half_ring_lay" android:background="@mipmap/right_circle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentRight="true" android:layout_centerVertical="true">
+        <ImageView android:id="@+id/back_imageview" android:background="@drawable/back_state" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_x="66dp" android:layout_y="18dp" android:layout_alignTop="@+id/half_ring_lay"/>
+        <ImageView android:id="@+id/home_imageview" android:background="@drawable/home_state" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_x="30dp" android:layout_y="46dp"/>
+        <ImageView android:id="@+id/task_imageview" android:background="@drawable/task_state" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_x="13dp" android:layout_y="85dp"/>
+        <ImageView android:id="@+id/annotation_imageview" android:background="@drawable/annotation_state" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_x="13dp" android:layout_y="129dp" android:layout_alignStart="@+id/half_ring_lay"/>
+        <ImageView android:id="@+id/source_imageview" android:background="@drawable/source_state" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_x="30dp" android:layout_y="166dp"/>
+        <ImageView android:id="@+id/menu_imageview" android:background="@drawable/menu_state" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_x="66dp" android:layout_y="194dp"/>
+    </AbsoluteLayout>
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/right_icon_linearlayout"
+        android:background="@mipmap/right_bag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true">
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/right_icon_image"
+            android:background="@mipmap/right_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</RelativeLayout>
+
+

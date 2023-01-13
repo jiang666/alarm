@@ -51,7 +51,7 @@ public class BaseApplication extends Application {
 				return true;
 			}
 		});
-		initTBS();
+		//initTBS();
 	}
 	private boolean isDownTbsSuccess = false;//TBS X5插件是否下载成功
 	private int downTbsCount = 0;//尝试下载次数

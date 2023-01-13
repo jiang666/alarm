@@ -30,10 +30,10 @@ public class SerialPort {
 
 		/* Check access permission */
         if (!device.canRead() || !device.canWrite()) {
-            try {
-                /* Missing read/write permission, trying to chmod the file */
+            /*try {
+                *//* Missing read/write permission, trying to chmod the file *//*
                 Process su;
-                su = Runtime.getRuntime().exec("/system/bin/su");//"su"或者"/system/bin/sh"
+                su = Runtime.getRuntime().exec("su");//"su"或者"/system/bin/sh"
                 String cmd = "chmod 666 " + device.getAbsolutePath() + "\n"
                         + "exit\n";
                 su.getOutputStream().write(cmd.getBytes());
@@ -44,7 +44,8 @@ public class SerialPort {
             } catch (Exception e) {
                 e.printStackTrace();
 //				throw new SecurityException();
-            }
+            }*/
+            startshell(device.getAbsolutePath());
         }
 
         mFd = open(device.getAbsolutePath(), baudrate, flags);//anr 可能串口被占用
@@ -60,11 +61,11 @@ public class SerialPort {
      * 第二种su 方法
      * os = new DataOutputStream(process.getOutputStream());
      */
-    private void startshell(){
+    private void startshell(String dev){
         Process process = null;
         DataOutputStream os = null;
         try {
-            String cmd1="chmod 777 /dev/ttyS0";//chmod 777 /data/backup
+            String cmd1="chmod 777 " + dev;//chmod 777 /data/backup
             //String cmd1="pm install -r /storage/C0C4-F9F8/ESBrowser_4_0.apk";
             process = Runtime.getRuntime().exec("su"); //切换到root帐号
             os = new DataOutputStream(process.getOutputStream());

@@ -21,8 +21,10 @@ import kotlin.jvm.internal.PropertyReference0Impl;
 
 public class SockettestActivity extends Activity {
     /** Called when the activity is first created. */
+	//IntelliJ IDEA 2021.3.1 (Community Edition
+	//E:\kotlin\demo\src\main\java
 	private InetAddress serverAddr; 
-	 private static Socket socket; 
+	 private Socket socket;
 	 private String line;
 	 
 	 private static DataOutputStream   dos   =   null;
@@ -44,7 +46,7 @@ public class SockettestActivity extends Activity {
 				try {
 					//sock = new Socket(InetAddress.getByName("192.168.1.186"),8899);
 
-					serverAddr = InetAddress.getByName("192.168.0.98");
+					serverAddr = InetAddress.getByName("192.168.0.96");
 					socket = new Socket(serverAddr, 50069);
 					mHandler.post(new Runnable() {
 						@Override
@@ -68,31 +70,25 @@ public class SockettestActivity extends Activity {
         button1.setOnClickListener(new OnClickListener() {		
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				  try {				        	
-			            if (socket != null && socket.isConnected()) {
-			            	//byte[] dyopen = {(byte)0x7b, (byte)0x01, (byte)0x01, (byte)0x22, (byte)0x33,(byte)0x22,(byte)0x36,(byte)0x7d};
-							dos =new  DataOutputStream(socket.getOutputStream());
-							dos.write("hello world".getBytes("UTF-8"));
-							Log.e("======","发送数据");
-							dos.close();//没有close 不发出值，服务端无接收打印
-							socket.shutdownOutput();
-							//Socket is closed  添加下面重连
-			        	 new Thread(new Runnable() {
-							 @Override
-							 public void run() {
-								 try {
-									 socket = new Socket(serverAddr, 50069);
-								 } catch (IOException e) {
-									 e.printStackTrace();
-								 }
+					if (socket != null && socket.isConnected()) {
+						//byte[] dyopen = {(byte)0x7b, (byte)0x01, (byte)0x01, (byte)0x22, (byte)0x33,(byte)0x22,(byte)0x36,(byte)0x7d};
+					 new Thread(new Runnable() {
+						 @Override
+						 public void run() {
+							 try {
+								 dos =new  DataOutputStream(socket.getOutputStream());
+								 dos.write("hello world".getBytes("UTF-8"));
+								 Log.e("======","发送数据");
+								 dos.close();//没有close 不发出值，服务端无接收打印
+								 socket.shutdownOutput();
+								 //Socket is closed  添加下面重连
+								 socket = new Socket(serverAddr, 50069);
+							 } catch (IOException e) {
+								 e.printStackTrace();
 							 }
-						 }).start();
-			           }
-			           
-			       } catch (IOException e) {
-			            e.printStackTrace();			           
-			        }				
+						 }
+					 }).start();
+				   }
 			}
 		});     
     }
