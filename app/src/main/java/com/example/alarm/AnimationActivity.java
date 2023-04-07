@@ -120,8 +120,8 @@ public class AnimationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.e("=======","ivArrow click");
-                //rotateAnimation();
-                translateAnimation();
+                rotateAnimation();
+                //translateAnimation();
                 //scaleAnimation();
                 //alphaAnimation();
                 //startAttributeScaleAnimation();
@@ -285,9 +285,9 @@ public class AnimationActivity extends AppCompatActivity {
     });*/
     //旋转
     private void rotateAnimation(){
-        Animation animation = new RotateAnimation(0, 359);
-        animation.setDuration(500);
-        animation.setRepeatCount(8);//动画的反复次数
+        Animation animation = new RotateAnimation(0, 90,ivArrowTwo.getWidth()/2,ivArrowTwo.getHeight()/2);
+        animation.setDuration(5000);
+        //animation.setRepeatCount(8);//动画的反复次数
         animation.setFillAfter(true);//设置为true，动画转化结束后被应用
         ivArrowTwo.startAnimation(animation);//開始动画
         animation.setAnimationListener(new Animation.AnimationListener() {

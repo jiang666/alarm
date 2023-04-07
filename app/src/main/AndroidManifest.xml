@@ -203,7 +203,15 @@
             <action android:name="android.pizhu.close.menu.start"/>
         </intent-filter>
     </receiver>
-
+       <!-- <provider
+            android:name="com.tencent.smtt.utils.FileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/x5webview_file_paths" />
+        </provider>-->
     </application>
 
 </manifest>

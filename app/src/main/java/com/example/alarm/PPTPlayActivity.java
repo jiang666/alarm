@@ -1,17 +1,23 @@
 package com.example.alarm;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.webkit.GeolocationPermissions;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebSettings;
 import android.widget.Toast;
 
 import com.example.alarm.widget.FileReaderView;
+import com.tencent.smtt.export.external.interfaces.GeolocationPermissionsCallback;
+import com.tencent.smtt.export.external.interfaces.PermissionRequest;
 import com.tencent.smtt.export.external.interfaces.SslError;
 import com.tencent.smtt.export.external.interfaces.SslErrorHandler;
 import com.tencent.smtt.sdk.QbSdk;
@@ -40,12 +46,104 @@ public class PPTPlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ppt);
         webView = (WebView) findViewById(R.id.webView);
         initViews();
+        com.tencent.smtt.sdk.WebSettings webSettings = webView.getSettings();
+        //设置JavaScrip
+        webSettings.setJavaScriptEnabled(true);
+
+        //5.0以上开启混合模式加载
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
+
+        webSettings.setSupportMultipleWindows(true);
+
+        webSettings.setUseWideViewPort(true);//自适应手机屏幕
+        webSettings.setAllowContentAccess(true);
+
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setLoadsImagesAutomatically(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setAppCacheEnabled(true);
+        webSettings.setBlockNetworkImage(true);
+        webSettings.setAllowFileAccess(true);
+
+//
+        //加载本地html文件
+        // mWVmhtml.loadUrl("file:///android_asset/hello.html");
+        //加载网络URL
+        //webView.loadUrl("https://www.onlinemictest.com/zh/webcam-test/");
+        webView.loadUrl("https://web.sdk.qcloud.com/trtc/webrtc/demo/detect/index.html");//https://bunnysky.net/dist
+        //https://rtcube.cloud.tencent.com/component/experience-center/index.html#/detail?scene=callkit
+//        //设置在当前WebView继续加载网页
+        webView.setWebViewClient(new MyWebViewClient());
+        webView.setWebChromeClient(new MyWebChromeClient());
         //webView.loadUrl("http://cloud.bunnysky.net:12001/bt2");
-        webView.loadUrl("https://www.berryshop.nl/");
+        //webView.loadUrl("https://www.berryshop.nl/");
+        //webView.loadUrl("https://cloud13.de/testwhiteboard/?whiteboardid=myNewWhiteboard");
+
+        //webView.loadUrl("https://www.onlinemictest.com/zh/webcam-test/");
+
         documentReaderView = (FileReaderView)findViewById(R.id.documentReaderView);
         documentReaderView.show(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +"test.pptx");
     }
+    class MyWebViewClient extends WebViewClient {
+        @Override  //WebView代表是当前的WebView
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
 
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+            Log.d("WebView", "开始访问网页");
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+
+            super.onPageFinished(view, url);
+            Log.d("WebView", "访问网页结束");
+        }
+
+        @Override
+        public void onReceivedError(WebView webView, int i, String s, String s1) {
+            Log.d("WebView", "***********onReceivedError***********");
+            super.onReceivedError(webView, i, s, s1);
+        }
+
+        @Override
+        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+            handler.proceed(); // 等待证书响应
+
+        }
+    }
+
+    class MyWebChromeClient extends WebChromeClient {
+        @Override //监听加载进度
+        public void onProgressChanged(WebView view, int newProgress) {
+            super.onProgressChanged(view, newProgress);
+        }
+
+        @Override//接受网页标题
+        public void onReceivedTitle(WebView view, String title) {
+            super.onReceivedTitle(view, title);
+            //把当前的Title设置到Activity的title上显示
+            setTitle(title);
+        }
+
+        @Override
+        public void onPermissionRequest(final PermissionRequest request) {
+            PPTPlayActivity.this.runOnUiThread(new Runnable() {
+                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void run() {
+                    request.grant(request.getResources());
+                }
+            });
+        }
+
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();

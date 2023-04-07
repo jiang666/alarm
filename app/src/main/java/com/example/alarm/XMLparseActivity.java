@@ -369,6 +369,7 @@ public class XMLparseActivity extends AppCompatActivity {
         Log.e("=======", requestStr);
         TestBean testBean = new TestBean();
         testBean.setDatetime("openPerssion");
+        String pa = new Gson().toJson(testBean);
         writeFile("sdcard/touch/bbb.txt", new Gson().toJson(testBean), false);
         Log.e("=======","bbb " + getCachePath()+ "touch/bbb.txt");
         writeFile(getCachePath()+ "touch/bbb.txt", new Gson().toJson(testBean), false);

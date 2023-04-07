@@ -124,10 +124,11 @@ public class VideoScreenshotsActivity extends AppCompatActivity implements Textu
         try {
             mp = new MediaPlayer();
             //Uri uri = Uri.parse("android.resource://" + getPackageName() + "/"+ R.raw.fav_cn);
-            //String vidpath= "android.resource://" + getPackageName() + "/" + R.raw.fav_cn;
+            //String vidpath= "android.resource://" + getPackageName() + "/" + R.raw.fav_cn;//ok
 
-            //Uri uri = Uri.parse("http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/gear2/prog_index.m3u8");
-            Uri uri = Uri.parse("rtmp://test.jyd.com.cn:1935/live/9525ec88edef9daa.stream");
+            //Uri uri = Uri.parse("http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/gear2/prog_index.m3u8");//ok
+            //Uri uri = Uri.parse("rtmp://test.jyd.com.cn:1935/live/9525ec88edef9daa.stream");//ok
+            Uri uri = Uri.parse("http://192.168.0.103/bd.mp4");//ok
             mp.setDataSource(VideoScreenshotsActivity.this,uri);
             //mp.setDataSource(MY_VIDEO);
             mp.setSurface(s);

@@ -107,7 +107,7 @@ public class JavaCallJSActivity extends AppCompatActivity {
 
         /**
          * JS调用Android(Java)无参数的方法
-         */
+         *//*
         @JavascriptInterface
         public void jsCallWebView() {
             Toast.makeText(mContext, "JjjjjjjjjjjS Call Java!",
@@ -115,15 +115,15 @@ public class JavaCallJSActivity extends AppCompatActivity {
         }
 
 
-        /**
+        *//**
          * JS调用Android(Java)含参数的方法
          * @param param
-         */
+         *//*
         @JavascriptInterface
         public void jsCallWebView(String param) {
             Toast.makeText(mContext, "JjjjjjjjjjjS Call Java!" + param,
                     Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
     public class MWebViewClient extends WebViewClient {
         private static final String TAG = "MWebViewClient";

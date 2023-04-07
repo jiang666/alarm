@@ -10,7 +10,10 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:orientation="vertical"
-        android:id="@+id/right_icon_linearlayout" android:background="@mipmap/right_bag" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        android:id="@+id/right_icon_linearlayout"
+        android:background="@mipmap/right_bag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
         <ImageView
             android:layout_gravity="center"
             android:id="@+id/right_icon_image"

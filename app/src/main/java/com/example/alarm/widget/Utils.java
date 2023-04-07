@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.util.Log;
 import java.util.List;
 
-/* loaded from: classes2.dex */
 public class Utils {
     public static int[] lSideButtonPos = {0, 0, 0, 0};
     public static int[] rSideButtonPos = {0, 0, 0, 0};
@@ -68,7 +67,7 @@ public class Utils {
     }
 
     public static boolean isServiceRunning(String str, Context context) {
-        for (ActivityManager.RunningServiceInfo runningServiceInfo : ((ActivityManager) context.getSystemService("activity")).getRunningServices(100)) {
+        for (ActivityManager.RunningServiceInfo runningServiceInfo : ((ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE)).getRunningServices(100)) {
             if (runningServiceInfo.service.getClassName().equals(str)) {
                 return true;
             }

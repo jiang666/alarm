@@ -18,7 +18,7 @@ import com.example.alarm.widget.Utils;
 
 /* loaded from: classes2.dex */
 public class SideService extends Service {
-    protected BroadcastReceiver broadcastReceiver = new BroadcastReceiver() { // from class: com.src.ui.kjdsidepull.service.SideService.1
+    protected BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override // android.content.BroadcastReceiver
         public void onReceive(Context context, Intent intent) {
             Log.e("===========",intent.getAction());

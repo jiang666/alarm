@@ -24,11 +24,20 @@ public class WindowManagerUitls {
     //private static MenusWindowView mMenusWindowView;
     private static WindowManager.LayoutParams mMenusWindowViewParams;
     private static WindowManager.LayoutParams mRightIconWindowParams;
+    /**
+     * 右侧展开图
+     */
     private static RightIconWindowView mRightIconWindowView;
     private static WindowManager.LayoutParams mRightOneWindowParams;
+    /**
+     * 右侧触摸弹出图
+     */
     private static RightOneWindmanger mRightOneWindowView;
     //private static SeekBarWindmanger mSeekBarWindmanger;
     private static WindowManager.LayoutParams mSeekBarWindowParams;
+    /**
+     * HDMI切换显示数据源
+     */
     private static SourceWindmanger mSourceWindmanger;
     private static WindowManager.LayoutParams mSourceWindmangerParams;
     //private static TimerWindmanger mTimerWindmanger;
