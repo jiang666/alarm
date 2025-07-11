@@ -107,9 +107,9 @@ public class SockettestActivity extends Activity {
 						dis =new  DataInputStream(socket.getInputStream()); 	
 						while(true){
 						String ss="";
-				        byte[] buffer = new byte[1024];	        
-				        int length = dis.read(buffer);
-				        String str = new String(buffer,0,buffer.length,"UFT-8");
+                                        byte[] buffer = new byte[1024];
+                                        int length = dis.read(buffer);
+                                        String str = new String(buffer, 0, length, "UTF-8");
 				        Log.e("====",str);
 				        for(int i=0;i<length;i++)
 				        	{
